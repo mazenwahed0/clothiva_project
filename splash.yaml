@@ -1,0 +1,19 @@
+flutter_native_splash:
+  color: "#FFFFFF"   # background for light mode
+  color_dark: "#272727"  # background for dark mode
+  image: assets/logos/splash_logo_dark.png
+  image_dark: assets/logos/splash_logo_light.png
+  ios_content_mode: scaleAspectFit
+  android_gravity: center
+
+
+  android_12:
+    color: "#FFFFFF"
+    color_dark: "#272727"
+    image: assets/logos/splash_logo_dark.png
+    image_dark: assets/logos/splash_logo_light.png
+    icon_background_color: "#FFFFFF"
+    icon_background_color_dark: "#272727"
+
+
+  web: false

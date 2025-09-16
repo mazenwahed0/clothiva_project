@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "82269750087",
+    "project_id": "clothivaapp",
+    "storage_bucket": "clothivaapp.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:82269750087:android:051c7cc934476172d74262",
+        "android_client_info": {
+          "package_name": "com.example.clothiva_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "82269750087-bpuo933cocv0fun783rgdbkn6l35vs47.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.clothiva_project",
+            "certificate_hash": "b6be4b52d57185c0c10d48f065cdde18e1ea039c"
+          }
+        },
+        {
+          "client_id": "82269750087-o30rm7vi896jpo3rcgv8nju7lf6ljak3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBw-bz2B6vH0AVxdBVZ-oP9mLCyOEFKUSk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "82269750087-o30rm7vi896jpo3rcgv8nju7lf6ljak3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "82269750087-uv1065vo6atjr1f994emifgkgqeika2c.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.clothivaProject"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
