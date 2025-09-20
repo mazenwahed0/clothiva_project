@@ -1,16 +1,14 @@
-import '/features/authentication/controllers/signup_controller.dart';
-import '/utils/helpers/context_extensions.dart';
+import 'package:clothiva_project/features/authentication/controllers/signup/signup_controller.dart';
+import 'package:clothiva_project/utils/helpers/context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/constants/sizes.dart';
-import '../../../../../utils/constants/texts_strings.dart';
+import '../../../../../utils/constants/text_strings.dart';
 
 class TermsConditions extends StatelessWidget {
-  const TermsConditions({
-    super.key,
-  });
+  const TermsConditions({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,10 +23,13 @@ class TermsConditions extends StatelessWidget {
         SizedBox(
           width: 24,
           height: 24,
-          child: Obx(() => Checkbox(
+          child: Obx(
+            () => Checkbox(
               value: controller.privacybox.value,
               onChanged: (value) =>
-                  controller.privacybox.value = !controller.privacybox.value)),
+                  controller.privacybox.value = !controller.privacybox.value,
+            ),
+          ),
         ),
         const SizedBox(width: CSizes.spaceBtItems),
         Expanded(
@@ -36,26 +37,28 @@ class TermsConditions extends StatelessWidget {
             TextSpan(
               children: [
                 TextSpan(
-                    text: '${CTexts.iAgreeTo} ',
-                    style: Theme.of(context).textTheme.bodySmall),
+                  text: '${CTexts.iAgreeTo} ',
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
                 TextSpan(
                   text: CTexts.privacyPolicy,
                   style: Theme.of(context).textTheme.bodyMedium!.apply(
-                        color: dark ? CColors.white : CColors.primary,
-                        decoration: TextDecoration.underline,
-                        decorationColor: dark ? CColors.white : CColors.primary,
-                      ),
+                    color: dark ? CColors.white : CColors.primary,
+                    decoration: TextDecoration.underline,
+                    decorationColor: dark ? CColors.white : CColors.primary,
+                  ),
                 ),
                 TextSpan(
-                    text: ' ${CTexts.and} ',
-                    style: Theme.of(context).textTheme.bodySmall),
+                  text: ' ${CTexts.and} ',
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
                 TextSpan(
                   text: CTexts.termsOfUse,
                   style: Theme.of(context).textTheme.bodyMedium!.apply(
-                        color: dark ? CColors.white : CColors.primary,
-                        decoration: TextDecoration.underline,
-                        decorationColor: dark ? CColors.white : CColors.primary,
-                      ),
+                    color: dark ? CColors.white : CColors.primary,
+                    decoration: TextDecoration.underline,
+                    decorationColor: dark ? CColors.white : CColors.primary,
+                  ),
                 ),
               ],
             ),

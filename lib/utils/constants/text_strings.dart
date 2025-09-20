@@ -21,6 +21,14 @@ class CTexts {
   static const String forgetPassword = "Forget Password?";
   static const String signInWithGoogle = "Sign-In with Google";
 
+  // -- Splash Screen Text
+  static const String appTagLine = "Premium Products. \nAwaiting";
+
+  // -- Welcome Screen Text
+  static const String welcomeTitle = "Build Awesome Apps";
+  static const String welcomeSubTitle =
+      "Let's put your creativity on the development highway.";
+
   // --- OnBoarding Texts
   static const String onBoardingTitle1 = "Choose your product";
   static const String onBoardingTitle2 = "Select Payment Method";
@@ -48,6 +56,22 @@ class CTexts {
   static const String invalidEmailFormat = "Invalid email format";
   static const String noRecordFound = "No record found";
 
+  // -- SnackBar --
+  static const String alert = "Alert";
+  static const String emailonitsWay = "Hurray!!! Email is on its way.";
+  static const String emailSent = "Email Sent";
+  static const String checkEmail =
+      "Please check your inbox and verify your email.";
+  static const String congratulations = "Congratulations";
+  static const String emailResetSent = "Reset Email Sent";
+  static const String emailLinkToResetPassword =
+      "Email Link To Reset Password.";
+  static const String accountCreatedVerifyEmail =
+      "Your Account has been created successfully! Verify your email to continue.";
+  static const String privacyuncheckedTitle = "Accept Privacy Policy";
+  static const String privacyuncheckedSubTitle =
+      "In order to create account, you have to read and accept the Privacy Policy & Terms of Use.";
+
   // -- Authentication Form Text
   static const String firstName = "First Name";
   static const String lastName = "Last Name";
@@ -55,15 +79,23 @@ class CTexts {
   static const String password = "Password";
   static const String newPassword = "New Password";
   static const String username = "Username";
-  static const String phoneNumber = "Phone Number";
-  static const String rememberMe = "Remember Me";
   static const String forgotPassword = "Forget Password?";
-  static const String signIn = "Sign in";
+  static const String alreadyHaveAnAccount = "Already have an Account";
+  static const String dontHaveAnAccount = "Don't have an Account";
   static const String createAccount = "Create Account";
+  static const String signIn = "Sign in";
   static const String orSignInWith = "or sign in with";
   static const String orSignUpWith = "or sign up with";
   static const String iAgreeTo = "I agree to";
   static const String and = "and";
+  static const String or = "OR";
+  static const String rememberMe = "Remember Me";
+  static const String enterYour = "Enter your";
+  static const String resetPassword = "Reset Password";
+  static const String connectWith = "Connect With";
+  static const String facebook = "Facebook";
+  static const String phoneNumber = "Phone Number";
+  static const String google = "Google";
   static const String privacyPolicy = "Privacy Policy";
   static const String termsOfUse = "Terms of use";
   static const String verificationCode = "Verification Code";
@@ -75,7 +107,6 @@ class CTexts {
   static const String loginSubTitle =
       "Discover Limitless Choices and Unmatched Convenience.";
   static const String signUpTitle = "Let's create your account";
-  static const String alreadyHaveAnAccount = "Already have an Account";
   static const String forgetPasswordTitle = "Forget Password";
   static const String forgetPasswordSubTitle =
       "Don't worry sometimes people can forget too, enter your email and we will send you a password reset link.";
@@ -93,25 +124,6 @@ class CTexts {
       "Welcome to Your Ultimate Shopping Destination: Your Account is Created, Unleash the Joy of Seamless Online Shopping!";
   static const String resendEmailLink = "Resend E-Mail Link";
   static const String backToLogin = "Back to login";
-
-  // -- SnackBar --
-  static const String alert = "Alert";
-  static const String emailSent = "Hurray!!! Email is on its way.";
-  static const String congratulations = "Congratulations";
-  static const String emailLinkToResetPassword = "Email Link To Reset Password";
-  static const String accountCreatedVerifyEmail =
-      "Your Account has been created successfully! Verify your email to continue.";
-  static const String privacyuncheckedTitle = "Accept Privacy Policy";
-  static const String privacyuncheckedSubTitle =
-      "In order to create account, you have to read and accept the Privacy Policy & Terms of Use.";
-
-  // -- Splash Screen Text
-  static const String appTagLine = "Premium Products. \nAwaiting";
-
-  // -- Welcome Screen Text
-  static const String welcomeTitle = "Build Awesome Apps";
-  static const String welcomeSubTitle =
-      "Let's put your creativity on the development highway.";
 
   // -- Forget Password Text
   static const String resetViaEMail = "Reset via Mail Verification";
@@ -132,7 +144,7 @@ class CTexts {
       "Enter the verification code sent on your Phone Number ";
 
   // -- Phone Number Authentication - Text
-  static const String phoneNo = '+2001008950631';
+  static const String phoneNo = '745-628-5429';
   static const String selectCountry = 'Select Country';
   static const String signupScreenTitle = "signupScreenTitle";
   static const String signupScreenSubTitle = "signupScreenSubTitle";

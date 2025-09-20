@@ -7,7 +7,7 @@ import 'widgets/login_header.dart';
 import '/common/styles/spacing_styles.dart';
 import '../../../../common/widgets/login_signup/form_divider.dart';
 import '../../../../common/widgets/login_signup/social_buttons.dart';
-import '../../../../utils/constants/texts_strings.dart';
+import '../../../../utils/constants/text_strings.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -22,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: CSpacingStyle.PaddingWithAppbarHeight,
+          padding: CSpacingStyle.paddingWithAppBarHeight,
           child: Column(
             children: [
               /// MARK: - Logo, Title & Subtitle

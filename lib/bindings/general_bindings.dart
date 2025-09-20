@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 
 import '../data/repositories/authentication/authentication_repository.dart';
 
-import '../features/authentication/controllers/signup_controller.dart';
+import '../features/authentication/controllers/signup/signup_controller.dart';
 import '../utils/helpers/network_manager.dart';
 
 // Get.put(): Puts an instance of a class into the GetX dependency injection system once

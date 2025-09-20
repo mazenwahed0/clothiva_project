@@ -1,11 +1,11 @@
-import '/features/authentication/screens/signup/widgets/terms_conditions.dart';
-import '/utils/validators/validation.dart';
+import 'package:clothiva_project/features/authentication/screens/signup/widgets/terms_conditions.dart';
+import 'package:clothiva_project/utils/validators/validation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import '../../../../../utils/constants/sizes.dart';
-import '../../../../../utils/constants/texts_strings.dart';
-import '../../../controllers/signup_controller.dart';
+import '../../../../../utils/constants/text_strings.dart';
+import '../../../controllers/signup/signup_controller.dart';
 
 class SignUpForm extends StatelessWidget {
   const SignUpForm({super.key});
@@ -123,8 +123,9 @@ class SignUpForm extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-                onPressed: () => controller.signup(),
-                child: Text(CTexts.createAccount)),
+              onPressed: () => controller.signup(),
+              child: Text(CTexts.createAccount),
+            ),
           ),
         ],
       ),

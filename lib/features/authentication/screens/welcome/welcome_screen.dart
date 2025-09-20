@@ -1,4 +1,4 @@
-import '/features/authentication/screens/signup/signup.dart';
+import 'package:clothiva_project/features/authentication/screens/signup/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -8,7 +8,7 @@ import '../../../../../utils/animations/fade_in_animation/fade_in_animation_mode
 import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/constants/image_strings.dart';
 import '../../../../../utils/constants/sizes.dart';
-import '../../../../utils/constants/texts_strings.dart';
+import '../../../../utils/constants/text_strings.dart';
 import '../login/login.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -52,35 +52,44 @@ class WelcomeScreen extends StatelessWidget {
                       Hero(
                         tag: 'welcome-image-tag',
                         child: Image(
-                            image: const AssetImage(CImages.welcomeScreenImage),
-                            width: width * 0.7,
-                            height: height * 0.6),
+                          image: const AssetImage(CImages.welcomeScreenImage),
+                          width: width * 0.7,
+                          height: height * 0.6,
+                        ),
                       ),
                       const SizedBox(height: CSizes.spaceBtSections),
                       Column(
                         children: [
-                          Text(CTexts.welcomeTitle,
-                              style: Theme.of(context).textTheme.displayMedium),
+                          Text(
+                            CTexts.welcomeTitle,
+                            style: Theme.of(context).textTheme.displayMedium,
+                          ),
                           const SizedBox(height: CSizes.sm),
-                          Text(CTexts.welcomeSubTitle,
-                              style: Theme.of(context).textTheme.bodyLarge,
-                              textAlign: TextAlign.center),
+                          Text(
+                            CTexts.welcomeSubTitle,
+                            style: Theme.of(context).textTheme.bodyLarge,
+                            textAlign: TextAlign.center,
+                          ),
                         ],
                       ),
                       const SizedBox(height: CSizes.spaceBtSections),
                       Row(
                         children: [
                           Expanded(
-                              child: OutlinedButton(
-                                  onPressed: () =>
-                                      Get.to(() => const LoginScreen()),
-                                  child: Text(CTexts.login.toUpperCase()))),
+                            child: OutlinedButton(
+                              onPressed: () =>
+                                  Get.to(() => const LoginScreen()),
+                              child: Text(CTexts.login.toUpperCase()),
+                            ),
+                          ),
                           const SizedBox(width: 10.0),
                           Expanded(
-                              child: ElevatedButton(
-                                  onPressed: () =>
-                                      Get.to(() => const SignUpScreen()),
-                                  child: Text(CTexts.signup.toUpperCase()))),
+                            child: ElevatedButton(
+                              onPressed: () =>
+                                  Get.to(() => const SignUpScreen()),
+                              child: Text(CTexts.signup.toUpperCase()),
+                            ),
+                          ),
                         ],
                       ),
                     ],

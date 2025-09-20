@@ -1,9 +1,11 @@
-import '/features/authentication/screens/login/login.dart';
+import 'package:clothiva_project/features/authentication/screens/login/login.dart';
+import 'package:clothiva_project/features/shop/screens/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
+import '../../../features/authentication/screens/signup/verify_email.dart';
 import '../../../utils/exceptions/firebase_auth_exceptions.dart';
 import '../../../utils/exceptions/firebase_exceptions.dart';
 import '../../../utils/exceptions/platform_exceptions.dart';
@@ -25,17 +27,30 @@ class AuthenticationRepository extends GetxController {
 
   /// Function to Show Relevant Screen
   screenRedirect() async {
-    Get.offAll(() => const LoginScreen());
+    final user = _auth.currentUser;
+    if (user != null) {
+      if (user.emailVerified) {
+        Get.offAll(() => HomeScreen()); //Supposed to be NavigationMenu()
+      } else {
+        Get.offAll(() => VerifyEmailScreen(email: _auth.currentUser?.email));
+      }
+    } else {
+      Get.offAll(() => const LoginScreen());
+    }
   }
 
   /* ---------------------------- Email & Password sign-in ---------------------------------*/
 
-  /// [EmailAuthentication] - SignIn
+  /// [EmailAuthentication] - LOGIN
   Future<UserCredential> loginWithEmailAndPassword(
-      String email, String password) async {
+    String email,
+    String password,
+  ) async {
     try {
       return await _auth.signInWithEmailAndPassword(
-          email: email, password: password);
+        email: email,
+        password: password,
+      );
     } on FirebaseAuthException catch (e) {
       throw CFirebaseAuthException(e.code).message;
     } on FirebaseException catch (e) {
@@ -51,14 +66,18 @@ class AuthenticationRepository extends GetxController {
 
   /// [EmailAuthentication] - REGISTER
   Future<UserCredential> registerWithEmailAndPassword(
-      String email, String password) async {
+    String email,
+    String password,
+  ) async {
     try {
       return await _auth.createUserWithEmailAndPassword(
-          email: email,
-          password:
-              password); //If success we'll move data to firestore and save it
+        email: email,
+        password: password,
+      ); //If success we'll move data to firestore and save it
     } on FirebaseAuthException catch (e) {
-      throw CFirebaseAuthException(e.code).message;
+      throw CFirebaseAuthException(
+        e.code,
+      ).message; //The reason to catch these exceptions seperately is to make sure that the user can see a relevant message but NOT a Technical Message
     } on FirebaseException catch (e) {
       throw CFirebaseException(e.code).message;
     } on FormatException catch (_) {
@@ -72,11 +91,15 @@ class AuthenticationRepository extends GetxController {
 
   /// [ReAuthenticate] - ReAuthenticate User
   Future<void> reAuthenticateWithEmailAndPassword(
-      String email, String password) async {
+    String email,
+    String password,
+  ) async {
     try {
       // Create a credential
-      AuthCredential credential =
-          EmailAuthProvider.credential(email: email, password: password);
+      AuthCredential credential = EmailAuthProvider.credential(
+        email: email,
+        password: password,
+      );
 
       // ReAuthenticate
       await _auth.currentUser!.reauthenticateWithCredential(credential);
@@ -161,8 +184,43 @@ class AuthenticationRepository extends GetxController {
 
   /// [EmailAuthentication] - REGISTER
 
-  /* ----------------------- ./end Fedrated identity & Social sign-in ----------------------- */
-  /// [LogoutUser] - Valid for any authentication.
+  /* ---------------------------- ./end Federated identity & social sign-in ---------------------------------*/
 
-  /// DELETE USER - Remove user Auth and Firestore Account
+  /// [LogoutUser] - Valid for any authentication.
+  Future<void> logout() async {
+    try {
+      await _auth.signOut();
+      // await GoogleSignIn().signOut();
+      // await FacebookAuth.instance.logOut();
+      Get.offAll(() => const LoginScreen());
+    } on FirebaseAuthException catch (e) {
+      throw CFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw CFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const FormatException();
+    } on PlatformException catch (e) {
+      throw PlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again';
+    }
+  }
+
+  /// DELETE USER - Remove user Auth and Firestore Account.
+  Future<void> deleteAccount() async {
+    try {
+      // await UserRepository.instance.removeUserRecord(_auth.currentUser!.uid);
+      await _auth.currentUser?.delete();
+    } on FirebaseAuthException catch (e) {
+      throw CFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw CFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const FormatException();
+    } on PlatformException catch (e) {
+      throw PlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again';
+    }
+  }
 }
