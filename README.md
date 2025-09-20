@@ -2,7 +2,15 @@
 
 Clothiva is a Flutter-based fashion e-commerce app that offers men's and women's clothing in one stylish platform.
 
-## Current Progress (v0.1) - *by Mazen Wahed*  
+## Current Progress (v0.1b) - *by Mazen* 
+-  **Added New Files in lib/common**
+-  **Added 2 new packages in pubspec.yaml (Run: flutter pub get)**
+-  **Changed some texts in lib/utils/text_string.dart**
+-  **Login Firebase Integration**
+-  **Forget Password Firebase Integration**
+-  **Log out feature is fully functional in Home Screen**
+
+(v0.1) - *by Mazen* 
 - `Initialized Flutter project`  
 - `Added folder structure (`lib/`, `assets/`, `fonts/`)`
 - `Themes, helpers, and reusable widgets set up (spacing, loaders, widgets, etc.)`
@@ -14,10 +22,7 @@ Clothiva is a Flutter-based fashion e-commerce app that offers men's and women's
 -  **Bindings and Controllers for Authentication flow**  
 
 ### Pending in Authentication
-- **Login Firebase Integration** 
 - **Google Sign-In**   
-- **Facebook Sign-In**
-- **Forget / Reset Password** 
 
 ---
 
@@ -109,6 +114,7 @@ lib/
 | Date       | Member          | Update                                     |
 |------------|-----------------|--------------------------------------------|
 | 2025-09-16 | Mazen           | Setup Firebase + Auth repository           |
+| 2025-09-20 | Mazen           | Login/Reset Firebase + Added New Files     |
 
 
 ---
