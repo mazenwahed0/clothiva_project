@@ -28,8 +28,8 @@ Clothiva is a Flutter-based fashion e-commerce app that offers men's and women's
 
 <!-- Kholoud updates ONLY this section -->
 ### Frontend – *by Kholoud Nabil*  
-- Home Screen (not started)  
-- Product Screen (not started)  
+- Home Screen (finished)  
+- Product Screen (finished)  
 - Wishlist (not started)  
 
 ---
