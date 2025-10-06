@@ -66,8 +66,6 @@ class CProductImageSlider extends StatelessWidget {
             //Appbar Icons
             const CAppBar(
               showBackArrow: true,
-              showActions: false,
-              showSkipButton: false,
               actions: [
                 CircularIcon(icon: Iconsax.heart5, color: CColors.red,),
               ],
