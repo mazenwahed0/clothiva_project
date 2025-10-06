@@ -158,6 +158,10 @@ class CHelperFunctions {
     return list.toSet().toList();
   }
 
+  static bool isDarkMode(BuildContext context) {
+    return Theme.of(context).brightness == Brightness.dark;
+  }
+
   // Function to wrap widgets into rows with a specified size
   static List<Widget> wrapWidgets(List<Widget> widgets, int rowSize) {
     final wrappedList = <Widget>[];
