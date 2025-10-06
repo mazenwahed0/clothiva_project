@@ -8,6 +8,7 @@ class CustomCurvedEdges extends CustomClipper<Path> {
     path.lineTo(0, size.height);
 
     // Define the first quadratic bezier curve
+    // To increase the curve (Increase the height more than 20)
     final firstCurve = Offset(0, size.height - 20);
     final lastCurve = Offset(30, size.height - 20);
     path.quadraticBezierTo(

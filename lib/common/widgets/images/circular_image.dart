@@ -1,9 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
+
 import 'package:clothiva_project/utils/helpers/context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
+import '../shimmers/shimmer.dart';
 
 class CircularImage extends StatelessWidget {
   const CircularImage({
@@ -37,13 +40,19 @@ class CircularImage extends StatelessWidget {
         color: backgroundColor ?? (dark ? CColors.black : CColors.white),
         borderRadius: BorderRadius.circular(100),
       ),
-      child: Center(
-        child: Image(
-          fit: fit,
-          image: isNetworkImage
-              ? NetworkImage(image)
-              : AssetImage(image) as ImageProvider,
-          color: overlayColor,
+      child: ClipRRect(
+        borderRadius: BorderRadiusGeometry.circular(100),
+        child: Center(
+          child: isNetworkImage
+              ? CachedNetworkImage(
+                  fit: fit,
+                  color: overlayColor,
+                  imageUrl: image,
+                  progressIndicatorBuilder: (context, url, progress) =>
+                      CShimmerEffect(width: 55, height: 55),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                )
+              : Image(fit: fit, color: overlayColor, image: AssetImage(image)),
         ),
       ),
     );

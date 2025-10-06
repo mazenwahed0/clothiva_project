@@ -1,4 +1,7 @@
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -32,51 +35,51 @@ class CHelperFunctions {
         return Colors.amber;
       case 'cyan':
         return Colors.cyan;
-      case 'deepOrange':
+      case 'deeporange':
         return Colors.deepOrange;
-      case 'deepPurple':
+      case 'deeppurple':
         return Colors.deepPurple;
       case 'lime':
         return Colors.lime;
-      case 'lightBlue':
+      case 'lightblue':
         return Colors.lightBlue;
-      case 'lightGreen':
+      case 'lightgreen':
         return Colors.lightGreen;
       case 'orange':
         return Colors.orange;
-      case 'pinkAccent':
+      case 'pinkaccent':
         return Colors.pinkAccent;
-      case 'purpleAccent':
+      case 'purpleaccent':
         return Colors.purpleAccent;
-      case 'redAccent':
+      case 'redaccent':
         return Colors.redAccent;
-      case 'tealAccent':
+      case 'tealaccent':
         return Colors.tealAccent;
       case 'yellow':
         return Colors.yellow;
-      case 'yellowAccent':
+      case 'yellowaccent':
         return Colors.yellowAccent;
       case 'transparent':
         return Colors.transparent;
-      case 'blueGrey':
+      case 'bluegrey':
         return Colors.blueGrey;
-      case 'lightBlueAccent':
+      case 'lightblueaccent':
         return Colors.lightBlueAccent;
-      case 'lightGreenAccent':
+      case 'lightgreenaccent':
         return Colors.lightGreenAccent;
-      case 'limeAccent':
+      case 'limeaccent':
         return Colors.limeAccent;
-      case 'orangeAccent':
+      case 'orangeaccent':
         return Colors.orangeAccent;
-      case 'amberAccent':
+      case 'amberaccent':
         return Colors.amberAccent;
-      case 'blueAccent':
+      case 'blueaccent':
         return Colors.blueAccent;
-      case 'cyanAccent':
+      case 'cyanaccent':
         return Colors.cyanAccent;
-      case 'greenAccent':
+      case 'greenaccent':
         return Colors.greenAccent;
-      case 'indigoAccent':
+      case 'indigoaccent':
         return Colors.indigoAccent;
       default:
         return null; // Return null if no match
@@ -129,9 +132,9 @@ class CHelperFunctions {
   // (Replaced in context.isDarkMode for Get Package)
   // Function to check if Dark Mode is enabled
   // That's not working well:
-   static bool isDarkMode(BuildContext context) {
-     return Theme.of(context).brightness == Brightness.dark;
-   }
+  // static bool isDarkMode(BuildContext context) {
+  //   return Theme.of(context).brightness == Brightness.dark;
+  // }
   // Working well!
   // static bool isDarkMode(BuildContext context) {
   //   return MediaQuery.of(context).platformBrightness == Brightness.dark;
@@ -147,6 +150,38 @@ class CHelperFunctions {
     return MediaQuery.of(Get.context!).size.width;
   }
 
+  static String getGreetingMessage() {
+    final hour = DateTime.now().hour;
+
+    if (hour >= 5 && hour < 12) {
+      // 5AM to 12PM
+      return 'Good Morning';
+    } else if (hour >= 12 && hour < 16) {
+      // 12PM to 4PM
+      return 'Good Afternoon';
+    } else if (hour >= 16 && hour < 19) {
+      // 5PM to 7PM
+      return 'Good Evening';
+    } else {
+      return 'Good Night';
+    }
+  }
+
+  /// Function to convert asset to file
+  static Future<File> assetToFile(String assetPath) async {
+    // Load asset bytes
+    final byteData = await rootBundle.load(assetPath);
+
+    // Get temp directory
+    final tempDir = await getTemporaryDirectory();
+    final file = File('${tempDir.path}/${assetPath.split('/').last}');
+
+    // Write bytes to temp file
+    await file.writeAsBytes(byteData.buffer.asUint8List());
+
+    return file;
+  }
+
   // Function to format date into a specific format
   static String getFormattedDate(DateTime date,
       {String format = 'dd MMM yyyy'}) {
@@ -156,10 +191,6 @@ class CHelperFunctions {
   // Function to remove duplicates from a list
   static List<T> removeDuplicates<T>(List<T> list) {
     return list.toSet().toList();
-  }
-
-  static bool isDarkMode(BuildContext context) {
-    return Theme.of(context).brightness == Brightness.dark;
   }
 
   // Function to wrap widgets into rows with a specified size

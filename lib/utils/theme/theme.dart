@@ -1,4 +1,5 @@
-import '/utils/theme/custom_themes/chip_theme.dart';
+import 'package:clothiva_project/utils/constants/colors.dart';
+import 'package:clothiva_project/utils/theme/custom_themes/chip_theme.dart';
 import 'package:flutter/material.dart';
 import './custom_themes/bottom_sheet_theme.dart';
 import './custom_themes/checkbox_theme.dart';
@@ -7,6 +8,8 @@ import './custom_themes/outline_button_theme.dart';
 import './custom_themes/elevated_button_theme.dart';
 import './custom_themes/text_theme.dart';
 import './custom_themes/appbar_theme.dart';
+import 'custom_themes/icon_button_theme.dart';
+import 'custom_themes/navigation_bar_theme.dart';
 
 class CAppTheme {
   CAppTheme._(); //Private Constructor
@@ -15,30 +18,34 @@ class CAppTheme {
     useMaterial3: true,
     fontFamily: 'Poppins',
     brightness: Brightness.light,
-    primaryColor: Colors.blue,
+    primaryColor: CColors.primary,
     scaffoldBackgroundColor: Colors.white,
     appBarTheme: CAppBarTheme.lightAppBarTheme,
     textTheme: CTextTheme.lightTextTheme,
     elevatedButtonTheme: CElevatedButtonTheme.lightElevatedButtonTheme,
     outlinedButtonTheme: COutlinedButtonTheme.lightOutlinedButtonTheme,
+    iconButtonTheme: CIconButtonTheme.lightIconButtonTheme,
     checkboxTheme: CCheckboxTheme.lightCheckboxTheme,
     bottomSheetTheme: CBottomSheetTheme.lightBottomSheetTheme,
     inputDecorationTheme: CTextFormFieldTheme.lightInputDecorationTheme,
     chipTheme: CChipTheme.lightChipTheme,
+    navigationBarTheme: CNavigationBarTheme.lightNavigationBarTheme,
   );
   static ThemeData darkTheme = ThemeData(
     useMaterial3: true,
     fontFamily: 'Poppins',
     brightness: Brightness.light,
-    primaryColor: Colors.blue,
+    primaryColor: CColors.primary,
     scaffoldBackgroundColor: Colors.black,
     appBarTheme: CAppBarTheme.darkAppBarTheme,
     textTheme: CTextTheme.darkTextTheme,
     elevatedButtonTheme: CElevatedButtonTheme.darkElevatedButtonTheme,
     outlinedButtonTheme: COutlinedButtonTheme.darkOutlinedButtonTheme,
+    iconButtonTheme: CIconButtonTheme.darkIconButtonTheme,
     checkboxTheme: CCheckboxTheme.darkCheckboxTheme,
     bottomSheetTheme: CBottomSheetTheme.darkBottomSheetTheme,
     inputDecorationTheme: CTextFormFieldTheme.darkInputDecorationTheme,
-    chipTheme: CChipTheme.lightChipTheme,
+    chipTheme: CChipTheme.darkChipTheme,
+    navigationBarTheme: CNavigationBarTheme.darkNavigationBarTheme,
   );
 }

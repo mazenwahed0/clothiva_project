@@ -1,6 +1,17 @@
 import 'package:intl/intl.dart';
 
 class CFormatter {
+  // Format Date And Time
+  static String formatDateAndTime(DateTime? date,
+      {bool use24HourFormat = false}) {
+    date ??= DateTime.now();
+    final onlyDate = DateFormat('dd/MM/yyyy').format(date);
+    // Use 'hh:mm a' for 12-hour with AM/PM, or 'HH:mm' for 24-hour format.
+    final timeFormat = use24HourFormat ? 'HH:mm' : 'hh:mm a';
+    final onlyTime = DateFormat(timeFormat).format(date);
+    return '$onlyDate at $onlyTime';
+  }
+
   // Format Date
   static String formatDate(DateTime? date) {
     date ??= DateTime.now();
@@ -36,4 +47,16 @@ class CFormatter {
   //     return phoneNumber; // If it's invalid, just return it as is
   //   }
   // }
+
+  /// Concatenate phone number and country code
+  static String formatPhoneNumberWithCountryCode(
+      String countryCode, String phoneNumber) {
+    // Remove leading zero if present
+    // if (phoneNumber.startsWith('0')) {
+    //   phoneNumber = phoneNumber.substring(1);
+    // }
+
+    // Combine country code and phone number
+    return '$countryCode$phoneNumber';
+  }
 }

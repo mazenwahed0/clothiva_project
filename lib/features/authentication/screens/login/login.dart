@@ -22,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: CSpacingStyle.paddingWithAppBarHeight,
+          padding: CSpacingStyle.paddingWithAppBarHeightAuth,
           child: Column(
             children: [
               /// MARK: - Logo, Title & Subtitle
@@ -47,4 +47,3 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
-

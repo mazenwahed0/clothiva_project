@@ -23,32 +23,24 @@ class CChoiceChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isColor = CHelperFunctions.getColor(text) != null;
     return Theme(
       data: Theme.of(context).copyWith(canvasColor: Colors.transparent),
       child: ChoiceChip(
         // Use this function to get Colors as a Chip
-        avatar: CHelperFunctions.getColor(text) != null
-            ? TCircularContainer(
+        avatar: isColor
+            ? CircularContainer(
                 width: 50,
                 height: 50,
-                backgroundColor: CHelperFunctions.getColor(text)!,
-              )
+                backgroundColor: CHelperFunctions.getColor(text)!)
             : null,
-        label: CHelperFunctions.getColor(text) == null
-            ? Text(text)
-            : const SizedBox(),
+        label: isColor ? const SizedBox() : Text(text),
         selected: selected,
         onSelected: onSelected,
-        labelPadding: CHelperFunctions.getColor(text) != null
-            ? const EdgeInsets.all(0)
-            : null,
-        padding: CHelperFunctions.getColor(text) != null
-            ? const EdgeInsets.all(0)
-            : null,
-        shape: CHelperFunctions.getColor(text) != null
-            ? const CircleBorder()
-            : null,
-        backgroundColor: CHelperFunctions.getColor(text),
+        labelPadding: isColor ? const EdgeInsets.all(0) : null,
+        padding: isColor ? const EdgeInsets.all(0) : null,
+        shape: isColor ? const CircleBorder() : null,
+        backgroundColor: isColor ? CHelperFunctions.getColor(text)! : null,
         labelStyle: TextStyle(color: selected ? CColors.white : null),
       ),
     );

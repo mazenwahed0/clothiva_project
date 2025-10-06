@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
-import '../../../utils/helpers/helper_functions.dart';
 import '../images/circular_image.dart';
 import '../texts/brand_title_text.dart';
 
@@ -16,16 +15,19 @@ class VerticalImageAndText extends StatelessWidget {
     required this.title,
     this.backgroundColor,
     this.textColor = CColors.white,
+    this.isNetworkImage = true,
   });
 
   final Color textColor;
   final String image, title;
   final Color? backgroundColor;
+  final bool isNetworkImage;
   final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
-    final dark = CHelperFunctions.isDarkMode(context);
+    // final dark = THelperFunctions.isDarkMode(context);
+    bool dark = context.isDarkMode || context.isDarkModeMedia;
     return GestureDetector(
       onTap: onTap,
       child: Padding(
@@ -37,6 +39,7 @@ class VerticalImageAndText extends StatelessWidget {
               image: image,
               fit: BoxFit.fitWidth,
               padding: CSizes.sm * 1.4,
+              isNetworkImage: isNetworkImage,
               backgroundColor: backgroundColor,
               overlayColor: dark ? CColors.white : CColors.dark,
             ),

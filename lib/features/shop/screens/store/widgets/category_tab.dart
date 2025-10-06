@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 
 import '../../../../../common/widgets/brands/brand_show_case.dart';
 import '../../../../../common/widgets/layouts/grid_layout.dart';
-import '../../../../../common/widgets/products/product_cart_vertical.dart';
+import '../../../../../common/widgets/products/product_cards/product_card_vertical.dart';
 import '../../../../../common/widgets/texts/section_heading.dart';
 import '../../../../../utils/constants/image_strings.dart';
 import '../../../../../utils/constants/sizes.dart';
- // TSizes
 
-class TCategoryTab extends StatelessWidget {
-  const TCategoryTab({super.key});
+class CategoryTab extends StatelessWidget {
+  const CategoryTab({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,41 +20,39 @@ class TCategoryTab extends StatelessWidget {
           padding: const EdgeInsets.all(CSizes.defaultSpace),
           child: Column(
             children: [
-              // /// Brands
-              // Two instances of TBrandShowcase are displayed
+              /// Brands
+              // Two instances of Brand Showcases are displayed
               CBrandShowcase(
                 images: [
-                  CImages.productImage23,
-                  CImages.productImage22,
-                  CImages.productImage1,
+                  CImages.productImage19a,
+                  CImages.productImage24,
+                  CImages.productImage4,
                 ],
               ),
               const CBrandShowcase(
                 images: [
-                  CImages.productImage23,
-                  CImages.productImage22,
-                  CImages.productImage1,
+                  CImages.productImage4a,
+                  CImages.productImage4b,
+                  CImages.productImage4c,
                 ],
               ),
 
               const SizedBox(height: CSizes.spaceBtItems),
 
-              // /// Products
+              /// Products
               SectionHeading(title: 'You might like', onPressed: () {}),
               const SizedBox(height: CSizes.spaceBtItems),
 
               GridLayout(
                 itemCount: 4,
-                itemBuilder: (_, index) => const TProductCardVertical(),
+                itemBuilder: (_, index) => const ProductCardVertical(),
               ),
 
               const SizedBox(height: CSizes.spaceBtSections),
-
-              // ... potentially more content below (not shown in the visible code)
             ],
-          ), // Column
-        ), // Padding
+          ),
+        ),
       ],
-    ); // ListView
+    );
   }
 }

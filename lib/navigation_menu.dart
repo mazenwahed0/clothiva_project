@@ -1,13 +1,12 @@
+import 'package:clothiva_project/features/personalization/screens/settings/settings.dart';
+import 'package:clothiva_project/features/shop/screens/home/home.dart';
+import 'package:clothiva_project/features/shop/screens/store/store.dart';
+import 'package:clothiva_project/features/shop/screens/wishlist/wishlist.dart';
 import 'package:clothiva_project/utils/constants/colors.dart';
-import 'package:clothiva_project/utils/helpers/helper_functions.dart';
+import 'package:clothiva_project/utils/helpers/context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-
-import 'features/shop/screens/home_screen.dart';
-import 'features/shop/screens/store/store.dart';
-
-
 
 class NavigationMenu extends StatelessWidget {
   const NavigationMenu({super.key});
@@ -15,17 +14,20 @@ class NavigationMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(NavigationController());
-    final darkMode = CHelperFunctions.isDarkMode(context);
+    bool dark = context.isDarkMode || context.isDarkModeMedia;
 
     return Scaffold(
       bottomNavigationBar: Obx(
-            () => NavigationBar(
+        () => NavigationBar(
           height: 80,
           elevation: 0,
           selectedIndex: controller.selectedIndex.value,
-          onDestinationSelected: (index) => controller.selectedIndex.value = index,
-          backgroundColor: darkMode ? CColors.black : CColors.white,
-          indicatorColor: darkMode ? CColors.white.withOpacity(0.1) : CColors.black.withOpacity(0.1),
+          onDestinationSelected: (index) =>
+              controller.selectedIndex.value = index,
+          backgroundColor: dark ? CColors.black : Colors.white,
+          indicatorColor: dark
+              ? CColors.white.withValues(alpha: 0.1)
+              : Colors.black.withValues(alpha: 0.1),
           destinations: const [
             NavigationDestination(icon: Icon(Iconsax.home), label: 'Home'),
             NavigationDestination(icon: Icon(Iconsax.shop), label: 'Store'),
@@ -40,12 +42,12 @@ class NavigationMenu extends StatelessWidget {
 }
 
 class NavigationController extends GetxController {
-  final Rx<int> selectedIndex = 0.obs;
+  final selectedIndex = 0.obs;
 
   final screens = [
-    const HomeScreen(),
-    const StoreScreen(),
-    Container(color: Colors.orange),
-    Container(color: Colors.blue),
+    HomeScreen(),
+    StoreScreen(),
+    WishlistScreen(),
+    SettingsScreen(),
   ];
 }

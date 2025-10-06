@@ -202,8 +202,4 @@ class CTexts {
   static const String homeAppbarTitle = "Good day for shopping";
   static const String homeAppbarSubTitle = "Taimoor Sikander";
   static const String popularProducts = "Popular Products";
-
-  // --categories of Home
-  static const String shoes = "shoes";
-
 }

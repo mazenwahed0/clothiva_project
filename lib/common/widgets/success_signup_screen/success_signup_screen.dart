@@ -22,7 +22,7 @@ class SuccessSignupScreen extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: CSpacingStyle.paddingWithAppBarHeight,
+          padding: CSpacingStyle.paddingWithAppBarHeightAuth,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

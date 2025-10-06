@@ -1,4 +1,3 @@
-
 import 'package:clothiva_project/utils/constants/image_strings.dart';
 import 'package:clothiva_project/utils/constants/sizes.dart';
 import 'package:clothiva_project/utils/constants/text_strings.dart';
@@ -36,21 +35,9 @@ class VerifyEmailScreen extends StatelessWidget {
             icon: const Icon(CupertinoIcons.clear),
           ),
         ],
-       // showActions: true,
-       // showSkipButton: false,
+        showActions: true,
+        showSkipButton: false,
       ),
-      // AuthenticationRepository.instance.logout()
-      // AppBar(
-      //   //Note: To remove the back arrow
-      //   automaticallyImplyLeading: false,
-      //   actions: [
-      //     IconButton(
-      //         onPressed: () {
-      //           Get.offAll(() => LoginScreen());
-      //         },
-      //         icon: Icon(CupertinoIcons.clear))
-      //   ],
-      // ),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(CSizes.defaultSpace),

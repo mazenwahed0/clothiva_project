@@ -1,16 +1,15 @@
-import 'package:flutter/cupertino.dart';
+import 'package:clothiva_project/utils/helpers/context_extensions.dart';
 import 'package:flutter/material.dart';
-import '../../../../utils/helpers/helper_functions.dart';
+import 'package:get/get.dart';
 import 'widgets/product_detail_image_slider.dart';
 import '../../../../../utils/constants/sizes.dart';
-import 'package:iconsax/iconsax.dart';
 import 'widgets/rating_share.dart';
 
 class ProductDetail extends StatelessWidget {
   const ProductDetail({super.key});
   @override
   Widget build(BuildContext context) {
-    final isDark = CHelperFunctions.isDarkMode(context);
+    bool dark = context.isDarkMode || context.isDarkModeMedia;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -38,4 +37,3 @@ class ProductDetail extends StatelessWidget {
     );
   }
 }
-

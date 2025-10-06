@@ -17,33 +17,28 @@ class PrimaryHeaderContainer extends StatelessWidget {
       child: Container(
         color: CColors.dashboardAppbarBackground,
         padding: const EdgeInsets.only(bottom: 0),
+
+        /// -- If [size.isFinite': is not true.in Stack] error occurred -> Read README.md file at [DESIGN ERRORS] # 1
+        /// -- Note: Stack can't only have empty containers (Empty Stack, gives an error)
+        //.Either Stack should have a column inside of it with all the elements
+        //.or temporary fix is sized box to give it space
         child: Stack(
           children: [
             /// -- Background Custom Shapes
             Positioned(
-              top: -150,
-              right: -250,
-              child: TCircularContainer(
-                backgroundColor: CColors.textWhite.withValues(alpha: 0.1),
-              ),
-            ),
+                top: -150,
+                right: -250,
+                child: CircularContainer(
+                    backgroundColor: CColors.textWhite.withValues(alpha: 0.1))),
             Positioned(
-              top: 100,
-              right: -300,
-              child: TCircularContainer(
-                backgroundColor: CColors.textWhite.withValues(alpha: 0.1),
-              ),
-            ),
-
-            /// -- لازم يتلف عشان يبان فوق الـ shapes
-            Align(
-              alignment: Alignment.topCenter,
-              child: child,
-            ),
+                top: 100,
+                right: -300,
+                child: CircularContainer(
+                    backgroundColor: CColors.textWhite.withValues(alpha: 0.1))),
+            child,
           ],
         ),
       ),
     );
   }
 }
-

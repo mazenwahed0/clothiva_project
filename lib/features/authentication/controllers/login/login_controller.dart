@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import '../../../../data/repositories/authentication/authentication_repository.dart';
+import '../../../personalization/controllers/user_controller.dart';
 import '../../../../utils/constants/image_strings.dart';
 import '../../../../utils/helpers/network_manager.dart';
 import '../../../../utils/popups/full_screen_loader.dart';
@@ -19,6 +20,7 @@ class LoginController extends GetxController {
   final email = TextEditingController();
   final password = TextEditingController();
   GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
+  final userController = Get.put(UserController());
 
   /// Loader
   final isLoading = false.obs;
@@ -84,40 +86,43 @@ class LoginController extends GetxController {
     }
   }
 
-  // /// [GoogleSignInAuthentication]
-  // Future<void> googleSignIn() async {
-  //   try {
-  //     // Start Loading
-  //     FullScreenLoader.openLoadingDialog(
-  //         'Logging you in...', CImages.docerAnimation);
+  /// [GoogleSignInAuthentication]
+  Future<void> googleSignIn() async {
+    try {
+      // Start Loading
+      FullScreenLoader.openLoadingDialog(
+        'Logging you in...',
+        CImages.docerAnimation,
+      );
 
-  //     // Check Internet Connectivity
-  //     final isConnected = await NetworkManager.instance.isConnected();
-  //     if (!isConnected) {
-  //       FullScreenLoader.stopLoading();
-  //       return;
-  //     }
+      // Check Internet Connectivity
+      final isConnected = await NetworkManager.instance.isConnected();
+      if (!isConnected) {
+        FullScreenLoader.stopLoading();
+        Loaders.customToast(message: 'No Internet Connection');
+        return;
+      }
 
-  //     // Sign In with Google
-  //     final userCredentials =
-  //         await AuthenticationRepository.instance.signInWithGoogle();
+      // Google Authentication (Sign In with Google)
+      final userCredentials = await AuthenticationRepository.instance
+          .signInWithGoogle();
 
-  //     final userController = Get.put(UserController());
-  //     // Save Authenticated user data in the Firebase Firestore
-  //     await userController.saveUserRecord(userCredentials: userCredentials);
+      // Save Authenticated user data in the Firebase Firestore
+      await userController.saveUserRecord(userCredentials: userCredentials);
 
-  //     Get.put(CreateNotificationController());
-  //     await CreateNotificationController.instance.createNotification();
+      // Get.put(CreateNotificationController());
+      // await CreateNotificationController.instance.createNotification();
 
-  //     // Remove Loader
-  //     FullScreenLoader.stopLoading();
+      // Remove Loader
+      FullScreenLoader.stopLoading();
 
-  //     // Redirect
-  //     await AuthenticationRepository.instance
-  //         .screenRedirect(userCredentials?.user);
-  //   } catch (e) {
-  //     FullScreenLoader.stopLoading();
-  //     Loaders.errorSnackBar(title: 'Oh Snap', message: e.toString());
-  //   }
-  // }
+      // Redirect
+      await AuthenticationRepository.instance.screenRedirect();
+      // await AuthenticationRepository.instance
+      //     .screenRedirect(userCredentials?.user);
+    } catch (e) {
+      FullScreenLoader.stopLoading();
+      Loaders.errorSnackBar(title: CTexts.ohSnap, message: e.toString());
+    }
+  }
 }

@@ -1,7 +1,7 @@
-import 'package:clothiva_project/common/widgets/loaders/circular_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../common/widgets/loaders/animation_loader.dart';
+import '../../common/widgets/loaders/circular_loader.dart';
 import '../constants/colors.dart';
 import '/utils/helpers/context_extensions.dart';
 
@@ -49,7 +49,8 @@ class FullScreenLoader {
   /// Stop the currently open loading dialog.
   /// This method doesn't return anything.
   static stopLoading() {
-    Navigator.of(Get.overlayContext!)
-        .pop(); // Close the dialog using the Navigator
+    Navigator.of(
+      Get.overlayContext!,
+    ).pop(); // Close the dialog using the Navigator
   }
 }

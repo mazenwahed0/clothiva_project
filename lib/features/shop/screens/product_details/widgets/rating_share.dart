@@ -1,13 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../../../../utils/constants/sizes.dart';
 import 'package:iconsax/iconsax.dart';
 
-
 class CRatingAndShare extends StatelessWidget {
-  const CRatingAndShare({
-    super.key,
-  });
+  const CRatingAndShare({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,11 +12,7 @@ class CRatingAndShare extends StatelessWidget {
       children: [
         Row(
           children: [
-            const Icon(
-              Iconsax.star5,
-              color: Colors.amber,
-              size: 24,
-            ),
+            const Icon(Iconsax.star5, color: Colors.amber, size: 24),
             const SizedBox(width: CSizes.spaceBtItems / 2),
             Text.rich(
               TextSpan(

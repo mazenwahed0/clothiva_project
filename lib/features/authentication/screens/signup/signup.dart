@@ -1,3 +1,4 @@
+import 'package:clothiva_project/features/authentication/screens/login/login.dart';
 import 'package:clothiva_project/features/authentication/screens/signup/widgets/signup_form.dart';
 import 'package:clothiva_project/utils/constants/colors.dart';
 import 'package:clothiva_project/utils/constants/sizes.dart';
@@ -22,10 +23,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
     bool dark = context.isDarkMode || context.isDarkModeMedia;
     return Scaffold(
       appBar: AppBar(
+        //Note: Use Get.off() instead of Get.to() when navigating
+        //This replaces the current screen instead of stacking both
         leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
+          onPressed: () => Get.off(LoginScreen()),
           icon: Icon(
             Icons.arrow_back,
             color: dark ? CColors.white : CColors.black,

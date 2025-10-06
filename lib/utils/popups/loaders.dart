@@ -25,8 +25,11 @@ class Loaders {
                 : CColors.grey.withValues(alpha: 0.9),
           ),
           child: Center(
-              child: Text(message,
-                  style: Theme.of(Get.context!).textTheme.bodySmall)),
+            child: Text(
+              message,
+              style: Theme.of(Get.context!).textTheme.bodySmall,
+            ),
+          ),
         ),
       ),
     );

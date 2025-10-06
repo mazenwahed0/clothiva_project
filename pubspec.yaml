@@ -2,7 +2,7 @@ name: clothiva_project
 description: "Clothiva is a Flutter-based fashion e-commerce app that offers men's and women's clothing in one stylish platform."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
@@ -10,9 +10,9 @@ environment:
 
 #--------------------------- Packages -------------------------------------#
 dependencies:
-  flutter:       
-    sdk: flutter 
-  
+  flutter:
+    sdk: flutter
+
   # Utility Packages
   http: ^1.5.0
   intl: ^0.20.2
@@ -23,10 +23,10 @@ dependencies:
   connectivity_plus: ^7.0.0
   shimmer: ^3.0.0
   badges: ^3.1.2
-  carousel_slider: ^5.1.1
   smooth_page_indicator: ^1.2.1
+  image_picker: ^1.2.0
+  cached_network_image: ^3.4.1
 
-  
   # Icons
   iconsax: ^0.0.8
   cupertino_icons: ^1.0.2
@@ -36,19 +36,27 @@ dependencies:
   get_storage: ^2.1.1
 
   # Product Specific
+  carousel_slider: ^5.1.1
+  readmore: ^3.0.0
   flutter_rating_bar: ^4.0.1
 
   # Firebase
   firebase_core: ^4.1.0
   firebase_auth: ^6.0.2
   cloud_firestore: ^6.0.1
+  google_sign_in: ^6.2.1
 
+  # Cloudinary
+  cloudinary_public: ^0.23.1
+  flutter_dotenv: ^6.0.0
+  dio: ^5.9.0
+  crypto: ^3.0.6
 
 #--------------------------- ./ Packages END -------------------------------------#
 dev_dependencies:
-  flutter_test:    
-    sdk: flutter   
-  flutter_lints: ^5.0.0  # CRITICAL: Required for code quality - DO NOT REMOVE
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0 # CRITICAL: Required for code quality - DO NOT REMOVE
 
 flutter:
   uses-material-design: true # CRITICAL: - DO NOT REMOVE
@@ -67,13 +75,12 @@ flutter:
     - assets/images/banners/
     - assets/icons/payment_methods/
     - assets/images/products/
-    - assets/images/brands/
     - assets/icons/categories/
     - assets/icons/payment_methods/paypal.png
   # CRITICAL ASSET MANAGEMENT RULES:
   # - DO NOT ADD NEW ASSET DIRECTORIES (assets/svg/, assets/icons/, etc.)
   # - ONLY USE EXISTING AND ITEMS AVAILABLE IN THE DIRECTORIES LISTED ABOVE (assets/, assets/images/)
-  
+
   # FONTS:
   fonts:
     - family: Poppins
