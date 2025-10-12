@@ -2,8 +2,8 @@ import '../../../utils/constants/sizes.dart';
 import 'shimmer.dart';
 import 'package:flutter/material.dart';
 
-class UHorizontalProductShimmer extends StatelessWidget {
-  const UHorizontalProductShimmer({super.key, this.itemCount = 4});
+class CHorizontalProductShimmer extends StatelessWidget {
+  const CHorizontalProductShimmer({super.key, this.itemCount = 4});
 
   final int itemCount;
 

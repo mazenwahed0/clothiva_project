@@ -6,9 +6,12 @@ import '../../../../../common/widgets/products/product_cards/product_card_vertic
 import '../../../../../common/widgets/texts/section_heading.dart';
 import '../../../../../utils/constants/image_strings.dart';
 import '../../../../../utils/constants/sizes.dart';
+import '../../../models/category_model.dart';
 
 class CategoryTab extends StatelessWidget {
-  const CategoryTab({super.key});
+  const CategoryTab({super.key, required this.category});
+
+  final CategoryModel category;
 
   @override
   Widget build(BuildContext context) {
@@ -47,8 +50,6 @@ class CategoryTab extends StatelessWidget {
                 itemCount: 4,
                 itemBuilder: (_, index) => const ProductCardVertical(),
               ),
-
-              const SizedBox(height: CSizes.spaceBtSections),
             ],
           ),
         ),

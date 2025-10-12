@@ -30,8 +30,8 @@ class BrandRepository extends GetxController {
         File brandImage = await CHelperFunctions.assetToFile(brand.image);
 
         // upload brand image to cloudinary
-        dio.Response response = await _cloudinaryServices.uploadImage(
-            brandImage, CKeys.brandsFolder);
+        dio.Response response = await _cloudinaryServices
+            .uploadImage(brandImage, CKeys.brandsFolder, publicId: brand.id);
         if (response.statusCode == 200) {
           brand.image = response.data['secure_url'];
         }
@@ -41,6 +41,7 @@ class BrandRepository extends GetxController {
             .collection(CKeys.brandsCollection)
             .doc(brand.id)
             .set(brand.toJson());
+        print('Brands Uploaded: ${brand.name}');
       }
     } on FirebaseException catch (e) {
       throw CFirebaseException(e.code).message;

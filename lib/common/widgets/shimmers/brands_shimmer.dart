@@ -1,23 +1,18 @@
+import '../layouts/grid_layout.dart';
 import 'shimmer.dart';
 import 'package:flutter/material.dart';
 
-import '../../../utils/constants/sizes.dart';
-
-class UBrandsShimmer extends StatelessWidget {
-  const UBrandsShimmer({super.key, this.itemCount = 4});
+class CBrandsShimmer extends StatelessWidget {
+  const CBrandsShimmer({super.key, this.itemCount = 4});
 
   final int itemCount;
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      separatorBuilder: (context, index) =>
-          SizedBox(width: CSizes.spaceBtItems),
-      shrinkWrap: true,
-      scrollDirection: Axis.horizontal,
+    return GridLayout(
+      mainAxisExtent: 80,
       itemCount: itemCount,
-      itemBuilder: (context, index) => CShimmerEffect(
-          width: CSizes.brandCardWidth, height: CSizes.brandCardHeight),
+      itemBuilder: (_, __) => CShimmerEffect(width: 300, height: 80),
     );
   }
 }

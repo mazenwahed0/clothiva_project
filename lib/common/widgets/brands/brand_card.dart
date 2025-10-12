@@ -43,6 +43,7 @@ class CBrandCard extends StatelessWidget {
             const SizedBox(width: CSizes.spaceBtItems / 2),
 
             /// -- Text
+            // [Expanded] & Column [MainAxisSize.min] is important to keep the elements in the vertical ceneter and also to keep text inside boundaries.
             Expanded(
               child: Column(
                 mainAxisSize: MainAxisSize.min,

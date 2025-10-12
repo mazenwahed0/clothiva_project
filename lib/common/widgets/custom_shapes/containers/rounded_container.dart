@@ -24,7 +24,7 @@ class RoundedContainer extends StatelessWidget {
     this.margin,
     this.showBorder = false,
     this.padding = const EdgeInsets.all(CSizes.md),
-    this.borderColor = CColors.borderPrimary,
+    this.borderColor = CColors.darkGrey,
     this.radius = CSizes.cardRadiusLg,
     this.backgroundColor = CColors.white,
   });

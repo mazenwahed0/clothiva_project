@@ -121,13 +121,13 @@ class CImages {
   // ID: 1
   static const String nikeLogo = "assets/icons/brands/nike.png";
   // ID: 2
-  static const String breakoutLogo = "assets/icons/brands/breakout.jpg";
+  static const String breakoutLogo = "assets/icons/brands/breakout.png";
   // ID: 3
   static const String jLogo = "assets/icons/brands/j..png";
   // ID: 4
   static const String ndureLogo = "assets/icons/brands/ndure.png";
   // ID: 5
-  static const String northStarLogo = "assets/icons/brands/north_star.jpg";
+  static const String northStarLogo = "assets/icons/brands/north_star.png";
   // ID: 6
   static const String poloLogo = "assets/icons/brands/polo.png";
 
@@ -166,7 +166,7 @@ class CImages {
   // 007
   static const String productImage45a = 'assets/images/products/product 45.png';
   static const String productImage45b =
-      'assets/images/products/product 45_1.png';
+      'assets/images/products/product 45 1.png';
 
   // 008
   static const String productImage67a = 'assets/images/products/product 67.png';

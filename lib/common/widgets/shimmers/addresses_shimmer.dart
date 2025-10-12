@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 import '../../../utils/constants/sizes.dart';
 
-class UAddressesShimmer extends StatelessWidget {
-  const UAddressesShimmer({
+class CAddressesShimmer extends StatelessWidget {
+  const CAddressesShimmer({
     super.key,
   });
 

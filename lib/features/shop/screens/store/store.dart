@@ -10,6 +10,7 @@ import '../../../../common/widgets/products/cart/cart_menu_icon.dart';
 import '../../../../common/widgets/texts/section_heading.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
+import '../../controllers/category_controller.dart';
 import 'widgets/category_tab.dart';
 
 class StoreScreen extends StatelessWidget {
@@ -18,16 +19,23 @@ class StoreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool dark = context.isDarkMode || context.isDarkModeMedia;
+    final categories = CategoryController.instance.featuredCategories;
+
     return DefaultTabController(
-      length: 5,
+      length: categories.length,
       child: Scaffold(
         appBar: CAppBar(
           title: Text(
             'Store',
             style: Theme.of(context).textTheme.headlineMedium,
           ),
-          actions: [CartCounterIcon(onPressed: () {}, iconColor: CColors.dark)],
-          showActions: false,
+          actions: [
+            CartCounterIcon(
+              onPressed: () {},
+              iconColor: dark ? CColors.lightGrey : CColors.dark,
+            ),
+          ],
+          showActions: true,
           showSkipButton: false,
         ),
         body: NestedScrollView(
@@ -39,8 +47,9 @@ class StoreScreen extends StatelessWidget {
                 floating: true,
                 backgroundColor: dark ? CColors.black : CColors.white,
                 expandedHeight: 440,
+                // Space between Appbar and TabBar
                 flexibleSpace: Padding(
-                  padding: const EdgeInsets.all(CSizes.sm),
+                  padding: const EdgeInsets.all(CSizes.defaultSpace / 2),
                   child: ListView(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
@@ -57,23 +66,24 @@ class StoreScreen extends StatelessWidget {
 
                       const SizedBox(height: CSizes.spaceBtSections),
 
-                      /// FUTURED BRAND
+                      /// --- Featured Brands
                       Padding(
                         padding: const EdgeInsets.all(CSizes.sm),
                         child: SectionHeading(
                           title: 'Featured Brands',
-                          onPressed: () {},
+                          onPressed: () {}, // AllBrandsScreen HERE!
                         ),
                       ),
 
                       const SizedBox(height: CSizes.spaceBtItems / 1.5),
 
-                      /// --- Grid Layout
+                      /// --- Brands Grid
                       GridLayout(
                         itemCount: 4,
                         mainAxisExtent: 80,
                         itemBuilder: (_, index) {
-                          return const CBrandCard(showBorder: false);
+                          // -- Passing Each Brand & onPress Event from Backend
+                          return CBrandCard(showBorder: true);
                         },
                       ),
 
@@ -83,28 +93,20 @@ class StoreScreen extends StatelessWidget {
                 ),
 
                 /// Tabs
-                bottom: const CTabBar(
-                  tabs: [
-                    Tab(child: Text('Sports')),
-                    Tab(child: Text('Furniture')),
-                    Tab(child: Text('Electronics')),
-                    Tab(child: Text('Clothes')),
-                    Tab(child: Text('Cosmetics')),
-                  ],
+                bottom: CTabBar(
+                  tabs: categories
+                      .map((category) => Tab(child: Text(category.name)))
+                      .toList(),
                 ),
               ),
             ];
           },
 
           /// Body
-          body: const TabBarView(
-            children: [
-              CategoryTab(),
-              CategoryTab(),
-              CategoryTab(),
-              CategoryTab(),
-              CategoryTab(),
-            ],
+          body: TabBarView(
+            children: categories
+                .map((category) => CategoryTab(category: category))
+                .toList(),
           ),
         ),
       ),
