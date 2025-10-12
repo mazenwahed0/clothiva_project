@@ -13,10 +13,30 @@ Clothiva is a Flutter-based fashion e-commerce app that offers men's and women's
 | 2025-10-4  | Kholoud         | Home & Store Screen                        |
 | 2025-10-5  | Ali             | Product Detail Page                        |
 | 2025-10-6  | Mazen           | Settings + Storage Service + New Files     |
+| 2025-10-12 | Mazen           | Store & Settings (Firestore) + Update Files|
 
 ---
 
-## Current Progress (Big Update v1.0) - *by Kholoud, Mazen & Ali* 
+## Current Progress (Update v1.1) - *by Mazen* 
+ # Screens:
+-  **Store Screen**
+(Categories are fully connected to Firebase now)
+- Updated **Load Data Screen** & fully connected with all Repositories & Dummy Data
+(Important Note: All data has been uploaded to Firestore & Cloudinary, DON'T UPLOAD AGAIN!)
+
+ # Updated Files:
+- **Changed success_signup_screen to success_screen as several screens are using it**
+- **Updated Brands Icons** (assets/icons/brands)
+- **Updated image_strings.dart** (utils/constants)
+- **Updated Shimmers for Backend** (common/widgets/shimmers)
+- **Changed colors for Borders in Rounded Container** (common/widgets/custom_shapes/containers)
+- **Several fixes for Repositories (Brands & Products)**
+- **Updated Dummy Data**
+
+
+## Previous Updates:
+
+# (Big Update v1.0) - *by Kholoud, Mazen & Ali* 
  # Screens:
 -  **Home Screen by (Kholoud)** 
 (Categories & Banners are fully connected to Firebase now, & Some changes to work effectively in Dark Mode)
@@ -39,8 +59,8 @@ Clothiva is a Flutter-based fashion e-commerce app that offers men's and women's
 (Added some new enums in lib/utils/constants/enums.dart)
 (New Themes added in lib/utils/themes)
 
+---
 
-## Previous Updates:
 (v0.1b) - *by Mazen* 
 -  **Added New Files in lib/common**
 -  **Added 2 new packages in pubspec.yaml (Run: flutter pub get)**
