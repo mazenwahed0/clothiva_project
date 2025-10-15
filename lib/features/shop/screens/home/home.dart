@@ -7,6 +7,7 @@ import 'package:clothiva_project/common/widgets/products/product_cards/product_c
 import 'package:clothiva_project/utils/constants/colors.dart';
 import 'package:clothiva_project/utils/constants/sizes.dart';
 import '../../../../common/widgets/custom_shapes/containers/search_container.dart';
+import '../../../../common/widgets/shimmers/vertical_product_shimmer.dart';
 import '../../../../common/widgets/texts/section_heading.dart';
 import '../../../../data/repositories/authentication/authentication_repository.dart';
 import '../../controllers/product_controller.dart';
@@ -81,10 +82,17 @@ class HomeScreen extends StatelessWidget {
                   SizedBox(height: CSizes.spaceBtItems),
 
                   /// -- Gridview Products
-                  GridLayout(
-                    itemCount: 4,
-                    itemBuilder: (_, index) => ProductCardVertical(),
-                  ),
+                  Obx((){
+                    if(controller.isLoading.value){return const CVerticalProductShimmer();}
+                    else if(controller.featuredProducts.isEmpty){
+                      return Center(child: Text("No Data Found",style: Theme.of(context).textTheme.bodyMedium,),);
+                    }
+                    return GridLayout(
+                      itemCount: controller.featuredProducts.length,
+                      itemBuilder: (_, index) => ProductCardVertical(product:controller.featuredProducts[index]),
+                    );
+                  })
+                  ,
                 ],
               ),
             ),

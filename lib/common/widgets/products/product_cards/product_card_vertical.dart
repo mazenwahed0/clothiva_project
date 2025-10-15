@@ -2,6 +2,8 @@ import 'package:clothiva_project/utils/helpers/context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import '../../../../features/shop/models/product_model.dart';
+import '../../../../features/shop/screens/product_details/product_detail.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/image_strings.dart';
 import '../../../../utils/constants/sizes.dart';
@@ -14,13 +16,14 @@ import '../../texts/product_price_text.dart';
 import '../../texts/product_title_text.dart';
 
 class ProductCardVertical extends StatelessWidget {
-  const ProductCardVertical({super.key});
+  const ProductCardVertical({super.key,required this.product});
 
+  final ProductModel product;
   @override
   Widget build(BuildContext context) {
     final dark = context.isDarkMode || context.isDarkModeMedia;
     return GestureDetector(
-      // onTap: () => Get.to(() => ProductDetailScreen()), //Add the ProductDetailScreen
+      onTap: () => Get.to(() => ProductDetailScreen(product: product,)), //Add the ProductDetailScreen
       child: Container(
         width: 180,
         padding: EdgeInsets.all(1),
