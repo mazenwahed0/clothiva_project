@@ -1,4 +1,7 @@
+import 'package:clothiva_project/features/shop/controllers/product_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 import '../../../../../common/widgets/brands/brand_show_case.dart';
 import '../../../../../common/widgets/layouts/grid_layout.dart';
@@ -15,6 +18,7 @@ class CategoryTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller=Get.put(ProductController());
     return ListView(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -48,7 +52,7 @@ class CategoryTab extends StatelessWidget {
 
               GridLayout(
                 itemCount: 4,
-                itemBuilder: (_, index) => const ProductCardVertical(),
+                itemBuilder: (_, index) =>ProductCardVertical(product: controller.featuredProducts[index],),
               ),
             ],
           ),

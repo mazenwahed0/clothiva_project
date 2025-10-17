@@ -20,7 +20,6 @@ class CProdutAttributes extends StatelessWidget {
     return Column(
       children: [
         RoundedContainer(
-          const EdgeInsets.all(CSizes.md),
           backgroundColor: dark ? CColors.darkerGrey : CColors.grey,
           child: Column(
             children: [

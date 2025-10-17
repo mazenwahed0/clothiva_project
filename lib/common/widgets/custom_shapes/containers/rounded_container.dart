@@ -16,7 +16,7 @@ class RoundedContainer extends StatelessWidget {
   ///   - backgroundColor: The background color of the container.
   ///   - borderColor: The color of the container's border.
   ///   - showBorder: A flag to determine if the container should have a border.
-  const RoundedContainer(required EdgeInsets padding, {
+  const RoundedContainer({
     super.key,
     this.child,
     this.width,
