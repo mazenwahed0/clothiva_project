@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:readmore/readmore.dart';
 import '../../models/product_model.dart';
+import '../product_reviews/product_reviews.dart';
 import 'widgets/product_detail_image_slider.dart';
 import '../../../../../utils/constants/sizes.dart';
 import 'widgets/rating_share.dart';
@@ -68,7 +69,7 @@ class ProductDetailScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SectionHeading(title: "Reviews(199)", showActionButton: false,),
-                      IconButton(onPressed: (){}, icon: const Icon(Iconsax.arrow_right_3, size: 18,)),
+                      IconButton(onPressed: () => Get.to(() => ProductReviewsScreen()), icon: const Icon(Iconsax.arrow_right_3, size: 18,)),
 
                     ],
                   ),
