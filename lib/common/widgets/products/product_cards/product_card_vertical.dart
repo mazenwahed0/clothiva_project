@@ -1,4 +1,4 @@
-import 'package:clothiva_project/features/shop/controllers/product_controller.dart';
+import 'package:clothiva_project/features/shop/controllers/product/product_controller.dart';
 import 'package:clothiva_project/utils/helpers/context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -47,6 +47,7 @@ class ProductCardVertical extends StatelessWidget {
                 children: [
                   /// -- Thumbnail Image
                   RoundedImage(
+                    isNetworkImage: true,
                     imageUrl: product.thumbnail,
                     applyImageRadius: true,
                   ),

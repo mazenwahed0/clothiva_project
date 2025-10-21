@@ -1,7 +1,7 @@
 import 'package:clothiva_project/common/widgets/appbar/appbar.dart';
 import 'package:clothiva_project/common/widgets/icons/circular_icon.dart';
 import 'package:clothiva_project/common/widgets/layouts/grid_layout.dart';
-import 'package:clothiva_project/features/shop/controllers/product_controller.dart';
+import 'package:clothiva_project/features/shop/controllers/product/product_controller.dart';
 import 'package:clothiva_project/features/shop/screens/home/home.dart';
 import 'package:clothiva_project/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';

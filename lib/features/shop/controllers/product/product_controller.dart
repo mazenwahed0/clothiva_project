@@ -3,7 +3,7 @@ import 'package:clothiva_project/features/shop/models/product_model.dart';
 import 'package:clothiva_project/utils/constants/enums.dart';
 import 'package:get/get.dart';
 
-import '../../../utils/popups/loaders.dart';
+import '../../../../utils/popups/loaders.dart';
 class ProductController extends GetxController {
   static ProductController get instance => Get.find();
 

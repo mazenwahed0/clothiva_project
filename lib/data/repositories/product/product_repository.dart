@@ -331,7 +331,7 @@ class ProductRepository extends GetxController {
   //Get all products
   Future<List<ProductModel>> getFeaturedProducts() async {
     try{
-      final snapshot= await _db.collection('Products').where('IsFeatured',isEqualTo: true).limit(4).get();
+      final snapshot= await _db.collection('Products').where('isFeatured',isEqualTo: true).limit(4).get();
       return snapshot.docs.map((e)=>ProductModel.fromSnapshot(e)).toList();
     }on FirebaseException catch(e){
       throw CFirebaseException(e.code).message;

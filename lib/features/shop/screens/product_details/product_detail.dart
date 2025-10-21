@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:readmore/readmore.dart';
+import '../../../../utils/constants/enums.dart';
 import '../../models/product_model.dart';
 import '../product_reviews/product_reviews.dart';
 import 'widgets/product_detail_image_slider.dart';
@@ -25,7 +26,7 @@ class ProductDetailScreen extends StatelessWidget {
         child: Column(
           children: [
             // Product Image Slider
-            CProductImageSlider(),
+            CProductImageSlider(product: product,),
 
             // Product Details
             Padding(
@@ -40,10 +41,12 @@ class ProductDetailScreen extends StatelessWidget {
                   CRatingAndShare(),
 
                   //price, title
-                  CProductMetaData(),
+                  CProductMetaData(product: product,),
 
                   //Attributes
-                  CProdutAttributes(),
+                  if(product.productType==ProductType.variable.toString())
+                  CProdutAttributes(product: product,),
+                  if(product.productType==ProductType.variable.toString())
                   SizedBox(height: CSizes.spaceBtItems,),
 
                   // Checkout Button
@@ -53,7 +56,7 @@ class ProductDetailScreen extends StatelessWidget {
                   const SectionHeading(title: "Description", showActionButton: false),
                   const SizedBox(height: CSizes.spaceBtItems),
                   ReadMoreText(
-                    "This is product description This is product description This is product description",
+                    product.description??'',
                     trimLines: 2,
                     trimMode: TrimMode.Line,
                     trimCollapsedText: 'Show more',

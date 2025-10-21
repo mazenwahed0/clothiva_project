@@ -12,12 +12,16 @@ import '../../../../../common/widgets/custom_shapes/containers/rounded_container
 import '../../../../../common/widgets/texts/product_price_text.dart';
 import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/constants/sizes.dart';
+import '../../../controllers/product/product_controller.dart';
+import '../../../models/product_model.dart';
 
 class CProductMetaData extends StatelessWidget {
-  const CProductMetaData({super.key});
-
+  const CProductMetaData({super.key, required this.product});
+  final ProductModel product;
   @override
   Widget build(BuildContext context) {
+    final controller=ProductController.instance;
+    final salePercentage=controller.CalculateSalePercentage(product.price,product.salePrice);
     bool dark = context.isDarkMode || context.isDarkModeMedia;
     return  Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,7 +37,7 @@ class CProductMetaData extends StatelessWidget {
                 vertical: CSizes.xs,
               ),
               child: Text(
-                '25%',
+                '$salePercentage%',
                 style: Theme.of(
                   context,
                 ).textTheme.labelLarge!.apply(color: CColors.black),
@@ -41,16 +45,17 @@ class CProductMetaData extends StatelessWidget {
             ),
 
             const SizedBox(width: CSizes.spaceBtItems,),
-
-            Text('\$250', style: Theme.of(context).textTheme.titleSmall!.apply(decoration: TextDecoration.lineThrough),),
-            const SizedBox(width: CSizes.spaceBtItems,),
-            const ProductPriceText(price: "175", isLarge: true,),
+            //Price
+            if(product.productType==ProductType.single.toString()&&product.salePrice>0)
+            Text('\$${product.price}', style: Theme.of(context).textTheme.titleSmall!.apply(decoration: TextDecoration.lineThrough),),
+            if(product.productType==ProductType.single.toString()&&product.salePrice>0)const SizedBox(width: CSizes.spaceBtItems,),
+            ProductPriceText(price: controller.getProductPrice(product), isLarge: true,),
           ],
         ),
         const SizedBox(width: CSizes.spaceBtItems / 1.5),
 
         // Title
-        const ProductTitleText(title: "Green Nike Sports Shirt"),
+        ProductTitleText(title: product.title),
         const SizedBox(height: CSizes.spaceBtItems / 1.5),
 
         //Stock Status
@@ -58,7 +63,7 @@ class CProductMetaData extends StatelessWidget {
           children: [
             const ProductTitleText(title: "Status"),
             const SizedBox(height: CSizes.spaceBtItems),
-            Text("In Stock", style: Theme.of(context).textTheme.titleMedium),
+            Text(controller.getProductStockStatus(product.stock), style: Theme.of(context).textTheme.titleMedium),
           ],
         ),
         const SizedBox(height: CSizes.spaceBtItems / 1.5),
@@ -67,12 +72,12 @@ class CProductMetaData extends StatelessWidget {
         Row(
           children: [
             CircularImage(
-                image: CImages.cosmeticsIcon,
+                image: product.brand!=null?product.brand!.image:'',
                 width: 32,
                 height: 32,
                 overlayColor: dark ? CColors.white : CColors.black,
             ),
-            const BrandTitleWithVerifiedIcon(title: "Nike" , brandTextSize: TextSizes.medium,),
+            BrandTitleWithVerifiedIcon(title: product.brand!=null?product.brand!.name:'' , brandTextSize: TextSizes.medium,),
           ],
         )
 

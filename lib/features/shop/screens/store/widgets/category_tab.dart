@@ -1,4 +1,4 @@
-import 'package:clothiva_project/features/shop/controllers/product_controller.dart';
+import 'package:clothiva_project/features/shop/controllers/product/product_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
