@@ -1,3 +1,4 @@
+import 'package:clothiva_project/features/shop/screens/all_products/all_products.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -51,6 +52,7 @@ class HomeScreen extends StatelessWidget {
                           title: 'Popular Categories',
                           showActionButton: false,
                           textColor: CColors.white,
+                          onPressed: () => Get.to(() => const AllProducts()),
                         ),
                         SizedBox(height: CSizes.spaceBtItems),
 
