@@ -1,4 +1,7 @@
 import 'package:clothiva_project/features/shop/screens/all_products/all_products.dart';
+import 'package:clothiva_project/features/shop/screens/brand/all_brands.dart';
+import 'package:clothiva_project/features/shop/screens/brand/brand_products.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -52,7 +55,11 @@ class HomeScreen extends StatelessWidget {
                           title: 'Popular Categories',
                           showActionButton: false,
                           textColor: CColors.white,
-                          onPressed: () => Get.to(() => const AllProducts()),
+                          onPressed: () => Get.to(() =>
+                              AllProducts(
+                                title: 'Popular Products',
+                                futureMethod: controller.fetchAllFeaturedProducts(),)
+                          ),
                         ),
                         SizedBox(height: CSizes.spaceBtItems),
 
@@ -78,7 +85,7 @@ class HomeScreen extends StatelessWidget {
                   /// -- Popular Products (Gridview)
                   SectionHeading(
                     title: 'Products Flash Sale',
-                    onPressed: () {},
+                    onPressed: () =>Get.to(()=>BrandProducts()),
                     showActionButton: true,
                   ),
                   SizedBox(height: CSizes.spaceBtItems),

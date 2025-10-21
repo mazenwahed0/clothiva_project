@@ -1,10 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 // import 'package:firebase_storage/firebase_storage.dart';
-// import 'package:flutter/material.dart';
-// import 'package:flutter/services.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 
 // /// Helper functions for cloud-related operations.
-// class TCloudHelperFunctions {
+class TCloudHelperFunctions {
 
 //   /// Helper function to check the state of a single database record.
 //   ///
@@ -13,21 +14,21 @@
 //   /// If no data is found, it returns a generic "No Data Found" message.
 //   /// If an error occurs, it returns a generic error message.
 //   /// Otherwise, it returns null.
-//   static Widget? checkSingleRecordState<T>(AsyncSnapshot<T> snapshot) {
-//     if (snapshot.connectionState == ConnectionState.waiting) {
-//       return const Center(child: CircularProgressIndicator());
-//     }
+  static Widget? checkSingleRecordState<T>(AsyncSnapshot<T> snapshot) {
+    if (snapshot.connectionState == ConnectionState.waiting) {
+      return const Center(child: CircularProgressIndicator());
+    }
 
-//     if (!snapshot.hasData || snapshot.data == null) {
-//       return const Center(child: Text('No Data Found!'));
-//     }
+    if (!snapshot.hasData || snapshot.data == null) {
+      return const Center(child: Text('No Data Found!'));
+    }
 
-//     if (snapshot.hasError) {
-//       return const Center(child: Text('Something went wrong.'));
-//     }
+    if (snapshot.hasError) {
+      return const Center(child: Text('Something went wrong.'));
+    }
 
-//     return null;
-//   }
+    return null;
+  }
 
 //   /// Helper function to check the state of multiple (list) database records.
 //   ///
@@ -36,24 +37,24 @@
 //   /// If no data is found, it returns a generic "No Data Found" message or a custom nothingFoundWidget if provided.
 //   /// If an error occurs, it returns a generic error message.
 //   /// Otherwise, it returns null.
-//   static Widget? checkMultiRecordState<T>({required AsyncSnapshot<List<T>> snapshot, Widget? loader, Widget? error, Widget? nothingFound}) {
-//     if (snapshot.connectionState == ConnectionState.waiting) {
-//       if (loader != null) return loader;
-//       return const Center(child: CircularProgressIndicator());
-//     }
+  static Widget? checkMultiRecordState<T>({required AsyncSnapshot<List<T>> snapshot, Widget? loader, Widget? error, Widget? nothingFound}) {
+    if (snapshot.connectionState == ConnectionState.waiting) {
+      if (loader != null) return loader;
+      return const Center(child: CircularProgressIndicator());
+    }
 
-//     if (!snapshot.hasData || snapshot.data == null || snapshot.data!.isEmpty) {
-//       if (nothingFound != null) return nothingFound;
-//       return const Center(child: Text('No Data Found!'));
-//     }
+    if (!snapshot.hasData || snapshot.data == null || snapshot.data!.isEmpty) {
+      if (nothingFound != null) return nothingFound;
+      return const Center(child: Text('No Data Found!'));
+    }
 
-//     if (snapshot.hasError) {
-//       if (error != null) return error;
-//       return const Center(child: Text('Something went wrong.'));
-//     }
+    if (snapshot.hasError) {
+      if (error != null) return error;
+      return const Center(child: Text('Something went wrong.'));
+    }
 
-//     return null;
-//   }
+    return null;
+  }
 
 //   /// Create a reference with an initial file path and name and retrieve the download URL.
 //   static Future<String> getURLFromFilePathAndName(String path) async {
@@ -86,4 +87,4 @@
 //       throw 'Something went wrong.';
 //     }
 //   }
-// }
+}

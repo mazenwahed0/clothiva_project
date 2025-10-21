@@ -10,6 +10,8 @@ class AllProductController extends GetxController{
 
   //Variables
   final repository=ProductRepository.instance;
+  final RxString selectedSortOption='Name'.obs;
+  final RxList<ProductModel> products=<ProductModel>[].obs;
 
   Future<List<ProductModel>>  fetchProductByQuery(Query? query)async{
     try{
@@ -23,5 +25,40 @@ class AllProductController extends GetxController{
       return[];
     }
 
+  }
+
+  void sortProducts(String sortoption){
+    selectedSortOption.value=sortoption;
+    switch(sortoption){
+      case 'Name':
+        products.sort((a,b)=>a.title.compareTo(b.title));
+        break;
+      case 'Higher Price':
+        products.sort((a,b)=>b.price.compareTo(a.price));
+        break;
+      case 'Lower Price':
+        products.sort((a,b)=>a.price.compareTo(b.price));
+        break;
+      case'Newest':
+        products.sort((a,b)=>a.date!.compareTo(b.date!));
+        break;
+      case 'Sale':
+        products.sort((a,b){
+          if(b.salePrice>0){
+            return b.salePrice.compareTo(a.salePrice);
+          }
+          else if(a.salePrice>0){
+            return -1;
+          }
+          else{
+            return 1;
+          }
+        });
+    }
+  }
+
+  void assignProducts(List<ProductModel>products){
+    this.products.assignAll(products);
+    sortProducts('Name');
   }
 }
