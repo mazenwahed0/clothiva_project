@@ -85,8 +85,7 @@ class HomeScreen extends StatelessWidget {
                   /// -- Popular Products (Gridview)
                   SectionHeading(
                     title: 'Products Flash Sale',
-                    onPressed: () =>Get.to(()=>BrandProducts()),
-                    showActionButton: true,
+                    //onPressed: () =>Get.to(()=>BrandProducts()),
                   ),
                   SizedBox(height: CSizes.spaceBtItems),
 
