@@ -2,6 +2,7 @@ import 'package:clothiva_project/utils/helpers/context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../features/shop/models/brand_model.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
 import '../custom_shapes/containers/rounded_container.dart';
@@ -23,7 +24,7 @@ class CBrandShowcase extends StatelessWidget {
       child: Column(
         children: [
           /// Brand with Products Count
-          const CBrandCard(showBorder: false),
+          CBrandCard(showBorder: false,brand: BrandModel.empty(),),
 
           const SizedBox(height: CSizes.spaceBtItems),
 

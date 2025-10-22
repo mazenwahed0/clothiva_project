@@ -1,3 +1,5 @@
+import 'package:clothiva_project/common/widgets/shimmers/brands_shimmer.dart';
+import 'package:clothiva_project/features/shop/screens/brand/all_brands.dart';
 import 'package:clothiva_project/utils/helpers/context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,6 +12,7 @@ import '../../../../common/widgets/products/cart/cart_menu_icon.dart';
 import '../../../../common/widgets/texts/section_heading.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
+import '../../controllers/brand_controller.dart';
 import '../../controllers/category_controller.dart';
 import 'widgets/category_tab.dart';
 
@@ -20,7 +23,7 @@ class StoreScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     bool dark = context.isDarkMode || context.isDarkModeMedia;
     final categories = CategoryController.instance.featuredCategories;
-
+    final brandController=Get.put(BrandController());
     return DefaultTabController(
       length: categories.length,
       child: Scaffold(
@@ -71,20 +74,29 @@ class StoreScreen extends StatelessWidget {
                         padding: const EdgeInsets.all(CSizes.sm),
                         child: SectionHeading(
                           title: 'Featured Brands',
-                          onPressed: () {}, // AllBrandsScreen HERE!
+                          onPressed: ()=>Get.to(()=>AllBrandScreen()), // AllBrandsScreen HERE!
                         ),
                       ),
 
                       const SizedBox(height: CSizes.spaceBtItems / 1.5),
 
                       /// --- Brands Grid
-                      GridLayout(
-                        itemCount: 4,
-                        mainAxisExtent: 80,
-                        itemBuilder: (_, index) {
-                          // -- Passing Each Brand & onPress Event from Backend
-                          return CBrandCard(showBorder: true);
-                        },
+                      Obx((){
+                        if(brandController.isLoading.value)return CBrandsShimmer();
+
+                        if(brandController.featuredBrands.isEmpty){
+                          return Center(child: Text("No Data Found",style: Theme.of(context).textTheme.bodyMedium!.apply(color: Colors.white),),);
+                        }
+                        return GridLayout(
+                          itemCount: brandController.featuredBrands.length,
+                          mainAxisExtent: 80,
+                          itemBuilder: (_, index) {
+                            final brand=brandController.featuredBrands[index];
+                            // -- Passing Each Brand & onPress Event from Backend
+                            return CBrandCard(showBorder: true,brand: brand,);
+                          },
+                        );
+                      }
                       ),
 
                       const SizedBox(height: CSizes.spaceBtSections),
