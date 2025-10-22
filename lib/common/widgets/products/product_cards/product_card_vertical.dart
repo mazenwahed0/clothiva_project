@@ -1,3 +1,4 @@
+import 'package:clothiva_project/common/widgets/products/favourite_icon/favourite_icon.dart';
 import 'package:clothiva_project/features/shop/controllers/product/product_controller.dart';
 import 'package:clothiva_project/utils/helpers/context_extensions.dart';
 import 'package:flutter/material.dart';
@@ -76,11 +77,7 @@ class ProductCardVertical extends StatelessWidget {
                   Positioned(
                     top: 0,
                     right: 0,
-                    child: CircularIcon(
-                      onPressed: () {},
-                      icon: Iconsax.heart5,
-                      color: Colors.red,
-                    ),
+                    child: FavouriteIcon(),
                   ),
                 ],
               ),
