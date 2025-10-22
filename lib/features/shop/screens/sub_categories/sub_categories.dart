@@ -11,8 +11,12 @@ import 'package:iconsax/iconsax.dart';
 import '../../../../common/widgets/icons/circular_icon.dart';
 import '../../../../utils/constants/image_strings.dart';
 import '../../../../utils/constants/sizes.dart';
+import '../../models/category_model.dart';
 
 class SubCategoriesScreen extends StatelessWidget{
+  const SubCategoriesScreen({super.key, required this.category});
+
+  final CategoryModel category;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +24,7 @@ class SubCategoriesScreen extends StatelessWidget{
         showActions: false,
         showSkipButton: false,
         showBackArrow: true,
-        title: Text('Sport'),
+        title: Text(category.name),
       ),
       body: SingleChildScrollView(
         child:Padding(
