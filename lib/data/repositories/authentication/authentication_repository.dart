@@ -1,6 +1,7 @@
 import 'package:clothiva_project/data/services/storage/cloudinary_service.dart';
 import 'package:clothiva_project/features/authentication/screens/login/login.dart';
 import 'package:clothiva_project/features/personalization/controllers/user_controller.dart';
+import 'package:clothiva_project/utils/local_storage/storage_utility.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -60,6 +61,7 @@ class AuthenticationRepository extends GetxController {
     final user = _auth.currentUser;
     if (user != null) {
       if (user.emailVerified) {
+        await CLocalStorage.init(user.uid);
         Get.offAll(() => NavigationMenu()); //Supposed to be NavigationMenu()
       } else {
         Get.offAll(() => VerifyEmailScreen(email: _auth.currentUser?.email));

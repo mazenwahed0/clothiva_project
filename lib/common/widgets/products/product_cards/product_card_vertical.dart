@@ -77,7 +77,7 @@ class ProductCardVertical extends StatelessWidget {
                   Positioned(
                     top: 0,
                     right: 0,
-                    child: FavouriteIcon(),
+                    child: FavouriteIcon(productId: product.id,),
                   ),
                 ],
               ),

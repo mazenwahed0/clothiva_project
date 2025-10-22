@@ -13,6 +13,7 @@ import '../../../../utils/constants/sizes.dart';
 import '../../../styles/shadows.dart';
 import '../../icons/circular_icon.dart';
 import '../../images/rounded_image.dart';
+import '../favourite_icon/favourite_icon.dart';
 
 class ProductCardHorizontal extends StatelessWidget {
   const ProductCardHorizontal({super.key});
@@ -63,9 +64,7 @@ class ProductCardHorizontal extends StatelessWidget {
                 Positioned(
                   top: 0,
                   right: 0,
-                  child: CircularIcon(
-                    icon:  Iconsax.heart5, color: Colors.red,
-                  ),
+                  child: FavouriteIcon(productId: '',),
                 ),
               ],
             ),

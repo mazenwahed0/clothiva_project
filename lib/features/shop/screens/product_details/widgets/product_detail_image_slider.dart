@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:clothiva_project/common/widgets/products/favourite_icon/favourite_icon.dart';
 import 'package:clothiva_project/features/shop/models/product_model.dart';
 import 'package:clothiva_project/utils/helpers/context_extensions.dart';
 import 'package:flutter/cupertino.dart';
@@ -76,9 +77,9 @@ class CProductImageSlider extends StatelessWidget {
             ),
 
             //Appbar Icons
-            const CAppBar(
+             CAppBar(
               showBackArrow: true,
-              actions: [CircularIcon(icon: Iconsax.heart5, color: CColors.red)],
+              actions: [FavouriteIcon(productId: product.id,)],
               showActions: false,
               showSkipButton: false,
             ),
