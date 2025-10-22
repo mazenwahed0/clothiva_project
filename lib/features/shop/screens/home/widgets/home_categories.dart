@@ -1,5 +1,6 @@
 import 'package:clothiva_project/common/widgets/shimmers/category_shimmer.dart';
 import 'package:clothiva_project/features/shop/controllers/category_controller.dart';
+import 'package:clothiva_project/features/shop/screens/sub_categories/sub_categories.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -35,7 +36,7 @@ class HomeCategories extends StatelessWidget {
             return VerticalImageAndText(
               image: category.image,
               title: category.name,
-              onTap: () {}, // -- SubCategoriesScreen Here
+              onTap: () => Get.to(SubCategoriesScreen()), // -- SubCategoriesScreen Here
             );
           },
         ),
