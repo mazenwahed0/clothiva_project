@@ -24,7 +24,7 @@ class BrandProducts extends StatelessWidget {
             CBrandCard(showBorder: true,brand: brand!,),
             SizedBox(height: CSizes.spaceBtSections,),
 
-            FutureBuilder(future: controller.getBrandProducts(brand!.id), builder: (context,snapshot){
+            FutureBuilder(future: controller.getBrandProducts(brandId: brand.id), builder: (context,snapshot){
               const loader=CVerticalProductShimmer();
               final widget=TCloudHelperFunctions.checkMultiRecordState(snapshot: snapshot,loader: loader);
               if(widget!=null)return widget;
