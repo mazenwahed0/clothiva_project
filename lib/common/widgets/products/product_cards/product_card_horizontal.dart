@@ -2,12 +2,15 @@ import 'package:clothiva_project/common/widgets/custom_shapes/containers/rounded
 import 'package:clothiva_project/common/widgets/texts/brand_title_text_with_verified_icon.dart';
 import 'package:clothiva_project/common/widgets/texts/product_price_text.dart';
 import 'package:clothiva_project/common/widgets/texts/product_title_text.dart';
+import 'package:clothiva_project/features/shop/models/product_model.dart';
 import 'package:clothiva_project/utils/helpers/context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
+import '../../../../features/shop/controllers/product/product_controller.dart';
 import '../../../../utils/constants/colors.dart';
+import '../../../../utils/constants/enums.dart';
 import '../../../../utils/constants/image_strings.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../../styles/shadows.dart';
@@ -16,11 +19,17 @@ import '../../images/rounded_image.dart';
 import '../favourite_icon/favourite_icon.dart';
 
 class ProductCardHorizontal extends StatelessWidget {
-  const ProductCardHorizontal({super.key});
+  const ProductCardHorizontal({super.key, required  this.product});
+
+  final ProductModel product ;
 
   @override
   Widget build(BuildContext context) {
     final dark = context.isDarkMode || context.isDarkModeMedia;
+
+    final controller= ProductController.instance;
+    final salePercentage=controller.CalculateSalePercentage(product.price, product.salePrice);
+
     return Container(
         width: 310,
         padding: EdgeInsets.all(1),
@@ -41,8 +50,9 @@ class ProductCardHorizontal extends StatelessWidget {
                   height: 120,
                   width: 120,
                   child: RoundedImage(
-                    imageUrl: CImages.productImage4,
+                    imageUrl: product.thumbnail,
                     applyImageRadius: true ,
+                    isNetworkImage: true,
                   ),
                 ),
 
@@ -56,7 +66,7 @@ class ProductCardHorizontal extends StatelessWidget {
                       horizontal: CSizes.sm,
                       vertical: CSizes.xs,
                     ),
-                    child: Text("25%", style: Theme.of(context).textTheme.labelLarge!.apply(color: CColors.black),),
+                    child: Text("$salePercentage%", style: Theme.of(context).textTheme.labelLarge!.apply(color: CColors.black),),
                   ),
                 ),
 
@@ -64,7 +74,7 @@ class ProductCardHorizontal extends StatelessWidget {
                 Positioned(
                   top: 0,
                   right: 0,
-                  child: FavouriteIcon(productId: '',),
+                  child: FavouriteIcon(productId: product.id,),
                 ),
               ],
             ),
@@ -82,9 +92,9 @@ class ProductCardHorizontal extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        ProductTitleText(title: 'Green Nike Half Sleaves Shirt', smallSize: true,),
+                        ProductTitleText(title: product.title, smallSize: true,),
                         SizedBox(height: CSizes.spaceBtItems / 2,),
-                        BrandTitleWithVerifiedIcon(title: 'Nike')
+                        BrandTitleWithVerifiedIcon(title: product.brand!.name)
                       ],
                     ),
                   ),
@@ -94,7 +104,22 @@ class ProductCardHorizontal extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Flexible(child: ProductPriceText(price : '35.0')),
+                      Flexible(
+                          child: Column(
+                            children: [
+                              if(product.productType==ProductType.single.toString()&&product.salePrice>0)
+                                Padding(
+                                    padding: const EdgeInsets.all(CSizes.sm),
+                                    child: Text(product.price.toString(),style: Theme.of(context).textTheme.labelMedium!.apply(decoration: TextDecoration.lineThrough),
+                                    ),
+                                ),
+                              Padding(
+                                  padding: const EdgeInsets.only(left: CSizes.sm),
+                                  child: ProductPriceText(price: controller.getProductPrice(product))
+                              ),
+                            ],
+                          ),
+                      ),
 
 
                         /// Add to cart Button
