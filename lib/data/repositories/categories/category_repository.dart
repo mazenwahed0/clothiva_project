@@ -128,7 +128,7 @@ class CategoryRepository extends GetxController {
     try {
       final query = await _db
           .collection(CKeys.categoryCollection)
-          .where('parentId', isEqualTo: categoryId)
+          .where('ParentId', isEqualTo: categoryId)
           .get();
 
       if (query.docs.isNotEmpty) {

@@ -53,7 +53,7 @@ class CategoryController extends GetxController {
   }
 
   /// -- Load selected category data
-  Future<List<CategoryModel>> getSelectedCategory(String categoryId) async {
+  Future<List<CategoryModel>> getSubCategory(String categoryId) async {
     try {
       final subCategories = await _categoryRepository.getSubCategories(categoryId);
       return subCategories;

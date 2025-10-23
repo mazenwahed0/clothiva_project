@@ -9,9 +9,6 @@ import '../../../../../common/widgets/image_text/image_text_vertical.dart';
 class HomeCategories extends StatelessWidget {
   const HomeCategories({super.key});
 
-
-
-
   @override
   Widget build(BuildContext context) {
     final categoryController = Get.put(CategoryController());
@@ -38,8 +35,13 @@ class HomeCategories extends StatelessWidget {
             final category = categoryController.featuredCategories[index];
             return VerticalImageAndText(
               image: category.image,
+              isNetworkImage: true,
               title: category.name,
-              onTap: () => Get.to(SubCategoriesScreen(category: category, controller: categoryController,)), // -- SubCategoriesScreen Here
+              onTap: () => Get.to(
+                SubCategoriesScreen(
+                  category: category,
+                ),
+              ), // -- SubCategoriesScreen Here
             );
           },
         ),
