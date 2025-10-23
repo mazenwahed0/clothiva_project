@@ -1,3 +1,7 @@
+import 'package:clothiva_project/features/shop/screens/all_products/all_products.dart';
+import 'package:clothiva_project/features/shop/screens/brand/all_brands.dart';
+import 'package:clothiva_project/features/shop/screens/brand/brand_products.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,9 +11,10 @@ import 'package:clothiva_project/common/widgets/products/product_cards/product_c
 import 'package:clothiva_project/utils/constants/colors.dart';
 import 'package:clothiva_project/utils/constants/sizes.dart';
 import '../../../../common/widgets/custom_shapes/containers/search_container.dart';
+import '../../../../common/widgets/shimmers/vertical_product_shimmer.dart';
 import '../../../../common/widgets/texts/section_heading.dart';
 import '../../../../data/repositories/authentication/authentication_repository.dart';
-import '../../controllers/product_controller.dart';
+import '../../controllers/product/product_controller.dart';
 import 'widgets/home_appbar.dart';
 import 'widgets/home_categories.dart';
 import 'widgets/promo_slider.dart';
@@ -50,6 +55,11 @@ class HomeScreen extends StatelessWidget {
                           title: 'Popular Categories',
                           showActionButton: false,
                           textColor: CColors.white,
+                          onPressed: () => Get.to(() =>
+                              AllProducts(
+                                title: 'Popular Products',
+                                futureMethod: controller.fetchAllFeaturedProducts(),)
+                          ),
                         ),
                         SizedBox(height: CSizes.spaceBtItems),
 
@@ -75,16 +85,22 @@ class HomeScreen extends StatelessWidget {
                   /// -- Popular Products (Gridview)
                   SectionHeading(
                     title: 'Products Flash Sale',
-                    onPressed: () {},
-                    showActionButton: true,
+                    //onPressed: () =>Get.to(()=>BrandProducts()),
                   ),
                   SizedBox(height: CSizes.spaceBtItems),
 
                   /// -- Gridview Products
-                  GridLayout(
-                    itemCount: 4,
-                    itemBuilder: (_, index) => ProductCardVertical(),
-                  ),
+                  Obx((){
+                    if(controller.isLoading.value){return const CVerticalProductShimmer();}
+                    else if(controller.featuredProducts.isEmpty){
+                      return Center(child: Text("No Data Found",style: Theme.of(context).textTheme.bodyMedium,),);
+                    }
+                    return GridLayout(
+                      itemCount: controller.featuredProducts.length,
+                      itemBuilder: (_, index) => ProductCardVertical(product:controller.featuredProducts[index]),
+                    );
+                  })
+                  ,
                 ],
               ),
             ),

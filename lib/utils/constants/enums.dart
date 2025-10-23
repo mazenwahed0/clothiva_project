@@ -46,3 +46,5 @@ enum VerificationStatus {
 }
 
 enum DiscountType { fixed, percentage }
+
+enum ProductType{single ,variable}

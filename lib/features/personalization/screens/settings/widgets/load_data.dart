@@ -1,12 +1,15 @@
 import 'package:clothiva_project/data/repositories/banners/banner_repository.dart';
 import 'package:clothiva_project/data/repositories/categories/category_repository.dart';
+import 'package:clothiva_project/data/repositories/product/product_repository.dart';
 import 'package:clothiva_project/dummy_data.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 import '../../../../../common/widgets/appbar/appbar.dart';
 import '../../../../../common/widgets/list_tiles/settings_menu_tile.dart';
 import '../../../../../common/widgets/texts/section_heading.dart';
+import '../../../../../data/repositories/brand/brand_repository.dart';
 import '../../../../../utils/constants/sizes.dart';
 
 class LoadData extends StatelessWidget {
@@ -16,6 +19,8 @@ class LoadData extends StatelessWidget {
   Widget build(BuildContext context) {
     final categoryController = CategoryRepository.instance;
     final bannerController = BannerRepository.instance;
+    final productController = Get.put(ProductRepository());
+    final brandController = Get.put(BrandRepository());
     return Scaffold(
       appBar: CAppBar(
         title: Text(
@@ -54,20 +59,49 @@ class LoadData extends StatelessWidget {
               trailing: Icon(Iconsax.arrow_circle_up),
             ),
             SettingsMenuTile(
-              icon: Iconsax.barcode,
+              icon: Iconsax.shopping_cart,
               title: 'Upload Products',
-              subtitle: 'Upload Banners to Cloudinary & Firestore',
+              subtitle: 'Upload Products to Cloudinary & Firestore',
               onTap: () {
-                // productController.uploadProducts(CDummyData.products);
+                productController.uploadProducts(CDummyData.products);
               },
               trailing: Icon(Iconsax.arrow_circle_up),
             ),
             SettingsMenuTile(
               icon: Iconsax.personalcard,
-              title: 'Upload Products',
-              subtitle: 'Upload Banners to Cloudinary & Firestore',
+              title: 'Upload Brands',
+              subtitle: 'Upload Brands to Cloudinary & Firestore',
               onTap: () {
-                // brandsController.uploadBrands(CDummyData.brands);
+                brandController.uploadBrands(CDummyData.brands);
+              },
+              trailing: Icon(Iconsax.arrow_circle_up),
+            ),
+
+            /// -- Relationships (Make sure you already uploaded all the content above.)
+            SizedBox(height: CSizes.spaceBtSections),
+
+            SectionHeading(title: 'Relationships', showActionButton: false),
+            SizedBox(height: CSizes.spaceBtItems),
+
+            SettingsMenuTile(
+              icon: Iconsax.link,
+              title: 'Upload Brands & Categories Relation Data',
+              subtitle: '',
+              onTap: () {
+                categoryController.uploadBrandCategory(
+                  CDummyData.brandCategory,
+                );
+              },
+              trailing: Icon(Iconsax.arrow_circle_up),
+            ),
+            SettingsMenuTile(
+              icon: Iconsax.link,
+              title: 'Upload Product & Categories Relation Data',
+              subtitle: '',
+              onTap: () {
+                categoryController.uploadProductCategory(
+                  CDummyData.productCategory,
+                );
               },
               trailing: Icon(Iconsax.arrow_circle_up),
             ),

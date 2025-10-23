@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 import '../../../utils/constants/sizes.dart';
 
-class UBoxesShimmer extends StatelessWidget {
-  const UBoxesShimmer({super.key});
+class CBoxesShimmer extends StatelessWidget {
+  const CBoxesShimmer({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -39,6 +39,7 @@ class CColors {
 
   // Background colors
   static const Color lightBackground = Color(0xFFFFFFFF);
+  static const Color light = Color(0xFFF6F6F6);
   static const Color darkBackground =
       Color(0xFF02040A); // Theme Nightingale Gray 100
 

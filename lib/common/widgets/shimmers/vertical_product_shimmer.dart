@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../../../utils/constants/sizes.dart';
 import '../layouts/grid_layout.dart';
 
-class UVerticalProductShimmer extends StatelessWidget {
-  const UVerticalProductShimmer({super.key, this.itemCount = 16});
+class CVerticalProductShimmer extends StatelessWidget {
+  const CVerticalProductShimmer({super.key, this.itemCount = 16});
 
   final int itemCount;
   @override

@@ -1,3 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:clothiva_project/common/widgets/products/favourite_icon/favourite_icon.dart';
+import 'package:clothiva_project/features/shop/models/product_model.dart';
 import 'package:clothiva_project/utils/helpers/context_extensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,23 +14,34 @@ import '../../../../../common/widgets/icons/circular_icon.dart';
 import '../../../../../common/widgets/custom_shapes/curved_edges/curved_edges_widget.dart';
 import 'package:iconsax/iconsax.dart';
 
-class CProductImageSlider extends StatelessWidget {
-  const CProductImageSlider({super.key});
+import '../../../controllers/product/image_controller.dart';
 
+class CProductImageSlider extends StatelessWidget {
+  const CProductImageSlider({super.key, required this.product});
+
+  final ProductModel product;
   @override
   Widget build(BuildContext context) {
+    final controller= Get.put(ImageController());
+    final images=controller.getAllProductImages(product);
     bool dark = context.isDarkMode || context.isDarkModeMedia;
     return CurvedEdgesWidget(
       child: Container(
         color: dark ? CColors.darkGrey : CColors.white, //no color named light
         child: Stack(
           children: [
-            const SizedBox(
+             SizedBox(
               height: 400,
               child: Padding(
                 padding: const EdgeInsets.all(CSizes.productImageRadius * 2),
                 child: Center(
-                  child: Image(image: AssetImage(CImages.productImage19a)),
+                  child: Obx((){
+                    final image=controller.selectedProductImage.value;
+                    return  GestureDetector(
+                      onTap: ()=>controller.showEnlargedImage(image),
+                      child: CachedNetworkImage(imageUrl: image,progressIndicatorBuilder: (_,__,downloadProgress)=>CircularProgressIndicator(value: downloadProgress.progress,color: CColors.primary,),),
+                    );
+                  }),
                 ),
               ),
             ),
@@ -45,22 +59,27 @@ class CProductImageSlider extends StatelessWidget {
                   physics: const AlwaysScrollableScrollPhysics(),
                   separatorBuilder: (_, __) =>
                       const SizedBox(width: CSizes.spaceBtItems),
-                  itemCount: 6,
-                  itemBuilder: (_, index) => RoundedImage(
-                    width: 80,
-                    backgroundColor: dark ? CColors.dark : CColors.white,
-                    border: Border.all(color: CColors.primary),
-                    padding: EdgeInsets.all(CSizes.sm),
-                    imageUrl: CImages.productImage64,
-                  ),
+                  itemCount: images.length,
+                  itemBuilder: (_, index) => Obx((){
+                    final imageSelected=controller.selectedProductImage.value==images[index];
+                    return RoundedImage(
+                      onPressed: ()=> controller.selectedProductImage.value=images[index],
+                      width: 80,
+                      isNetworkImage: true,
+                      backgroundColor: dark ? CColors.dark : CColors.white,
+                      border: Border.all(color: imageSelected? CColors.primary:Colors.transparent),
+                      padding: EdgeInsets.all(CSizes.sm),
+                      imageUrl: images[index],
+                    );
+                  }),
                 ),
               ),
             ),
 
             //Appbar Icons
-            const CAppBar(
+             CAppBar(
               showBackArrow: true,
-              actions: [CircularIcon(icon: Iconsax.heart5, color: CColors.red)],
+              actions: [FavouriteIcon(productId: product.id,)],
               showActions: false,
               showSkipButton: false,
             ),

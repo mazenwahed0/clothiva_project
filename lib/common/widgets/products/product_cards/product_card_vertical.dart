@@ -1,8 +1,13 @@
+import 'package:clothiva_project/common/widgets/products/favourite_icon/favourite_icon.dart';
+import 'package:clothiva_project/features/shop/controllers/product/product_controller.dart';
 import 'package:clothiva_project/utils/helpers/context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import '../../../../features/shop/models/product_model.dart';
+import '../../../../features/shop/screens/product_details/product_detail.dart';
 import '../../../../utils/constants/colors.dart';
+import '../../../../utils/constants/enums.dart';
 import '../../../../utils/constants/image_strings.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../../styles/shadows.dart';
@@ -14,13 +19,16 @@ import '../../texts/product_price_text.dart';
 import '../../texts/product_title_text.dart';
 
 class ProductCardVertical extends StatelessWidget {
-  const ProductCardVertical({super.key});
+  const ProductCardVertical({super.key,required this.product});
 
+  final ProductModel product;
   @override
   Widget build(BuildContext context) {
     final dark = context.isDarkMode || context.isDarkModeMedia;
+    final controller=ProductController.instance;
+    final salePercentage=controller.CalculateSalePercentage(product.price, product.salePrice);
     return GestureDetector(
-      // onTap: () => Get.to(() => ProductDetailScreen()), //Add the ProductDetailScreen
+      onTap: () => Get.to(() => ProductDetailScreen(product: product,)), //Add the ProductDetailScreen
       child: Container(
         width: 180,
         padding: EdgeInsets.all(1),
@@ -40,11 +48,13 @@ class ProductCardVertical extends StatelessWidget {
                 children: [
                   /// -- Thumbnail Image
                   RoundedImage(
-                    imageUrl: CImages.productImage4b,
+                    isNetworkImage: true,
+                    imageUrl: product.thumbnail,
                     applyImageRadius: true,
                   ),
 
                   /// -- Sale Tag
+                  if(salePercentage!=null)
                   Positioned(
                     top: 12,
                     child: RoundedContainer(
@@ -55,7 +65,7 @@ class ProductCardVertical extends StatelessWidget {
                         vertical: CSizes.xs,
                       ),
                       child: Text(
-                        '25%',
+                        '$salePercentage%',
                         style: Theme.of(
                           context,
                         ).textTheme.labelLarge!.apply(color: CColors.black),
@@ -67,11 +77,7 @@ class ProductCardVertical extends StatelessWidget {
                   Positioned(
                     top: 0,
                     right: 0,
-                    child: CircularIcon(
-                      onPressed: () {},
-                      icon: Iconsax.heart5,
-                      color: Colors.red,
-                    ),
+                    child: FavouriteIcon(productId: product.id,),
                   ),
                 ],
               ),
@@ -85,11 +91,11 @@ class ProductCardVertical extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ProductTitleText(
-                    title: 'Green Nike Air Shoes',
+                    title: product.title,
                     smallSize: true,
                   ),
                   SizedBox(height: CSizes.spaceBtItems / 2),
-                  Row(children: [BrandTitleWithVerifiedIcon(title: 'Nike')]),
+                  Row(children: [BrandTitleWithVerifiedIcon(title: product.brand!.name)]),
                 ],
               ),
             ),
@@ -102,9 +108,20 @@ class ProductCardVertical extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 /// -- Price
-                Padding(
-                  padding: const EdgeInsets.all(CSizes.sm),
-                  child: ProductPriceText(price: '35.0'),
+                Flexible(child:
+                 Column(
+                  children: [
+                    if(product.productType==ProductType.single.toString()&&product.salePrice>0)
+                      Padding(
+                        padding: const EdgeInsets.all(CSizes.sm),
+                        child: Text(product.price.toString(),style: Theme.of(context).textTheme.labelMedium!.apply(decoration: TextDecoration.lineThrough),),
+                      ),
+                      Padding(
+                      padding: const EdgeInsets.all(CSizes.sm),
+                      child: ProductPriceText(price: controller.getProductPrice(product)),
+                    )
+                  ],
+                 )
                 ),
 
                 /// Add to Cart Button

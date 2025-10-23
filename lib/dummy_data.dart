@@ -6,6 +6,8 @@ import '../features/shop/models/product_model.dart';
 import '../features/shop/models/product_variation_model.dart';
 import '../routes/routes.dart';
 import '../utils/constants/image_strings.dart';
+import 'features/shop/models/brand_category_model.dart';
+import 'features/shop/models/product_category_model.dart';
 
 class CDummyData {
   /// List of all Banners
@@ -122,7 +124,7 @@ class CDummyData {
         isFeatured: true),
   ];
 
-  /// List of all products - 7 Products
+  /// List of all products - 8 Products
   static final List<ProductModel> products = [
     // Nike - Brand[0] - Category 09 sports shoes
     // 001
@@ -176,7 +178,7 @@ class CDummyData {
               salePrice: 64.99,
               image: CImages.productImage4b),
           ProductVariationModel(
-              id: '3',
+              id: '4',
               attributeValues: {'Color': 'Black'},
               stock: 2,
               description: 'This is description of Black',
@@ -246,7 +248,7 @@ class CDummyData {
     // J.[2] - Brand[2] - Category 11 perfume
     // 004
     ProductModel(
-      id: '7',
+      id: '004',
       title: 'Smoky Vanillin - Romantic Perfume 150ml',
       stock: 10,
       price: 70,
@@ -265,7 +267,7 @@ class CDummyData {
     // J. - Brand[2] - Category 10 bag
     // 005
     ProductModel(
-      id: '24',
+      id: '005',
       title: 'Elegant Tassel Handbag - Berry Pink',
       thumbnail: CImages.productImage24,
       price: 59.99,
@@ -285,7 +287,7 @@ class CDummyData {
     // NDURE[1] - Brand[3] - Category 08 formal shoes
     // 006
     ProductModel(
-      id: '19',
+      id: '006',
       title: 'Men’s Classic Slip-On Dress Shoes - Tan Brown',
       price: 59.99,
       salePrice: 49.99,
@@ -414,57 +416,64 @@ class CDummyData {
         ]),
   ];
 
-  // static final List<BrandCategoryModel> brandCategory = [
-  //   BrandCategoryModel(categoryId: '01', brandId: '2'), // Clothes - Breakout
-  //   BrandCategoryModel(categoryId: '01', brandId: '6'), // Clothes - Polo
-  //   BrandCategoryModel(categoryId: '02', brandId: '1'), // Shoes - Nike
-  //   BrandCategoryModel(categoryId: '02', brandId: '4'), // Shoes - NDURE
-  //   BrandCategoryModel(categoryId: '03', brandId: '3'), // Cosmetics - j.
-  //   BrandCategoryModel(categoryId: '03', brandId: '7'), // Cosmetics - North Star
-  //   BrandCategoryModel(categoryId: '04', brandId: '3'), // Jeweleries - j.
-  // ];
+  static final List<BrandCategoryModel> brandCategory = [
+    BrandCategoryModel(categoryId: '01', brandId: '2'), // Clothes - Breakout
+    BrandCategoryModel(categoryId: '01', brandId: '6'), // Clothes - Polo
+    BrandCategoryModel(categoryId: '02', brandId: '1'), // Shoes - Nike
+    BrandCategoryModel(categoryId: '02', brandId: '4'), // Shoes - NDURE
+    BrandCategoryModel(categoryId: '03', brandId: '3'), // Cosmetics - j.
+    BrandCategoryModel(
+        categoryId: '03', brandId: '7'), // Cosmetics - North Star
+    BrandCategoryModel(categoryId: '04', brandId: '3'), // Jeweleries - j.
+  ];
 
-  // static final List<ProductCategoryModel> productCategory = [
-  //   // Clothes Category
-  //   ProductCategoryModel(categoryId: '01', productId: '002'), -- Breakout (Shirt)
-  //   ProductCategoryModel(categoryId: '01', productId: '003'), -- Breakout (Jacket)
-  //   ProductCategoryModel(categoryId: '01', productId: '008'), -- Polo (Shirt)
+  static final List<ProductCategoryModel> productCategory = [
+    // Clothes Category
+    ProductCategoryModel(
+        categoryId: '01', productId: '002'), // -- Breakout (Shirt)
+    ProductCategoryModel(
+        categoryId: '01', productId: '003'), //-- Breakout (Jacket)
+    ProductCategoryModel(categoryId: '01', productId: '008'), //-- Polo (Shirt)
 
-  //   // Shoes Category
-  //   ProductCategoryModel(categoryId: '02', productId: '001'), -- Nike (Variable)
-  //   ProductCategoryModel(categoryId: '02', productId: '006'), -- Ndure
+    // Shoes Category
+    ProductCategoryModel(
+        categoryId: '02', productId: '001'), //-- Nike (Variable)
+    ProductCategoryModel(categoryId: '02', productId: '006'), //-- Ndure
 
-  //   // Cosmetics Category
-  //   ProductCategoryModel(categoryId: '03', productId: '004'), -- J.
+    // Cosmetics Category
+    ProductCategoryModel(categoryId: '03', productId: '004'), // -- J.
 
-  //   // Jeweleries Category
-  //   ProductCategoryModel(categoryId: '04', productId: '005'), -- J.
-  //   ProductCategoryModel(categoryId: '04', productId: '007'), -- NorthStar
+    // Jeweleries Category
+    ProductCategoryModel(categoryId: '04', productId: '005'), //-- J.
+    ProductCategoryModel(categoryId: '04', productId: '007'), // -- NorthStar
 
-  //   // Shirts
-  //   ProductCategoryModel(categoryId: '05', productId: '002'), -- Breakout (Shirt)
-  //   ProductCategoryModel(categoryId: '05', productId: '008'), -- Polo (Shirt)
+    // Shirts
+    ProductCategoryModel(
+        categoryId: '05', productId: '002'), //-- Breakout (Shirt)
+    ProductCategoryModel(categoryId: '05', productId: '008'), // -- Polo (Shirt)
 
-  //   // Jackets
-  //   ProductCategoryModel(categoryId: '06', productId: '003'), -- Breakout (Jacket)
+    // Jackets
+    ProductCategoryModel(
+        categoryId: '06', productId: '003'), //-- Breakout (Jacket)
 
-  //   // Shorts
+    // Shorts
 
-  //   // Formal Shoes
-  //   ProductCategoryModel(categoryId: '08', productId: '006'), -- Ndure
+    // Formal Shoes
+    ProductCategoryModel(categoryId: '08', productId: '006'), //-- Ndure
 
-  //   // Sports Shoes
-  //   ProductCategoryModel(categoryId: '09', productId: '001'), -- Nike (Variable)
+    // Sports Shoes
+    ProductCategoryModel(
+        categoryId: '09', productId: '001'), //-- Nike (Variable)
 
-  //   // Bags
-  //   ProductCategoryModel(categoryId: '10', productId: '005'), -- J.
-  //   ProductCategoryModel(categoryId: '10', productId: '007'), -- NorthStar
+    // Bags
+    ProductCategoryModel(categoryId: '10', productId: '005'), //-- J.
+    ProductCategoryModel(categoryId: '10', productId: '007'), //-- NorthStar
 
-  //   // Perfumes
-  //   ProductCategoryModel(categoryId: '11', productId: '004'), -- J.
+    // Perfumes
+    ProductCategoryModel(categoryId: '11', productId: '004'), //-- J.
 
-  //   // Watches
-  // ];
+    // Watches
+  ];
 
   // static final List<PromoCodeModel> promoCodes = [
   //   PromoCodeModel(

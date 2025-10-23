@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:clothiva_project/features/shop/models/product_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -148,4 +149,5 @@ class CategoryRepository extends GetxController {
       throw 'Something went wrong. Please try again';
     }
   }
+  
 }

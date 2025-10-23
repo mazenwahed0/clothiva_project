@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 import '../../../utils/constants/sizes.dart';
 
-class UListTileShimmer extends StatelessWidget {
-  const UListTileShimmer({super.key});
+class CListTileShimmer extends StatelessWidget {
+  const CListTileShimmer({super.key});
 
   @override
   Widget build(BuildContext context) {

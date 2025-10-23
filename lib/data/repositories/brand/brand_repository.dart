@@ -30,8 +30,8 @@ class BrandRepository extends GetxController {
         File brandImage = await CHelperFunctions.assetToFile(brand.image);
 
         // upload brand image to cloudinary
-        dio.Response response = await _cloudinaryServices.uploadImage(
-            brandImage, CKeys.brandsFolder);
+        dio.Response response = await _cloudinaryServices
+            .uploadImage(brandImage, CKeys.brandsFolder, publicId: brand.id);
         if (response.statusCode == 200) {
           brand.image = response.data['secure_url'];
         }
@@ -41,6 +41,7 @@ class BrandRepository extends GetxController {
             .collection(CKeys.brandsCollection)
             .doc(brand.id)
             .set(brand.toJson());
+        print('Brands Uploaded: ${brand.name}');
       }
     } on FirebaseException catch (e) {
       throw CFirebaseException(e.code).message;
@@ -108,6 +109,44 @@ class BrandRepository extends GetxController {
 
       return brands;
     } on FirebaseException catch (e) {
+      throw CFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw CFormatException();
+    } on PlatformException catch (e) {
+      throw CPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again';
+    }
+  }
+
+  Future<List<BrandModel>> getAllBrands() async {
+    try {
+      final snapshot= await _db.collection('Brands').get();
+      final result=snapshot.docs.map((e)=>BrandModel.fromSnapshot(e)).toList();
+      return result;
+
+    }on FirebaseException catch (e) {
+      throw CFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw CFormatException();
+    } on PlatformException catch (e) {
+      throw CPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again';
+    }
+  }
+
+  Future<List<BrandModel>> getBrandsForCategory(String categoryId)async{
+    try{QuerySnapshot brandCategoryQuery=await _db.collection(CKeys.brandCategoryCollection).where('categoryId',isEqualTo: categoryId).get();
+
+    List<String> brandIds=brandCategoryQuery.docs.map((doc)=>doc['brandId']as String).toList();
+
+    final brandsQuery=await _db.collection(CKeys.brandsCollection).where(FieldPath.documentId,whereIn: brandIds).get();
+
+    List<BrandModel> brands=brandsQuery.docs.map((doc)=>BrandModel.fromSnapshot(doc)).toList();
+
+    return brands;
+    }on FirebaseException catch (e) {
       throw CFirebaseException(e.code).message;
     } on FormatException catch (_) {
       throw CFormatException();

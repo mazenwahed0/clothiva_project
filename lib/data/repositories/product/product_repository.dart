@@ -32,7 +32,10 @@ class ProductRepository extends GetxController {
         File thumbnailFile =
             await CHelperFunctions.assetToFile(product.thumbnail);
         dio.Response response = await _cloudinaryServices.uploadImage(
-            thumbnailFile, CKeys.productsFolder);
+          thumbnailFile,
+          CKeys.productsFolder,
+          publicId: '${product.id}_thumbnail',
+        );
         if (response.statusCode == 200) {
           String url = response.data['secure_url'];
           uploadedImageMap[product.thumbnail] = url;
@@ -47,7 +50,9 @@ class ProductRepository extends GetxController {
             // upload image to cloudinary
             File imageFile = await CHelperFunctions.assetToFile(image);
             dio.Response response = await _cloudinaryServices.uploadImage(
-                imageFile, CKeys.productsFolder);
+                imageFile, CKeys.productsFolder,
+                publicId:
+                    '${product.id}_${DateTime.now().millisecondsSinceEpoch}');
             if (response.statusCode == 200) {
               imageUrls.add(response.data['secure_url']);
             }
@@ -75,7 +80,7 @@ class ProductRepository extends GetxController {
           product.images!.assignAll(imageUrls);
         }
 
-        // upload product to Fire store
+        // -- Upload product to Firestore
         await _db
             .collection(CKeys.productsCollection)
             .doc(product.id)
@@ -319,6 +324,20 @@ class ProductRepository extends GetxController {
     } on PlatformException catch (e) {
       throw CPlatformException(e.code).message;
     } catch (e) {
+      throw 'Something went wrong. Please try again';
+    }
+  }
+
+  //Get all products
+  Future<List<ProductModel>> getFeaturedProducts() async {
+    try{
+      final snapshot= await _db.collection('Products').where('isFeatured',isEqualTo: true).limit(4).get();
+      return snapshot.docs.map((e)=>ProductModel.fromSnapshot(e)).toList();
+    }on FirebaseException catch(e){
+      throw CFirebaseException(e.code).message;
+    }on PlatformException catch(e){
+      throw CPlatformException(e.code).message;
+    }catch(e){
       throw 'Something went wrong. Please try again';
     }
   }

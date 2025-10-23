@@ -6,7 +6,7 @@ import 'package:clothiva_project/utils/popups/exports.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
-import '../../../../common/widgets/success_signup_screen/success_signup_screen.dart';
+import '../../../../common/widgets/success_screen/success_screen.dart';
 import '../../../../utils/constants/image_strings.dart';
 
 class VerifyEmailController extends GetxController {

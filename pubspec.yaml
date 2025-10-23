@@ -51,6 +51,7 @@ dependencies:
   flutter_dotenv: ^6.0.0
   dio: ^5.9.0
   crypto: ^3.0.6
+  firebase_storage: ^13.0.3
 
 #--------------------------- ./ Packages END -------------------------------------#
 dev_dependencies:

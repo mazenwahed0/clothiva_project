@@ -2,9 +2,12 @@ import 'package:clothiva_project/common/widgets/appbar/appbar.dart';
 import 'package:clothiva_project/common/widgets/custom_shapes/containers/primary_header_container.dart';
 import 'package:clothiva_project/common/widgets/list_tiles/settings_menu_tile.dart';
 import 'package:clothiva_project/common/widgets/texts/section_heading.dart';
+import 'package:clothiva_project/features/personalization/screens/address/address.dart';
 import 'package:clothiva_project/features/personalization/screens/profile/profile.dart';
 import 'package:clothiva_project/features/personalization/screens/settings/widgets/load_data.dart';
 import 'package:clothiva_project/features/personalization/controllers/user_controller.dart';
+import 'package:clothiva_project/features/shop/screens/cart/cart.dart';
+import 'package:clothiva_project/features/shop/screens/order/order.dart';
 import 'package:clothiva_project/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -67,19 +70,19 @@ class SettingsScreen extends StatelessWidget {
                     icon: Iconsax.safe_home,
                     title: 'My Addresses',
                     subtitle: 'Set Shopping delivery address',
-                    onTap: () {},
+                    onTap: () => Get.to(() => UserAddressScreen()),
                   ),
                   SettingsMenuTile(
                     icon: Iconsax.shopping_cart,
                     title: 'My Cart',
                     subtitle: 'Add, remove products and move to checkout',
-                    onTap: () {},
+                    onTap: () => Get.to(() => CartScreen()),
                   ),
                   SettingsMenuTile(
                     icon: Iconsax.bag_tick,
                     title: 'My Orders',
                     subtitle: 'In-progress and Completed Orders',
-                    onTap: () {},
+                    onTap: () => Get.to(() => OrderScreen()),
                   ),
                   SettingsMenuTile(
                     icon: Iconsax.bank,
