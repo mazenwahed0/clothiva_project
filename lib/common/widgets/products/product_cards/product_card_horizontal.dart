@@ -27,7 +27,7 @@ class ProductCardHorizontal extends StatelessWidget {
   Widget build(BuildContext context) {
     final dark = context.isDarkMode || context.isDarkModeMedia;
 
-    final controller= ProductController.instance;
+    final controller=ProductController.instance;
     final salePercentage=controller.CalculateSalePercentage(product.price, product.salePrice);
 
     return Container(
@@ -57,6 +57,7 @@ class ProductCardHorizontal extends StatelessWidget {
                 ),
 
                 /// Sale Tag
+                if(salePercentage!=null)
                 Positioned(
                   top: 12,
                   child: RoundedContainer(
@@ -86,10 +87,9 @@ class ProductCardHorizontal extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(top: CSizes.sm, left: CSizes.sm),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: EdgeInsets.only(top: CSizes.sm, left: CSizes.sm),
-                    child: Column(
+                   Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         ProductTitleText(title: product.title, smallSize: true,),
@@ -97,48 +97,46 @@ class ProductCardHorizontal extends StatelessWidget {
                         BrandTitleWithVerifiedIcon(title: product.brand!.name)
                       ],
                     ),
-                  ),
 
                   const Spacer(),
 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Flexible(
-                          child: Column(
-                            children: [
-                              if(product.productType==ProductType.single.toString()&&product.salePrice>0)
-                                Padding(
-                                    padding: const EdgeInsets.all(CSizes.sm),
-                                    child: Text(product.price.toString(),style: Theme.of(context).textTheme.labelMedium!.apply(decoration: TextDecoration.lineThrough),
-                                    ),
-                                ),
-                              Padding(
-                                  padding: const EdgeInsets.only(left: CSizes.sm),
-                                  child: ProductPriceText(price: controller.getProductPrice(product))
-                              ),
-                            ],
-                          ),
+                      /// -- Price
+                      Flexible(child:
+                      Column(
+                        children: [
+                          if(product.productType==ProductType.single.toString()&&product.salePrice>0)
+                            Padding(
+                              padding: const EdgeInsets.all(CSizes.sm),
+                              child: Text(product.price.toString(),style: Theme.of(context).textTheme.labelMedium!.apply(decoration: TextDecoration.lineThrough),),
+                            ),
+                          Padding(
+                            padding: const EdgeInsets.all(CSizes.sm),
+                            child: ProductPriceText(price: controller.getProductPrice(product)),
+                          )
+                        ],
+                      )
                       ),
 
-
-                        /// Add to cart Button
-                        Container(
-                          decoration: BoxDecoration(
-                            color: CColors.dark,
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(CSizes.cardRadiusMd),
-                              bottomRight: Radius.circular(CSizes.productImageRadius),
-                            ),
-                          ),
-                          child: SizedBox(
-                            width: CSizes.iconLg * 1.2,
-                            height: CSizes.iconLg * 1.2,
-                            child: Center(
-                              child: Icon(Iconsax.add, color: CColors.white),
-                            ),
+                      /// Add to Cart Button
+                      Container(
+                        decoration: BoxDecoration(
+                          color: CColors.dark,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(CSizes.cardRadiusMd),
+                            bottomRight: Radius.circular(CSizes.productImageRadius),
                           ),
                         ),
+                        child: SizedBox(
+                          width: CSizes.iconLg * 1.2,
+                          height: CSizes.iconLg * 1.2,
+                          child: Center(
+                            child: Icon(Iconsax.add, color: CColors.white),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ],

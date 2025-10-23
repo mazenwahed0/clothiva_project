@@ -1,6 +1,6 @@
 import 'package:clothiva_project/common/widgets/custom_shapes/containers/rounded_container.dart';
 import 'package:clothiva_project/common/widgets/products/cart/coupon_widget.dart';
-import 'package:clothiva_project/common/widgets/success_signup_screen/success_signup_screen.dart';
+import 'package:clothiva_project/common/widgets/success_screen/success_screen.dart';
 import 'package:clothiva_project/features/shop/screens/cart/widgets/cart_items.dart';
 import 'package:clothiva_project/features/shop/screens/checkout/widgets/billing_amount_section.dart';
 import 'package:clothiva_project/features/shop/screens/checkout/widgets/billing_payment_section.dart';

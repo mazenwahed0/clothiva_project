@@ -20,11 +20,11 @@ import '../../controllers/category_controller.dart';
 import '../../models/category_model.dart';
 
 class SubCategoriesScreen extends StatelessWidget{
-  const SubCategoriesScreen({super.key, required this.category, required this.controller, });
-  final CategoryController controller;
+  const SubCategoriesScreen({super.key, required this.category });
   final CategoryModel category;
   @override
   Widget build(BuildContext context) {
+    final controller=CategoryController.instance;
     return Scaffold(
       appBar: CAppBar(
         showActions: false,
@@ -37,13 +37,13 @@ class SubCategoriesScreen extends StatelessWidget{
           padding: EdgeInsets.all(CSizes.defaultSpace),
           child: Column(
             children: [
-              /// Runner
-              RoundedImage(width: double.infinity, imageUrl: CImages.promoBanner3, applyImageRadius: true,),
+              /// Banner
+              RoundedImage(isNetworkImage: true,width: double.infinity, imageUrl: category.image, applyImageRadius: true,),
               SizedBox(height: CSizes.spaceBtItems,),
 
               /// Sub-Categories
               FutureBuilder(
-                future: controller.getCategoryProducts(categoryId: category.id),
+                future: controller.getSubCategory(category.id),
                 builder: (context, snapshot) {
                   const loader = CHorizontalProductShimmer();
                   final widget = TCloudHelperFunctions.checkMultiRecordState(
@@ -70,13 +70,14 @@ class SubCategoriesScreen extends StatelessWidget{
                             final products = snapshot.data!;
                             return Column(
                               children: [
+                                //Heading
                                 SectionHeading(
-                                  title: subCategory.title,
+                                  title: subCategory.name,
                                   onPressed: () =>
                                       Get.to(
                                             () =>
                                             AllProducts(
-                                              title: subCategory.title,
+                                              title: subCategory.name,
                                               futureMethod: controller
                                                   .getCategoryProducts(
                                                   categoryId: subCategory.id,
@@ -99,6 +100,7 @@ class SubCategoriesScreen extends StatelessWidget{
                                           index) => ProductCardHorizontal(product: products[index])
                                   ),
                                 ),
+                                const SizedBox( height: CSizes.spaceBtItems,)
                               ],
                             );
                           },
