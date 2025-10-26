@@ -1,4 +1,5 @@
 import 'package:clothiva_project/common/widgets/products/favourite_icon/favourite_icon.dart';
+import 'package:clothiva_project/features/shop/controllers/product/cart_controller.dart';
 import 'package:clothiva_project/features/shop/controllers/product/product_controller.dart';
 import 'package:clothiva_project/utils/helpers/context_extensions.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ import '../../images/rounded_image.dart';
 import '../../texts/brand_title_text_with_verified_icon.dart';
 import '../../texts/product_price_text.dart';
 import '../../texts/product_title_text.dart';
+import '/../common/widgets/products/product_cards/add_to_cart_button.dart';
 
 class ProductCardVertical extends StatelessWidget {
   const ProductCardVertical({super.key,required this.product});
@@ -125,22 +127,7 @@ class ProductCardVertical extends StatelessWidget {
                 ),
 
                 /// Add to Cart Button
-                Container(
-                  decoration: BoxDecoration(
-                    color: CColors.dark,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(CSizes.cardRadiusMd),
-                      bottomRight: Radius.circular(CSizes.productImageRadius),
-                    ),
-                  ),
-                  child: SizedBox(
-                    width: CSizes.iconLg * 1.2,
-                    height: CSizes.iconLg * 1.2,
-                    child: Center(
-                      child: Icon(Iconsax.add, color: CColors.white),
-                    ),
-                  ),
-                ),
+                ProductCardAddToCartButton(product: product),
               ],
             ),
           ],

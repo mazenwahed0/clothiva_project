@@ -47,7 +47,7 @@ class TSingleAddress extends StatelessWidget {
                   top: 0,
                   child: Icon(
                     Iconsax.tick_circle5,
-                    color: dark ? CColors.light : CColors.dark,
+                    color: dark ? CColors.lightContainer : CColors.dark,
                   ),
                 ),
                 Column(

@@ -34,7 +34,7 @@ class StoreScreen extends StatelessWidget {
           ),
           actions: [
             CartCounterIcon(
-              onPressed: () {},
+              // onPressed: () {},   <=== Willy
               iconColor: dark ? CColors.lightGrey : CColors.dark,
             ),
           ],

@@ -21,7 +21,7 @@ class ProductDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     bool dark = context.isDarkMode || context.isDarkModeMedia;
     return Scaffold(
-      bottomNavigationBar: CBottomAddToCart(),
+      bottomNavigationBar: CBottomAddToCart(product: product),
       body: SingleChildScrollView(
         child: Column(
           children: [

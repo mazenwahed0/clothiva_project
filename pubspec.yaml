@@ -53,11 +53,21 @@ dependencies:
   crypto: ^3.0.6
   firebase_storage: ^13.0.3
 
+
+
 #--------------------------- ./ Packages END -------------------------------------#
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0 # CRITICAL: Required for code quality - DO NOT REMOVE
+  flutter_launcher_icons: ^0.13.1
+
+
+#--------------------------- App Icon Config -------------------------------------#
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/logos/light_app_logo.png"
 
 flutter:
   uses-material-design: true # CRITICAL: - DO NOT REMOVE

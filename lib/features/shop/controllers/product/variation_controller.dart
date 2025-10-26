@@ -1,3 +1,4 @@
+import 'package:clothiva_project/features/shop/controllers/product/cart_controller.dart';
 import 'package:clothiva_project/features/shop/controllers/product/image_controller.dart';
 import 'package:clothiva_project/features/shop/models/product_variation_model.dart';
 import 'package:get/get.dart';
@@ -5,7 +6,10 @@ import 'package:get/get.dart';
 import '../../models/product_model.dart';
 
 class VariationController extends GetxController{
-  static VariationController get instance=>Get.find();
+  // final cartController = CartController.instance;
+  // CartController get cartController => Get.find<CartController>();
+  CartController get cartController => CartController.instance;   ////////////
+  static VariationController get instance => Get.find();
 
   //Variables
   RxMap selectedAttributes={}.obs;
@@ -23,6 +27,10 @@ class VariationController extends GetxController{
     //Show selected variation
     if(selectedVariation.image.isNotEmpty){
       ImageController.instance.selectedProductImage.value=selectedVariation.image;
+    }
+
+    if(selectedVariation.id.isNotEmpty) {
+      cartController.productQuantityInCart.value = cartController.getVariationProductQuantityInCart(product.id, selectedVariation.id);
     }
 
     this.selectedVariation.value=selectedVariation;

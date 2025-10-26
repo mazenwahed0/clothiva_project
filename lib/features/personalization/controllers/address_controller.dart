@@ -1,6 +1,10 @@
 import 'package:clothiva_project/common/widgets/loaders/circular_loader.dart';
+import 'package:clothiva_project/common/widgets/texts/section_heading.dart';
 import 'package:clothiva_project/features/personalization/models/address_model.dart';
+import 'package:clothiva_project/features/personalization/screens/address/add_new_address.dart';
+import 'package:clothiva_project/features/personalization/screens/address/widgets/single_address.dart';
 import 'package:clothiva_project/utils/constants/image_strings.dart';
+import 'package:clothiva_project/utils/constants/sizes.dart';
 import 'package:clothiva_project/utils/helpers/exports.dart';
 import 'package:clothiva_project/utils/popups/exports.dart';
 import 'package:flutter/material.dart';
@@ -136,6 +140,62 @@ class AddressController extends GetxController {
       FullScreenLoader.stopLoading();
       Loaders.errorSnackBar(title: 'Address not found', message: e.toString());
     }
+  }
+
+  Future<dynamic> selectNewAddressPopup(BuildContext context) {
+    return showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      builder: (_) => Padding(
+        padding: EdgeInsets.only(
+          left: CSizes.lg,
+          right: CSizes.lg,
+          top: CSizes.lg,
+          bottom: MediaQuery.of(context).viewInsets.bottom + 20,
+        ),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SectionHeading(title: 'Select Address'),
+              const SizedBox(height: CSizes.spaceBtItems),
+
+              FutureBuilder(
+                future: getAllUserAddresses(),
+                builder: (_, snapshot) {
+                  final response = TCloudHelperFunctions.checkMultiRecordState(
+                    snapshot: snapshot,
+                  );
+                  if (response != null) return response;
+
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (_, index) => TSingleAddress(
+                      address: snapshot.data![index],
+                      onTap: () async {
+                        await selectAddress(snapshot.data![index]);
+                        Get.back();
+                      },
+                    ),
+                  );
+                },
+              ),
+
+              const SizedBox(height: CSizes.defaultSpace * 2),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () => Get.to(() => const AddNewAddressScreen()),
+                  child: const Text('Add New Address'),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   // Function to reset form fields
