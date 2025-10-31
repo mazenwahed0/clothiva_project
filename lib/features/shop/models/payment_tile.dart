@@ -1,15 +1,16 @@
-import 'package:clothiva_project/common/widgets/custom_shapes/containers/rounded_container.dart';
-import 'package:clothiva_project/features/shop/models/payment_method_model.dart';
-import 'package:clothiva_project/features/shop/controllers/product/checkout_controller.dart';
-import 'package:clothiva_project/utils/constants/colors.dart';
-import 'package:clothiva_project/utils/constants/sizes.dart';
+import 'package:clothiva_project/utils/helpers/context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:clothiva_project/utils/helpers/context_extensions.dart';
+
 import 'package:iconsax/iconsax.dart';
 
-class TPaymentTile extends StatelessWidget {
+import '../../../common/widgets/custom_shapes/containers/rounded_container.dart';
+import '../../../utils/constants/colors.dart';
+import '../../../utils/constants/sizes.dart';
+import '../../checkout/models/payment_method_model.dart';
+import '../../checkout/controllers/checkout_controller.dart';
 
+class TPaymentTile extends StatelessWidget {
   const TPaymentTile({super.key, required this.paymentMethod});
 
   final PaymentMethodModel paymentMethod;
@@ -28,11 +29,17 @@ class TPaymentTile extends StatelessWidget {
       leading: RoundedContainer(
         width: 40,
         height: 40,
-        backgroundColor: dark ? CColors.lightContainer : CColors.white,
+        backgroundColor: dark ? CColors.white : CColors.darkGrey,
         padding: const EdgeInsets.all(CSizes.sm),
-        child: Image(image: AssetImage(paymentMethod.image), fit: BoxFit.contain,),
+        child: Image(
+          image: AssetImage(paymentMethod.image),
+          fit: BoxFit.contain,
+        ),
       ),
-      title: Text(paymentMethod.name),
+      title: Text(
+        paymentMethod.name,
+        style: TextStyle(color: dark ? CColors.white : CColors.black),
+      ),
       trailing: const Icon(Iconsax.arrow_right_34),
     );
   }

@@ -29,7 +29,7 @@ enum Role {
   fleetOperator,
   driver,
   user,
-  unknown
+  unknown,
 }
 
 enum ChatType { support }
@@ -42,9 +42,9 @@ enum VerificationStatus {
   submitted,
   underReview,
   approved,
-  rejected
+  rejected,
 }
 
 enum DiscountType { fixed, percentage }
 
-enum ProductType{single ,variable}
+enum ProductType { single, variable }

@@ -1,9 +1,10 @@
-import 'package:clothiva_project/common/widgets/appbar/appbar.dart';
-import 'package:clothiva_project/features/personalization/controllers/address_controller.dart';
-import 'package:clothiva_project/utils/constants/sizes.dart';
-import 'package:clothiva_project/utils/validators/validation.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+
+import '../../../../common/widgets/appbar/appbar.dart';
+import '../../../../utils/constants/sizes.dart';
+import '../../../../utils/validators/validation.dart';
+import '../../controllers/address_controller.dart';
 
 class AddNewAddressScreen extends StatelessWidget {
   const AddNewAddressScreen({super.key});

@@ -214,4 +214,12 @@ class CImages {
 
   //Profile
   static const String user = "assets/images/profile/user.png";
+
+  /// Animations
+  static const String whishlistPage =
+      "assets/images/animations/cart_empty.json";
+  static const String cartPage = "assets/images/animations/cart.json";
+  static const String pencilDrawing =
+      "assets/images/animations/pencil_drawing.json";
+  static const String orderDelivery = "assets/images/animations/delivery.json";
 }

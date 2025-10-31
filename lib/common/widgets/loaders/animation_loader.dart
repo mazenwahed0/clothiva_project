@@ -49,7 +49,7 @@ class CAnimationLoaderWidget extends StatelessWidget {
                     onPressed: onActionPressed,
                     style: OutlinedButton.styleFrom(
                         backgroundColor: CColors.darkContainer),
-                    child: Text(actionText!,
+                    child: Text(actionText ?? '',
                         style: Theme.of(context)
                             .textTheme
                             .bodyMedium!

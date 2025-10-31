@@ -1,6 +1,5 @@
+import 'package:clothiva_project/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
-
-import '../../../utils/constants/colors.dart';
 
 class SettingsMenuTile extends StatelessWidget {
   const SettingsMenuTile({

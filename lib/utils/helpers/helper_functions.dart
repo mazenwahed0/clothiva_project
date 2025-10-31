@@ -67,6 +67,8 @@ class CHelperFunctions {
         return Colors.lightBlueAccent;
       case 'lightgreenaccent':
         return Colors.lightGreenAccent;
+      case 'dark blue':
+        return const Color.fromARGB(255, 2, 39, 102);
       case 'limeaccent':
         return Colors.limeAccent;
       case 'orangeaccent':

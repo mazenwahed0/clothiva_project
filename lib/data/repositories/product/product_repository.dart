@@ -29,8 +29,9 @@ class ProductRepository extends GetxController {
             {}; // 'assets/products/productImage4' : 'https:cloudinary'
 
         // upload thumbnail to cloudinary
-        File thumbnailFile =
-            await CHelperFunctions.assetToFile(product.thumbnail);
+        File thumbnailFile = await CHelperFunctions.assetToFile(
+          product.thumbnail,
+        );
         dio.Response response = await _cloudinaryServices.uploadImage(
           thumbnailFile,
           CKeys.productsFolder,
@@ -50,9 +51,11 @@ class ProductRepository extends GetxController {
             // upload image to cloudinary
             File imageFile = await CHelperFunctions.assetToFile(image);
             dio.Response response = await _cloudinaryServices.uploadImage(
-                imageFile, CKeys.productsFolder,
-                publicId:
-                    '${product.id}_${DateTime.now().millisecondsSinceEpoch}');
+              imageFile,
+              CKeys.productsFolder,
+              publicId:
+                  '${product.id}_${DateTime.now().millisecondsSinceEpoch}',
+            );
             if (response.statusCode == 200) {
               imageUrls.add(response.data['secure_url']);
             }
@@ -126,8 +129,10 @@ class ProductRepository extends GetxController {
   /// [Fetch] - Function to fetch single products from Firebase
   Future<ProductModel> fetchSingleProduct(String productId) async {
     try {
-      final query =
-          await _db.collection(CKeys.productsCollection).doc(productId).get();
+      final query = await _db
+          .collection(CKeys.productsCollection)
+          .doc(productId)
+          .get();
 
       if (query.id.isNotEmpty) {
         ProductModel product = ProductModel.fromSnapshot(query);
@@ -227,19 +232,21 @@ class ProductRepository extends GetxController {
   }
 
   /// [Fetch] - Function to fetch all list of brand specific products
-  Future<List<ProductModel>> getProductsForBrand(
-      {required String brandId, int limit = -1}) async {
+  Future<List<ProductModel>> getProductsForBrand({
+    required String brandId,
+    int limit = -1,
+  }) async {
     try {
       final query = limit == -1
           ? await _db
-              .collection(CKeys.productsCollection)
-              .where('brand.id', isEqualTo: brandId)
-              .get()
+                .collection(CKeys.productsCollection)
+                .where('brand.id', isEqualTo: brandId)
+                .get()
           : await _db
-              .collection(CKeys.productsCollection)
-              .where('brand.id', isEqualTo: brandId)
-              .limit(limit)
-              .get();
+                .collection(CKeys.productsCollection)
+                .where('brand.id', isEqualTo: brandId)
+                .limit(limit)
+                .get();
 
       if (query.docs.isNotEmpty) {
         List<ProductModel> products = query.docs
@@ -261,23 +268,29 @@ class ProductRepository extends GetxController {
   }
 
   /// [Fetch] - Function to fetch all list of category specific products
-  Future<List<ProductModel>> getProductsForCategory(
-      {required String categoryId, int limit = 4}) async {
+  Future<List<ProductModel>> getProductsForCategory({
+    required String categoryId,
+    int limit = 4,
+  }) async {
     try {
       final productCategoryQuery = limit == -1
           ? await _db
-              .collection(CKeys.productCategoryCollection)
-              .where('categoryId', isEqualTo: categoryId)
-              .get()
+                .collection(CKeys.productCategoryCollection)
+                .where('categoryId', isEqualTo: categoryId)
+                .get()
           : await _db
-              .collection(CKeys.productCategoryCollection)
-              .where('categoryId', isEqualTo: categoryId)
-              .limit(limit)
-              .get();
+                .collection(CKeys.productCategoryCollection)
+                .where('categoryId', isEqualTo: categoryId)
+                .limit(limit)
+                .get();
 
       List<String> productIds = productCategoryQuery.docs
           .map((doc) => doc['productId'] as String)
           .toList();
+
+      if (productIds.isEmpty) {
+        return [];
+      }
 
       final productQuery = await _db
           .collection(CKeys.productsCollection)
@@ -302,8 +315,10 @@ class ProductRepository extends GetxController {
 
   /// [Fetch] - Function to fetch list of favourite products from Firebase
   Future<List<ProductModel>> getFavouriteProducts(
-      List<String> productsIds) async {
+    List<String> productsIds,
+  ) async {
     try {
+      if (productsIds.isEmpty) return [];
       final query = await _db
           .collection(CKeys.productsCollection)
           .where(FieldPath.documentId, whereIn: productsIds)
@@ -324,20 +339,6 @@ class ProductRepository extends GetxController {
     } on PlatformException catch (e) {
       throw CPlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong. Please try again';
-    }
-  }
-
-  //Get all products
-  Future<List<ProductModel>> getFeaturedProducts() async {
-    try{
-      final snapshot= await _db.collection('Products').where('isFeatured',isEqualTo: true).limit(4).get();
-      return snapshot.docs.map((e)=>ProductModel.fromSnapshot(e)).toList();
-    }on FirebaseException catch(e){
-      throw CFirebaseException(e.code).message;
-    }on PlatformException catch(e){
-      throw CPlatformException(e.code).message;
-    }catch(e){
       throw 'Something went wrong. Please try again';
     }
   }

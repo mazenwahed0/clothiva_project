@@ -1,40 +1,54 @@
 import 'package:clothiva_project/common/widgets/appbar/appbar.dart';
 import 'package:clothiva_project/common/widgets/brands/brand_card.dart';
-import 'package:clothiva_project/common/widgets/products/sortable/sortableproducts.dart';
-import 'package:clothiva_project/common/widgets/shimmers/vertical_product_shimmer.dart';
-import 'package:clothiva_project/features/shop/controllers/brand_controller.dart';
-import 'package:clothiva_project/features/shop/models/brand_model.dart';
 import 'package:clothiva_project/utils/constants/sizes.dart';
-import 'package:clothiva_project/utils/helpers/cloud_helper_functions.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../common/widgets/products/sortable/sortableproducts.dart';
+import '../../../../common/widgets/shimmers/vertical_product_shimmer.dart';
+import '../../../../utils/helpers/cloud_helper_functions.dart';
+import '../../controllers/brand_controller.dart';
+import '../../models/brand_model.dart';
+
 class BrandProducts extends StatelessWidget {
-  const BrandProducts({super.key,  required this.brand});
+  const BrandProducts({super.key, required this.brand});
+
   final BrandModel brand;
   @override
   Widget build(BuildContext context) {
-    final controller=BrandController.instance;
+    final controller = BrandController.instance;
     return Scaffold(
-      appBar: CAppBar(showActions: false, showSkipButton: true,title: Text(brand!.name,style: TextStyle(color: Colors.black),),),
+      appBar: CAppBar(
+        title: Text(brand.name),
+        showBackArrow: true,
+        showActions: false,
+        showSkipButton: false,
+      ),
       body: SingleChildScrollView(
-        child: Padding(padding: EdgeInsets.all(CSizes.defaultSpace),
-        child:Column(
-          children: [
-            CBrandCard(showBorder: true,brand: brand!,),
-            SizedBox(height: CSizes.spaceBtSections,),
+        child: Padding(
+          padding: EdgeInsets.all(CSizes.defaultSpace),
+          child: Column(
+            children: [
+              /// Brand Detail
+              CBrandCard(showBorder: true, brand: brand),
+              SizedBox(height: CSizes.spaceBtSections),
 
-            FutureBuilder(future: controller.getBrandProducts(brandId: brand.id), builder: (context,snapshot){
-              const loader=CVerticalProductShimmer();
-              final widget=TCloudHelperFunctions.checkMultiRecordState(snapshot: snapshot,loader: loader);
-              if(widget!=null)return widget;
+              // CSortableProducts
+              FutureBuilder(
+                future: controller.getBrandProducts(brandId: brand.id),
+                builder: (context, snapshot) {
+                  const loader = CVerticalProductShimmer();
+                  final widget = CloudHelperFunctions.checkMultiRecordState(
+                    snapshot: snapshot,
+                    loader: loader,
+                  );
+                  if (widget != null) return widget;
 
-              final brandProducts=snapshot.data!;
-              return SortableProducts(products: brandProducts);
-            })
-
-          ],
-        ),
+                  final brandProducts = snapshot.data!;
+                  return SortableProducts(products: brandProducts);
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

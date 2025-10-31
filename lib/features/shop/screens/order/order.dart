@@ -1,7 +1,8 @@
-import 'package:clothiva_project/features/shop/screens/order/widgets/order_list.dart';
-import 'package:clothiva_project/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
-import 'package:clothiva_project/common/widgets/appbar/appbar.dart';
+
+import '../../../../common/widgets/appbar/appbar.dart';
+import '../../../../utils/constants/sizes.dart';
+import 'widgets/order_list.dart';
 
 class OrderScreen extends StatelessWidget {
   const OrderScreen({super.key});
@@ -19,10 +20,11 @@ class OrderScreen extends StatelessWidget {
           style: Theme.of(context).textTheme.headlineSmall,
         ),
       ),
-      body: const Padding(padding: EdgeInsets.all(CSizes.defaultSpace),
+      body: const Padding(
+        padding: EdgeInsets.all(CSizes.defaultSpace),
 
-      /// Orders
-      child: COrderList(),
+        /// Orders
+        child: COrderList(),
       ),
     );
   }

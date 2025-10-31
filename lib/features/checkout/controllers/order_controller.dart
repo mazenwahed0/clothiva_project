@@ -1,16 +1,18 @@
-import 'package:clothiva_project/common/widgets/success_screen/success_screen.dart';
-import 'package:clothiva_project/data/repositories/authentication/authentication_repository.dart';
-import 'package:clothiva_project/data/repositories/order/order_repository.dart';
-import 'package:clothiva_project/features/personalization/controllers/address_controller.dart';
-import 'package:clothiva_project/features/shop/controllers/product/cart_controller.dart';
-import 'package:clothiva_project/features/shop/controllers/product/checkout_controller.dart';
-import 'package:clothiva_project/navigation_menu.dart';
-import 'package:clothiva_project/utils/constants/enums.dart';
-import 'package:clothiva_project/utils/constants/image_strings.dart';
-import 'package:clothiva_project/utils/popups/exports.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:clothiva_project/features/cart/models/order_model.dart';
+
+import '../../../common/widgets/success_screen/success_screen.dart';
+import '../../../data/repositories/authentication/authentication_repository.dart';
+import '../../../data/repositories/order/order_repository.dart';
+import '../../../navigation_menu.dart';
+import '../../../utils/constants/enums.dart';
+import '../../../utils/constants/image_strings.dart';
+import '../../../utils/popups/full_screen_loader.dart';
+import '../../../utils/popups/loaders.dart';
+import '../../cart/models/order_model.dart';
+import '../../personalization/controllers/address_controller.dart';
+import '../../cart/controllers/cart_controller.dart';
+import 'checkout_controller.dart';
 
 class OrderController extends GetxController {
   static OrderController get instance => Get.find();
@@ -58,14 +60,15 @@ class OrderController extends GetxController {
       );
 
       // Save The Order To FireStore
-      await orderRepository.saveOrder(order, userId);
+      // await orderRepository.saveOrder(order, userId);
+      await orderRepository.saveOrder(order);
 
       // Update The Cart Status
       cartController.clearCart();
 
       // Show Success Screen
       Get.off(
-        () => SuccessSignupScreen(
+        () => SuccessScreen(
           image: CImages.successfullyRegisterAnimation,
           title: 'Payment Success!',
           subTitle: 'Your Item Will Be Shipped Soon!',

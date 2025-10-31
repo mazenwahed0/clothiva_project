@@ -1,19 +1,20 @@
-import 'package:clothiva_project/common/widgets/custom_shapes/containers/rounded_container.dart';
-import 'package:clothiva_project/common/widgets/products/cart/coupon_widget.dart';
-import 'package:clothiva_project/features/shop/controllers/product/order_controller.dart';
-import 'package:clothiva_project/features/shop/screens/cart/widgets/cart_items.dart';
-import 'package:clothiva_project/features/shop/screens/checkout/widgets/billing_address_section.dart';
-import 'package:clothiva_project/features/shop/screens/checkout/widgets/billing_amount_section.dart';
-import 'package:clothiva_project/features/shop/screens/checkout/widgets/billing_payment_section.dart';
-import 'package:clothiva_project/utils/helpers/pricing_functions.dart';
-import 'package:clothiva_project/utils/popups/exports.dart';
 import 'package:flutter/material.dart';
-import 'package:clothiva_project/common/widgets/appbar/appbar.dart';
-import 'package:clothiva_project/utils/constants/sizes.dart';
-import 'package:clothiva_project/utils/helpers/context_extensions.dart';
-import 'package:clothiva_project/utils/constants/colors.dart';
 import 'package:get/get.dart';
-import 'package:clothiva_project/features/shop/controllers/product/cart_controller.dart';
+
+import 'package:clothiva_project/utils/helpers/context_extensions.dart';
+import '../../../../common/widgets/appbar/appbar.dart';
+import '../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
+import '../../../../common/widgets/products/cart/coupon_widget.dart';
+import '../../../../utils/constants/colors.dart';
+import '../../../../utils/constants/sizes.dart';
+import '../../../../utils/helpers/pricing_functions.dart';
+import '../../../../utils/popups/loaders.dart';
+import '../../../cart/controllers/cart_controller.dart';
+import '../../controllers/order_controller.dart';
+import '../../../cart/screens/cart/widgets/cart_items.dart';
+import 'widgets/billing_address_section.dart';
+import 'widgets/billing_amount_section.dart';
+import 'widgets/billing_payment_section.dart';
 
 class CheckoutScreen extends StatelessWidget {
   CartController get cartController => CartController.instance; ////////////

@@ -1,16 +1,13 @@
 import 'package:clothiva_project/common/widgets/shimmers/category_shimmer.dart';
 import 'package:clothiva_project/features/shop/controllers/category_controller.dart';
-import 'package:clothiva_project/features/shop/screens/sub_categories/sub_categories.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../../common/widgets/image_text/image_text_vertical.dart';
+import '../../sub_categories/sub_categories.dart';
 
 class HomeCategories extends StatelessWidget {
   const HomeCategories({super.key});
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -38,13 +35,9 @@ class HomeCategories extends StatelessWidget {
             final category = categoryController.featuredCategories[index];
             return VerticalImageAndText(
               image: category.image,
-              isNetworkImage: true,
               title: category.name,
-              onTap: () => Get.to(
-                SubCategoriesScreen(
-                  category: category,
-                ),
-              ), // -- SubCategoriesScreen Here
+              onTap: () =>
+                  Get.to(() => SubCategoriesScreen(category: category)),
             );
           },
         ),

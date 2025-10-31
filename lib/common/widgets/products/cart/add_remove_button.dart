@@ -1,18 +1,22 @@
-import 'package:flutter/material.dart';
-import 'package:clothiva_project/common/widgets/icons/circular_icon.dart';
-import 'package:clothiva_project/utils/constants/colors.dart';
-import 'package:clothiva_project/utils/constants/sizes.dart';
 import 'package:clothiva_project/utils/helpers/context_extensions.dart';
+import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:get/get.dart';
 
+import '../../../../utils/constants/colors.dart';
+import '../../../../utils/constants/sizes.dart';
+import '../../icons/circular_icon.dart';
+
 class CProductQuantityWithAddRemoveButton extends StatelessWidget {
   const CProductQuantityWithAddRemoveButton({
-    super.key, required this.quantity, required this.add, required this.remove,
+    super.key,
+    required this.quantity,
+    required this.add,
+    required this.remove,
   });
 
   final int quantity;
-  final VoidCallback ? add,remove;
+  final VoidCallback? add, remove;
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +37,11 @@ class CProductQuantityWithAddRemoveButton extends StatelessWidget {
           onPressed: remove,
         ),
         const SizedBox(width: CSizes.spaceBtItems),
-        Text(quantity.toString(), style: Theme.of(context).textTheme.titleSmall),
+        Text(
+          quantity.toString(),
+          style: Theme.of(context).textTheme.titleSmall,
+        ),
         const SizedBox(width: CSizes.spaceBtItems),
-    
         CircularIcon(
           icon: Iconsax.add,
           width: 32,

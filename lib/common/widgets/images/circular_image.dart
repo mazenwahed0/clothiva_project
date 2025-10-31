@@ -1,12 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
-
+import 'package:clothiva_project/common/widgets/shimmers/shimmer.dart';
 import 'package:clothiva_project/utils/helpers/context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
-import '../shimmers/shimmer.dart';
 
 class CircularImage extends StatelessWidget {
   const CircularImage({

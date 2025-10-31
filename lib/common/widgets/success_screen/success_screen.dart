@@ -1,12 +1,12 @@
+import 'package:clothiva_project/common/styles/spacing_styles.dart';
+import 'package:clothiva_project/utils/constants/text_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import '../../../utils/constants/sizes.dart';
-import '../../../utils/constants/text_strings.dart';
 import '../../../utils/helpers/helper_functions.dart';
-import '../../styles/spacing_styles.dart';
 
-class SuccessSignupScreen extends StatelessWidget {
-  const SuccessSignupScreen({
+class SuccessScreen extends StatelessWidget {
+  const SuccessScreen({
     super.key,
     required this.image,
     required this.title,

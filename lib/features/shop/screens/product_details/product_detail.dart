@@ -1,8 +1,10 @@
 import 'package:clothiva_project/common/widgets/texts/section_heading.dart';
-import 'package:clothiva_project/features/shop/screens/product_details/widgets/bottom_add_to_cart.dart';
+import 'package:clothiva_project/features/shop/screens/product_details/widgets/bottom_add_to_cart_widget.dart';
 import 'package:clothiva_project/features/shop/screens/product_details/widgets/product_attributes.dart';
 import 'package:clothiva_project/features/shop/screens/product_details/widgets/product_meta_data.dart';
+import 'package:clothiva_project/utils/constants/sizes.dart';
 import 'package:clothiva_project/utils/helpers/context_extensions.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -11,12 +13,13 @@ import '../../../../utils/constants/enums.dart';
 import '../../models/product_model.dart';
 import '../product_reviews/product_reviews.dart';
 import 'widgets/product_detail_image_slider.dart';
-import '../../../../../utils/constants/sizes.dart';
-import 'widgets/rating_share.dart';
+import 'widgets/rating_share_widget.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   const ProductDetailScreen({super.key, required this.product});
+
   final ProductModel product;
+
   @override
   Widget build(BuildContext context) {
     bool dark = context.isDarkMode || context.isDarkModeMedia;
@@ -25,59 +28,66 @@ class ProductDetailScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Product Image Slider
-            CProductImageSlider(product: product,),
+            /// MARK: 1- Product Image & Slider
+            CProductImageSlider(product: product),
 
-            // Product Details
+            /// MARK: 2- Product Details
             Padding(
-              padding: EdgeInsets.only(
-                left: CSizes.defaultSpace,
+              padding: EdgeInsetsGeometry.only(
                 right: CSizes.defaultSpace,
-                top: CSizes.defaultSpace,
+                left: CSizes.defaultSpace,
+                bottom: CSizes.defaultSpace,
               ),
               child: Column(
                 children: [
-                  // Ratings and Share button
+                  /// - Rating & Share Button
                   CRatingAndShare(),
 
-                  //price, title
-                  CProductMetaData(product: product,),
+                  /// - Price, Title, Stock & Brand
+                  CProductMetaData(product: product),
 
-                  //Attributes
-                  if(product.productType==ProductType.variable.toString())
-                  CProdutAttributes(product: product,),
-                  if(product.productType==ProductType.variable.toString())
-                  SizedBox(height: CSizes.spaceBtItems,),
+                  /// -- Attributes
+                  if (product.productType == ProductType.variable.toString())
+                    CProductAttributes(product: product),
+                  if (product.productType == ProductType.variable.toString())
+                    SizedBox(height: CSizes.spaceBtSections),
 
-                  // Checkout Button
-                  SizedBox(width: double.infinity,child: ElevatedButton(onPressed: (){}, child: Text("Checkout"))),
-
-                  // Description
-                  const SectionHeading(title: "Description", showActionButton: false),
-                  const SizedBox(height: CSizes.spaceBtItems),
+                  /// - Description
+                  SectionHeading(title: 'Description', showActionButton: false),
+                  SizedBox(height: CSizes.spaceBtItems),
                   ReadMoreText(
-                    product.description??'',
+                    product.description ?? '',
                     trimLines: 2,
                     trimMode: TrimMode.Line,
-                    trimCollapsedText: 'Show more',
-                    trimExpandedText: 'Show less',
-                    moreStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
-                    lessStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
+                    trimCollapsedText: ' Show more',
+                    trimExpandedText: ' Show less',
+                    moreStyle: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w800,
+                    ),
+                    lessStyle: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w800,
+                    ),
                   ),
 
-                  // Reviews
-                  const Divider(),
-                  const SizedBox(height: CSizes.spaceBtItems),
+                  /// - Reviews
+                  Divider(),
+                  SizedBox(height: CSizes.spaceBtItems),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      SectionHeading(title: "Reviews(199)", showActionButton: false,),
-                      IconButton(onPressed: () => Get.to(() => ProductReviewsScreen()), icon: const Icon(Iconsax.arrow_right_3, size: 18,)),
-
+                      SectionHeading(
+                        title: "Reviews(199)",
+                        showActionButton: false,
+                      ),
+                      IconButton(
+                        onPressed: () => Get.to(() => ProductReviewsScreen()),
+                        icon: const Icon(Iconsax.arrow_right_3, size: 18),
+                      ),
                     ],
                   ),
                   const SizedBox(height: CSizes.spaceBtItems),
-
                 ],
               ),
             ),
@@ -87,6 +97,3 @@ class ProductDetailScreen extends StatelessWidget {
     );
   }
 }
-
-
-

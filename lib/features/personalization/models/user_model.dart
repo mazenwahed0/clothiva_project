@@ -1,5 +1,5 @@
+import 'package:clothiva_project/utils/formatters/formatters.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../../../utils/formatters/formatters.dart';
 
 class UserModel {
   // keep final which do not want to update

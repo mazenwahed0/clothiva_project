@@ -1,13 +1,13 @@
 import 'package:badges/badges.dart' as badges;
+import 'package:clothiva_project/common/styles/spacing_styles.dart';
+import 'package:clothiva_project/utils/constants/text_strings.dart';
 import 'package:clothiva_project/utils/helpers/context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 import '../../../utils/constants/colors.dart';
-import '../../../utils/constants/text_strings.dart';
 import '../../../utils/device/device_utility.dart';
-import '../../styles/spacing_styles.dart';
 
 class CAppBar extends StatelessWidget implements PreferredSizeWidget {
   /// Custom appbar for achieving a desired design goal.

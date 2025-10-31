@@ -1,4 +1,5 @@
-import '../layouts/grid_layout.dart';
+import 'package:clothiva_project/common/widgets/layouts/grid_layout.dart';
+
 import 'shimmer.dart';
 import 'package:flutter/material.dart';
 

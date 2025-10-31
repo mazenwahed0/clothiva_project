@@ -1,8 +1,10 @@
-import 'package:clothiva_project/features/personalization/controllers/address_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:clothiva_project/common/widgets/texts/section_heading.dart';
-import 'package:clothiva_project/utils/constants/sizes.dart';
+
 import 'package:get/get.dart';
+
+import '../../../../../common/widgets/texts/section_heading.dart';
+import '../../../../../utils/constants/sizes.dart';
+import '../../../../personalization/controllers/address_controller.dart';
 
 class CBillingAddressSection extends StatelessWidget {
   const CBillingAddressSection({super.key});
@@ -15,13 +17,11 @@ class CBillingAddressSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SectionHeading(
-          title: 'Payment Method',
+          title: 'Selected Address',
           buttonTitle: 'Change',
-          onPressed: () =>
-              addressController.selectNewAddressPopup(context),
+          onPressed: () => addressController.selectNewAddressPopup(context),
         ),
         const SizedBox(height: CSizes.spaceBtItems),
-
         Obx(() {
           final address = addressController.selectedAddress.value;
           if (address.id.isEmpty) {
@@ -32,8 +32,7 @@ class CBillingAddressSection extends StatelessWidget {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(address.name,
-                  style: Theme.of(context).textTheme.bodyLarge),
+              Text(address.name, style: Theme.of(context).textTheme.bodyLarge),
               const SizedBox(height: CSizes.spaceBtItems / 2),
               Row(
                 children: [
@@ -47,8 +46,7 @@ class CBillingAddressSection extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Icon(Icons.location_on,
-                      color: Colors.grey, size: 16),
+                  const Icon(Icons.location_on, color: Colors.grey, size: 16),
                   const SizedBox(width: CSizes.spaceBtItems / 2),
                   Expanded(
                     child: Text(

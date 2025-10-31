@@ -1,12 +1,13 @@
-import 'package:clothiva_project/features/personalization/controllers/address_controller.dart';
-import 'package:clothiva_project/features/personalization/models/address_model.dart';
-import 'package:clothiva_project/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
-import 'package:clothiva_project/common/widgets/custom_shapes/containers/rounded_container.dart';
-import 'package:clothiva_project/utils/constants/colors.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:clothiva_project/utils/helpers/context_extensions.dart';
 import 'package:get/get.dart';
+
+import 'package:clothiva_project/utils/helpers/context_extensions.dart';
+import '../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
+import '../../../../../utils/constants/colors.dart';
+import '../../../../../utils/constants/sizes.dart';
+import '../../../controllers/address_controller.dart';
+import '../../../models/address_model.dart';
 
 class TSingleAddress extends StatelessWidget {
   const TSingleAddress({super.key, required this.address, required this.onTap});
@@ -16,7 +17,6 @@ class TSingleAddress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final controller = AddressController.instance;
 
     bool dark = context.isDarkMode || context.isDarkModeMedia;
@@ -36,8 +36,8 @@ class TSingleAddress extends StatelessWidget {
           borderColor: selectedAddress
               ? Colors.transparent
               : dark
-                  ? CColors.darkerGrey
-                  : CColors.grey,
+              ? CColors.darkerGrey
+              : CColors.grey,
           margin: const EdgeInsets.only(bottom: CSizes.spaceBtItems),
           child: Stack(
             children: [
@@ -50,27 +50,29 @@ class TSingleAddress extends StatelessWidget {
                     color: dark ? CColors.lightContainer : CColors.dark,
                   ),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(address.name,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    address.name,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                    const SizedBox(height: CSizes.sm / 2,),
-                    Text(address.formattedPhoneNo,
+                  ),
+                  const SizedBox(height: CSizes.sm / 2),
+                  Text(
+                    address.formattedPhoneNo,
                     maxLines: 1,
-                    overflow: TextOverflow.ellipsis,),
-                    const SizedBox(height: CSizes.sm / 2,),
-                    Text(address.toString(), softWrap: true,)
-                  ],
-                )
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: CSizes.sm / 2),
+                  Text(address.toString(), softWrap: true),
+                ],
+              ),
             ],
           ),
         ),
       );
-     }
-    );
+    });
   }
 }

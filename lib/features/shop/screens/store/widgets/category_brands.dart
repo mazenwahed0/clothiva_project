@@ -1,13 +1,13 @@
-import 'package:clothiva_project/common/widgets/shimmers/boxes_shimmer.dart';
-import 'package:clothiva_project/common/widgets/shimmers/list_tile_shimmer.dart';
-import 'package:clothiva_project/features/shop/controllers/brand_controller.dart';
-import 'package:clothiva_project/features/shop/models/category_model.dart';
-import 'package:clothiva_project/utils/helpers/cloud_helper_functions.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../../../common/widgets/brands/brand_show_case.dart';
+import '../../../../../common/widgets/shimmers/boxes_shimmer.dart';
+import '../../../../../common/widgets/shimmers/list_tile_shimmer.dart';
 import '../../../../../utils/constants/image_strings.dart';
 import '../../../../../utils/constants/sizes.dart';
+import '../../../../../utils/helpers/cloud_helper_functions.dart';
+import '../../../controllers/brand_controller.dart';
+import '../../../models/category_model.dart';
 
 class CategoryBrands extends StatelessWidget {
   const CategoryBrands({super.key, required this.category});
@@ -29,7 +29,7 @@ class CategoryBrands extends StatelessWidget {
           ],
         );
 
-        final widget = TCloudHelperFunctions.checkMultiRecordState(
+        final widget = CloudHelperFunctions.checkMultiRecordState(
           snapshot: snapshot,
           loader: loader,
         );
@@ -43,17 +43,21 @@ class CategoryBrands extends StatelessWidget {
           itemCount: brands.length,
           itemBuilder: (_, index) {
             final brand = brands[index];
-            return FutureBuilder(future: controller.getBrandProducts(brandId: brand.id,limit: 3), builder: (context,snapshot){
-              final widget =TCloudHelperFunctions.checkMultiRecordState(snapshot: snapshot,loader: loader);
-              if(widget!=null)return widget;
+            return FutureBuilder(
+                future:
+                    controller.getBrandProducts(brandId: brand.id, limit: 3),
+                builder: (context, snapshot) {
+                  final widget = CloudHelperFunctions.checkMultiRecordState(
+                      snapshot: snapshot, loader: loader);
+                  if (widget != null) return widget;
 
-              final products=snapshot.data!;
+                  final products = snapshot.data!;
 
-              return CBrandShowcase(
-                images: products.map((e)=>e.thumbnail).toList(),
-                brand: brand,
-              );
-            });
+                  return CBrandShowcase(
+                    images: products.map((e) => e.thumbnail).toList(),
+                    brand: brand,
+                  );
+                });
           },
         );
       },

@@ -1,9 +1,3 @@
-import 'package:clothiva_project/common/widgets/appbar/appbar.dart';
-import 'package:clothiva_project/common/widgets/products/cart/cart_menu_icon.dart';
-import 'package:clothiva_project/common/widgets/shimmers/shimmer.dart';
-import 'package:clothiva_project/features/personalization/controllers/user_controller.dart';
-import 'package:clothiva_project/features/shop/controllers/product/cart_controller.dart';
-import 'package:clothiva_project/utils/constants/text_strings.dart';
 import 'package:clothiva_project/utils/helpers/context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -38,54 +32,26 @@ class CHomeAppbar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final dark = context.isDarkMode || context.isDarkModeMedia;
-    // return Padding(
-    //   padding: const EdgeInsets.symmetric(horizontal: CSizes.md),
-    //   child: AppBar(
-    //     automaticallyImplyLeading: false,
-    //     leading: showBackArrow
-    //         ? IconButton(
-    //             onPressed: () => Get.back(),
-    //             icon: Icon(
-    //               Iconsax.arrow_left,
-    //               color: dark ? CColors.white : CColors.dark,
-    //             ),
-    //           )
-    //         : leadingIcon != null
-    //         ? IconButton(onPressed: leadingOnPressed, icon: Icon(leadingIcon))
-    //         : null,
-    //     title: title,
-    //     actions: actions,
-    //   ),
-    // );
-
-    // Willy
-    final controller = Get.put(UserController());
-    return CAppBar(
-      actions: [CartCounterIcon(
-        // onPressed: (){},   <=== Willy
-        iconColor: CColors.white)],
-      title: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(CTexts.homeAppbarTitle, style: Theme.of(context).textTheme.labelMedium!.apply(color: CColors.grey)),
-          Obx(
-            () {
-              if(controller.profileLoading.value) {
-                return const CShimmerEffect(width: 80, height: 15);
-              } else {
-                return Text(
-                  controller.user.value.fullName,
-                  style: Theme.of(context).textTheme.headlineSmall!.apply(color: CColors.white),
-                );
-              }
-            }
-          )
-        ],
+    final dark = context.isDarkMode || context.isDarkModeMedia;
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: CSizes.md),
+      child: AppBar(
+        automaticallyImplyLeading: false,
+        leading: showBackArrow
+            ? IconButton(
+                onPressed: () => Get.back(),
+                icon: Icon(
+                  Iconsax.arrow_left,
+                  color: dark ? CColors.white : CColors.dark,
+                ),
+              )
+            : leadingIcon != null
+            ? IconButton(onPressed: leadingOnPressed, icon: Icon(leadingIcon))
+            : null,
+        title: title,
+        actions: actions,
       ),
-      
-      
-      showActions: false, showSkipButton: false);
+    );
   }
 
   @override

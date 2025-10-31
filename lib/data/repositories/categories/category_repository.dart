@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:clothiva_project/features/shop/models/product_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -16,6 +15,7 @@ import 'package:dio/dio.dart' as dio;
 
 import '../../../utils/helpers/helper_functions.dart';
 import '../../services/storage/cloudinary_service.dart';
+import '../product/product_repository.dart';
 
 class CategoryRepository extends GetxController {
   static CategoryRepository get instance => Get.find();
@@ -131,11 +131,23 @@ class CategoryRepository extends GetxController {
           .where('ParentId', isEqualTo: categoryId)
           .get();
 
+      final productRepo = ProductRepository.instance;
+      List<CategoryModel> validCategories = [];
+
       if (query.docs.isNotEmpty) {
         List<CategoryModel> categories = query.docs
             .map((document) => CategoryModel.fromSnapshot(document))
             .toList();
-        return categories;
+        for (final subCategory in categories) {
+          final products = await productRepo.getProductsForCategory(
+            categoryId: subCategory.id,
+          );
+          if (products.isNotEmpty) {
+            validCategories.add(subCategory);
+          }
+        }
+
+        return validCategories;
       }
 
       return [];
@@ -149,5 +161,4 @@ class CategoryRepository extends GetxController {
       throw 'Something went wrong. Please try again';
     }
   }
-  
 }

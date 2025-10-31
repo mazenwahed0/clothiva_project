@@ -1,7 +1,6 @@
+import 'package:clothiva_project/common/widgets/shimmers/shimmer.dart';
+import 'package:clothiva_project/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
-
-import '../../../utils/constants/sizes.dart';
-import 'shimmer.dart';
 
 class CCategoryShimmer extends StatelessWidget {
   const CCategoryShimmer({super.key, this.itemCount = 6});

@@ -34,7 +34,7 @@ class CAppTheme {
   static ThemeData darkTheme = ThemeData(
     useMaterial3: true,
     fontFamily: 'Poppins',
-    brightness: Brightness.light,
+    brightness: Brightness.dark,
     primaryColor: CColors.primary,
     scaffoldBackgroundColor: Colors.black,
     appBarTheme: CAppBarTheme.darkAppBarTheme,

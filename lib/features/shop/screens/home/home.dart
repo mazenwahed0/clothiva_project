@@ -1,20 +1,22 @@
-import 'package:clothiva_project/features/shop/screens/all_products/all_products.dart';
-import 'package:clothiva_project/features/shop/screens/brand/all_brands.dart';
-import 'package:clothiva_project/features/shop/screens/brand/brand_products.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:clothiva_project/common/widgets/custom_shapes/containers/primary_header_container.dart';
 import 'package:clothiva_project/common/widgets/layouts/grid_layout.dart';
 import 'package:clothiva_project/common/widgets/products/product_cards/product_card_vertical.dart';
+import 'package:clothiva_project/features/shop/screens/brand/all_brands.dart';
+
 import 'package:clothiva_project/utils/constants/colors.dart';
 import 'package:clothiva_project/utils/constants/sizes.dart';
+
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
 import '../../../../common/widgets/custom_shapes/containers/search_container.dart';
 import '../../../../common/widgets/shimmers/vertical_product_shimmer.dart';
 import '../../../../common/widgets/texts/section_heading.dart';
 import '../../../../data/repositories/authentication/authentication_repository.dart';
-import '../../controllers/product/product_controller.dart';
+import '../../controllers/brand_controller.dart';
+import '../../controllers/products/product_controller.dart';
+import '../all_products/all_products.dart';
 import 'widgets/home_appbar.dart';
 import 'widgets/home_categories.dart';
 import 'widgets/promo_slider.dart';
@@ -28,6 +30,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(ProductController());
+    final brandController = BrandController.instance;
     // bool dark = context.isDarkMode || context.isDarkModeMedia;
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -55,10 +58,12 @@ class HomeScreen extends StatelessWidget {
                           title: 'Popular Categories',
                           showActionButton: false,
                           textColor: CColors.white,
-                          onPressed: () => Get.to(() =>
-                              AllProducts(
-                                title: 'Popular Products',
-                                futureMethod: controller.fetchAllFeaturedProducts(),)
+                          onPressed: () => Get.to(
+                            () => AllProducts(
+                              title: 'Popular Products',
+                              futureMethod: controller
+                                  .fetchAllFeaturedProducts(),
+                            ),
                           ),
                         ),
                         SizedBox(height: CSizes.spaceBtItems),
@@ -85,22 +90,30 @@ class HomeScreen extends StatelessWidget {
                   /// -- Popular Products (Gridview)
                   SectionHeading(
                     title: 'Products Flash Sale',
-                    //onPressed: () =>Get.to(()=>BrandProducts()),
+                    onPressed: () => Get.to(() => AllBrandsScreen()),
+                    showActionButton: true,
                   ),
                   SizedBox(height: CSizes.spaceBtItems),
 
                   /// -- Gridview Products
-                  Obx((){
-                    if(controller.isLoading.value){return const CVerticalProductShimmer();}
-                    else if(controller.featuredProducts.isEmpty){
-                      return Center(child: Text("No Data Found",style: Theme.of(context).textTheme.bodyMedium,),);
+                  Obx(() {
+                    if (controller.isLoading.value) {
+                      return const CVerticalProductShimmer();
+                    } else if (controller.featuredProducts.isEmpty) {
+                      return Center(
+                        child: Text(
+                          "No Data Found",
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                      );
                     }
                     return GridLayout(
                       itemCount: controller.featuredProducts.length,
-                      itemBuilder: (_, index) => ProductCardVertical(product:controller.featuredProducts[index]),
+                      itemBuilder: (_, index) => ProductCardVertical(
+                        product: controller.featuredProducts[index],
+                      ),
                     );
-                  })
-                  ,
+                  }),
                 ],
               ),
             ),

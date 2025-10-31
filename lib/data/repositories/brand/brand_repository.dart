@@ -118,42 +118,4 @@ class BrandRepository extends GetxController {
       throw 'Something went wrong. Please try again';
     }
   }
-
-  Future<List<BrandModel>> getAllBrands() async {
-    try {
-      final snapshot= await _db.collection('Brands').get();
-      final result=snapshot.docs.map((e)=>BrandModel.fromSnapshot(e)).toList();
-      return result;
-
-    }on FirebaseException catch (e) {
-      throw CFirebaseException(e.code).message;
-    } on FormatException catch (_) {
-      throw CFormatException();
-    } on PlatformException catch (e) {
-      throw CPlatformException(e.code).message;
-    } catch (e) {
-      throw 'Something went wrong. Please try again';
-    }
-  }
-
-  Future<List<BrandModel>> getBrandsForCategory(String categoryId)async{
-    try{QuerySnapshot brandCategoryQuery=await _db.collection(CKeys.brandCategoryCollection).where('categoryId',isEqualTo: categoryId).get();
-
-    List<String> brandIds=brandCategoryQuery.docs.map((doc)=>doc['brandId']as String).toList();
-
-    final brandsQuery=await _db.collection(CKeys.brandsCollection).where(FieldPath.documentId,whereIn: brandIds).get();
-
-    List<BrandModel> brands=brandsQuery.docs.map((doc)=>BrandModel.fromSnapshot(doc)).toList();
-
-    return brands;
-    }on FirebaseException catch (e) {
-      throw CFirebaseException(e.code).message;
-    } on FormatException catch (_) {
-      throw CFormatException();
-    } on PlatformException catch (e) {
-      throw CPlatformException(e.code).message;
-    } catch (e) {
-      throw 'Something went wrong. Please try again';
-    }
-  }
 }

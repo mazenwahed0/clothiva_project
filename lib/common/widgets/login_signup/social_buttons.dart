@@ -1,7 +1,7 @@
+import 'package:clothiva_project/features/authentication/controllers/login/login_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../features/authentication/controllers/login/login_controller.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/image_strings.dart';
 import '../../../utils/constants/sizes.dart';

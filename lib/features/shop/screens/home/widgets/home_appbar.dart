@@ -39,9 +39,7 @@ class HomeAppBar extends StatelessWidget {
           }),
         ],
       ),
-      actions: [CartCounterIcon(
-        // onPressed: () {},   <=== Willy
-         iconColor: CColors.white)],
+      actions: [CartCounterIcon(iconColor: CColors.white)],
       showActions: true,
       showSkipButton: false,
     );

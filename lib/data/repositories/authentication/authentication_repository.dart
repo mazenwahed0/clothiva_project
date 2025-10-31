@@ -1,7 +1,6 @@
 import 'package:clothiva_project/data/services/storage/cloudinary_service.dart';
 import 'package:clothiva_project/features/authentication/screens/login/login.dart';
 import 'package:clothiva_project/features/personalization/controllers/user_controller.dart';
-import 'package:clothiva_project/utils/local_storage/storage_utility.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -16,6 +15,7 @@ import '../../../utils/exceptions/firebase_auth_exceptions.dart';
 import '../../../utils/exceptions/firebase_exceptions.dart';
 import '../../../utils/exceptions/format_exceptions.dart';
 import '../../../utils/exceptions/platform_exceptions.dart';
+import '../../../utils/local_storage/storage_utility.dart';
 import '../user/user_repository.dart';
 
 class AuthenticationRepository extends GetxController {
@@ -62,7 +62,7 @@ class AuthenticationRepository extends GetxController {
     if (user != null) {
       if (user.emailVerified) {
         await CLocalStorage.init(user.uid);
-        Get.offAll(() => NavigationMenu()); //Supposed to be NavigationMenu()
+        Get.offAll(() => NavigationMenu());
       } else {
         Get.offAll(() => VerifyEmailScreen(email: _auth.currentUser?.email));
       }
@@ -216,100 +216,6 @@ class AuthenticationRepository extends GetxController {
       return null;
     }
   }
-
-  /* ---------------------------- Phone Number sign-in ---------------------------------*/
-
-  // /// [PhoneAuthentication] - LOGIN - Register
-  // Future<void> loginWithPhoneNo(String phoneNumber) async {
-  //   try {
-  //     await _auth.verifyPhoneNumber(
-  //       phoneNumber: phoneNumber,
-  //       forceResendingToken: _resendToken,
-  //       timeout: const Duration(minutes: 2),
-  //       verificationFailed: (e) async {
-  //         debugPrint('loginWithPhoneNo: verificationFailed => $e');
-  //         await FirebaseCrashlytics.instance.recordError(e, e.stackTrace);
-
-  //         if (e.code == 'too-many-requests') {
-  //           // Get.offAllNamed(TRoutes.welcome);
-  //           Get.offAll(() => const WelcomeScreen());
-  //           TLoaders.warningSnackBar(
-  //               title: 'Too many attempts',
-  //               message:
-  //                   'Oops! Too many tries. Take a short break and try again soon!');
-  //           return;
-  //         } else if (e.code == 'unknown') {
-  //           Get.back(result: false);
-  //           TLoaders.warningSnackBar(
-  //               title: 'SMS not Sent',
-  //               message:
-  //                   'An internal error has occurred, We are working on it!');
-  //           return;
-  //         }
-  //         TLoaders.warningSnackBar(title: 'Oh Snap', message: e.message ?? '');
-  //       },
-  //       codeSent: (verificationId, resendToken) {
-  //         debugPrint('--------------- codeSent');
-  //         phoneNoVerificationId.value = verificationId;
-  //         _resendToken = resendToken;
-  //         debugPrint('--------------- codeSent: $verificationId');
-  //       },
-  //       verificationCompleted: (credential) async {
-  //         debugPrint('--------------- verificationCompleted');
-  //         var signedInUser = await _auth.signInWithCredential(credential);
-  //         isPhoneAutoVerified = signedInUser.user != null;
-
-  //         // await screenRedirect(
-  //         //   _auth.currentUser,
-  //         //   pinScreen: true,
-  //         //   stopLoadingWhenReady: true,
-  //         //   phoneNumber: phoneNumber,
-  //         // );
-  //         await screenRedirect(_auth.currentUser);
-  //       },
-  //       codeAutoRetrievalTimeout: (verificationId) {
-  //         // phoneNoVerificationId.value = verificationId;
-  //         debugPrint(
-  //             '--------------- codeAutoRetrievalTimeout: $verificationId');
-  //       },
-  //     );
-  //     phoneNo.value = phoneNumber;
-  //   } on FirebaseAuthException catch (e) {
-  //     throw TFirebaseAuthException(e.code).message;
-  //   } on FirebaseException catch (e) {
-  //     throw TFirebaseException(e.code).message;
-  //   } on FormatException catch (_) {
-  //     throw const TFormatException();
-  //   } on PlatformException catch (e) {
-  //     throw TPlatformException(e.code).message;
-  //   } catch (e) {
-  //     throw 'Something went wrong. Please try again';
-  //   }
-  // }
-
-  // /// [PhoneAuthentication] - VERIFY PHONE NO BY OTP
-  // Future<bool> verifyOTP(String otp) async {
-  //   try {
-  //     final phoneCredentials = PhoneAuthProvider.credential(
-  //         verificationId: phoneNoVerificationId.value, smsCode: otp);
-  //     var credentials = await _auth.signInWithCredential(phoneCredentials);
-  //     return credentials.user != null ? true : false;
-  //   } on FirebaseAuthException catch (e) {
-  //     await FirebaseCrashlytics.instance.recordError(e, e.stackTrace);
-  //     throw TFirebaseAuthException(e.code).message;
-  //   } on FirebaseException catch (e) {
-  //     throw TFirebaseException(e.code).message;
-  //   } on FormatException catch (_) {
-  //     throw const TFormatException();
-  //   } on PlatformException catch (e) {
-  //     throw TPlatformException(e.code).message;
-  //   } catch (e) {
-  //     throw 'Something went wrong. Please try again';
-  //   } finally {
-  //     phoneNo.value = '';
-  //     isPhoneAutoVerified = false;
-  //   }
-  // }
 
   /* ---------------------------- ./end Federated identity & social sign-in ---------------------------------*/
 

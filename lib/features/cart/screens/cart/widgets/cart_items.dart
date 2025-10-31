@@ -1,11 +1,13 @@
-import 'package:clothiva_project/features/shop/controllers/product/cart_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:clothiva_project/common/widgets/products/cart/cart_item.dart';
-import 'package:clothiva_project/common/widgets/texts/product_price_text.dart';
-import 'package:clothiva_project/common/widgets/products/cart/add_remove_button.dart';
-import 'package:clothiva_project/utils/constants/sizes.dart';
+
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/get.dart';
+
+import '../../../../../common/widgets/products/cart/add_remove_button.dart';
+import '../../../../../common/widgets/products/cart/cart_item.dart';
+import '../../../../../common/widgets/texts/product_price_text.dart';
+import '../../../../../utils/constants/sizes.dart';
+import '../../../controllers/cart_controller.dart';
 
 class CCartItems extends StatelessWidget {
   CartController get cartController => CartController.instance; ///////////
@@ -21,6 +23,7 @@ class CCartItems extends StatelessWidget {
     return Obx(
       () => ListView.separated(
         shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
         separatorBuilder: (_, __) =>
             const SizedBox(height: CSizes.spaceBtSections),
         itemCount: cartController.cartItems.length,
@@ -53,7 +56,10 @@ class CCartItems extends StatelessWidget {
                     ),
 
                   /// Product Total Price
-                  ProductPriceText(price: (item.price * item.quantity).toStringAsFixed(1)),
+                  if (showAddRemoveButtons == true)
+                    ProductPriceText(
+                      price: (item.price * item.quantity).toStringAsFixed(1),
+                    ),
                 ],
               ),
             ],

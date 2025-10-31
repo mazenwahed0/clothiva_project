@@ -13,7 +13,7 @@ class CTexts {
   static const String signup = "Signup";
   static const String logout = "Logout";
   static const String appName = "Clothiva";
-  static const String ohSnap = "Oh Snap!";
+  static const String ohSnap = "Oops!";
   static const String success = "Success";
   static const String ccontinue = "Continue";
   static const String fullName = "Full Name";
@@ -170,16 +170,6 @@ class CTexts {
   static const String resendOTP = "Re-Send OTP";
   static const String thenLets = "Then let's ";
 
-  // // -- Dashboard Screen - Text
-  // static const String tDashboardTitle = "Hey, ";
-  // static const String tDashboardHeading = "Explore Courses";
-  // static const String tDashboardSearch = "Search...";
-  // static const String tDashboardBannerTitle2 = "JAVA";
-  // static const String tDashboardButton = "View All";
-  // static const String tDashboardTopCourses = "Top Courses";
-  // static const String tDashboardBannerSubTitle = "10 Lessons";
-  // static const String tDashboardBannerTitle1 = "Android for Beginners";
-
   // -- Profile Screen - Text
   static const String profile = "Profile";
   static const String editProfile = "Edit Profile";
@@ -200,6 +190,6 @@ class CTexts {
 
   // -- Home
   static const String homeAppbarTitle = "Good day for shopping";
-  static const String homeAppbarSubTitle = "Taimoor Sikander";
+  static const String homeAppbarSubTitle = "Clothiva Team";
   static const String popularProducts = "Popular Products";
 }

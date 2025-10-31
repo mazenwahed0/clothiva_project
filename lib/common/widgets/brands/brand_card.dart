@@ -12,11 +12,16 @@ import '../images/circular_image.dart';
 import '../texts/brand_title_text_with_verified_icon.dart';
 
 class CBrandCard extends StatelessWidget {
-  const CBrandCard({super.key, this.onTap, required this.showBorder, required this.brand});
+  const CBrandCard({
+    super.key,
+    this.onTap,
+    required this.showBorder,
+    required this.brand,
+  });
 
   final bool showBorder;
-  final void Function()? onTap;
   final BrandModel brand;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -31,11 +36,12 @@ class CBrandCard extends StatelessWidget {
         showBorder: showBorder,
         backgroundColor: Colors.transparent,
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             /// -- Icon
             Flexible(
               child: CircularImage(
-                isNetworkImage: false,
+                isNetworkImage: true,
                 image: brand.image,
                 backgroundColor: Colors.transparent,
                 overlayColor: dark ? CColors.white : CColors.black,
@@ -51,12 +57,12 @@ class CBrandCard extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                   BrandTitleWithVerifiedIcon(
-                    title:brand.name,
+                  BrandTitleWithVerifiedIcon(
+                    title: brand.name,
                     brandTextSize: TextSizes.large,
                   ),
                   Text(
-                    '${brand.productsCount??0} products',
+                    '${brand.productsCount ?? 0} Products',
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.labelMedium,
                   ),

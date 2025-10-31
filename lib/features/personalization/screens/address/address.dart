@@ -1,13 +1,14 @@
-import 'package:clothiva_project/features/personalization/controllers/address_controller.dart';
-import 'package:clothiva_project/features/personalization/screens/address/add_new_address.dart';
-import 'package:clothiva_project/features/personalization/screens/address/widgets/single_address.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:clothiva_project/utils/constants/sizes.dart';
-import 'package:clothiva_project/utils/constants/colors.dart';
-import 'package:clothiva_project/common/widgets/appbar/appbar.dart';
-import 'package:clothiva_project/utils/helpers/cloud_helper_functions.dart';
+
+import '../../../../common/widgets/appbar/appbar.dart';
+import '../../../../utils/constants/colors.dart';
+import '../../../../utils/constants/sizes.dart';
+import '../../../../utils/helpers/cloud_helper_functions.dart';
+import '../../controllers/address_controller.dart';
+import 'add_new_address.dart';
+import 'widgets/single_address.dart';
 
 class UserAddressScreen extends StatelessWidget {
   const UserAddressScreen({super.key});
@@ -39,7 +40,7 @@ class UserAddressScreen extends StatelessWidget {
               key: Key(controller.refreshData.value.toString()),
               future: controller.getAllUserAddresses(),
               builder: (context, snapshot) {
-                final response = TCloudHelperFunctions.checkMultiRecordState(
+                final response = CloudHelperFunctions.checkMultiRecordState(
                   snapshot: snapshot,
                 );
                 if (response != null) return response;

@@ -1,14 +1,14 @@
-import 'package:clothiva_project/common/widgets/custom_shapes/containers/rounded_container.dart';
-import 'package:clothiva_project/utils/constants/colors.dart';
-import 'package:flutter/material.dart';
-import 'package:clothiva_project/utils/constants/sizes.dart';
 import 'package:clothiva_project/utils/helpers/context_extensions.dart';
+
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../utils/constants/colors.dart';
+import '../../../../utils/constants/sizes.dart';
+import '../../custom_shapes/containers/rounded_container.dart';
+
 class CCouponCode extends StatelessWidget {
-  const CCouponCode({
-    super.key,
-  });
+  const CCouponCode({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -37,16 +37,18 @@ class CCouponCode extends StatelessWidget {
               ),
             ),
           ),
-    
+
           /// Button
           SizedBox(
             width: 80,
             child: ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
-                foregroundColor: dark ? CColors.white.withOpacity(0.5) : CColors.dark.withOpacity(0.5),
+                foregroundColor: dark
+                    ? CColors.white.withOpacity(0.5)
+                    : CColors.dark.withOpacity(0.5),
                 backgroundColor: Colors.grey.withOpacity(0.2),
-                side: BorderSide(color: Colors.grey.withOpacity(0.1))
+                side: BorderSide(color: Colors.grey.withOpacity(0.1)),
               ),
               child: const Text('Apply'),
             ),

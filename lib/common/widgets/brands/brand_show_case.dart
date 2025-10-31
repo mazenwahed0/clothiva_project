@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:clothiva_project/common/widgets/shimmers/shimmer.dart';
 import 'package:clothiva_project/utils/helpers/context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,6 +8,7 @@ import '../../../features/shop/screens/brand/brand_products.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
 import '../custom_shapes/containers/rounded_container.dart';
+import '../shimmers/shimmer.dart';
 import 'brand_card.dart';
 
 class CBrandShowcase extends StatelessWidget {
@@ -18,33 +18,32 @@ class CBrandShowcase extends StatelessWidget {
   final BrandModel brand;
   @override
   Widget build(BuildContext context) {
-     return InkWell(
-       onTap: ()=>BrandProducts(brand: brand,),
-       child: RoundedContainer(
-         showBorder: true,
-         borderColor: CColors.darkGrey,
-         backgroundColor: Colors.transparent,
-         padding: const EdgeInsets.all(CSizes.md),
-         margin: const EdgeInsets.only(bottom: CSizes.spaceBtItems),
-         child: Column(
-           children: [
-             /// Brand with Products Count
-             CBrandCard(showBorder: false,brand: brand,),
+    return InkWell(
+      onTap: () => Get.to(() => BrandProducts(brand: brand)),
+      child: RoundedContainer(
+        showBorder: true,
+        borderColor: CColors.darkGrey,
+        backgroundColor: Colors.transparent,
+        padding: const EdgeInsets.all(CSizes.md),
+        margin: const EdgeInsets.only(bottom: CSizes.spaceBtItems),
+        child: Column(
+          children: [
+            /// Brand with Products Count
+            CBrandCard(showBorder: false, brand: brand),
 
-             const SizedBox(height: CSizes.spaceBtItems),
+            const SizedBox(height: CSizes.spaceBtItems),
 
-             /// Brand Top 3 Product Images
-             Row(
-               // It seems 'images' is expected to contain paths for the top 3 images.
-               children: images
-                   .map((image) => brandTopProductImageWidget(image, context))
-                   .toList(),
-             ),
-           ],
-         ),
-       ),
-     );
-
+            /// Brand Top 3 Product Images
+            Row(
+              // It seems 'images' is expected to contain paths for the top 3 images.
+              children: images
+                  .map((image) => brandTopProductImageWidget(image, context))
+                  .toList(),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 
@@ -60,7 +59,8 @@ Widget brandTopProductImageWidget(String image, BuildContext context) {
       child: CachedNetworkImage(
         imageUrl: image,
         fit: BoxFit.contain,
-        progressIndicatorBuilder: (context,url,downloadProgress)=>CShimmerEffect(width: 100, height: 100),
+        progressIndicatorBuilder: (context, url, downloadProgress) =>
+            CShimmerEffect(width: 100, height: 100),
       ),
     ),
   );

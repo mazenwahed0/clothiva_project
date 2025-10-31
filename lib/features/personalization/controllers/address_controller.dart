@@ -1,15 +1,18 @@
-import 'package:clothiva_project/common/widgets/loaders/circular_loader.dart';
-import 'package:clothiva_project/common/widgets/texts/section_heading.dart';
-import 'package:clothiva_project/features/personalization/models/address_model.dart';
-import 'package:clothiva_project/features/personalization/screens/address/add_new_address.dart';
-import 'package:clothiva_project/features/personalization/screens/address/widgets/single_address.dart';
-import 'package:clothiva_project/utils/constants/image_strings.dart';
-import 'package:clothiva_project/utils/constants/sizes.dart';
-import 'package:clothiva_project/utils/helpers/exports.dart';
-import 'package:clothiva_project/utils/popups/exports.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:clothiva_project/data/repositories/address/address_repository.dart';
+
+import '../../../common/widgets/loaders/circular_loader.dart';
+import '../../../common/widgets/texts/section_heading.dart';
+import '../../../data/repositories/address/address_repository.dart';
+import '../../../utils/constants/image_strings.dart';
+import '../../../utils/constants/sizes.dart';
+import '../../../utils/helpers/cloud_helper_functions.dart';
+import '../../../utils/helpers/network_manager.dart';
+import '../../../utils/popups/full_screen_loader.dart';
+import '../../../utils/popups/loaders.dart';
+import '../models/address_model.dart';
+import '../screens/address/add_new_address.dart';
+import '../screens/address/widgets/single_address.dart';
 
 class AddressController extends GetxController {
   static AddressController get instance => Get.find();
@@ -159,11 +162,10 @@ class AddressController extends GetxController {
             children: [
               const SectionHeading(title: 'Select Address'),
               const SizedBox(height: CSizes.spaceBtItems),
-
               FutureBuilder(
                 future: getAllUserAddresses(),
                 builder: (_, snapshot) {
-                  final response = TCloudHelperFunctions.checkMultiRecordState(
+                  final response = CloudHelperFunctions.checkMultiRecordState(
                     snapshot: snapshot,
                   );
                   if (response != null) return response;
@@ -182,7 +184,6 @@ class AddressController extends GetxController {
                   );
                 },
               ),
-
               const SizedBox(height: CSizes.defaultSpace * 2),
               SizedBox(
                 width: double.infinity,

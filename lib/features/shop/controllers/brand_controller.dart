@@ -1,61 +1,72 @@
 import 'package:clothiva_project/data/repositories/brand/brand_repository.dart';
 import 'package:clothiva_project/data/repositories/product/product_repository.dart';
 import 'package:clothiva_project/features/shop/models/brand_model.dart';
-import 'package:clothiva_project/utils/popups/exports.dart';
+import 'package:clothiva_project/features/shop/models/product_model.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
-import '../models/product_model.dart';
+import '../../../utils/constants/text_strings.dart';
+import '../../../utils/popups/loaders.dart';
 
-class BrandController extends GetxController{
-  static BrandController get instance =>Get.find();
+class BrandController extends GetxController {
+  static BrandController get instance => Get.find();
 
-  RxBool isLoading =true.obs;
-  final RxList<BrandModel> featuredBrands=<BrandModel>[].obs;
-  final RxList<BrandModel> allBrands=<BrandModel>[].obs;
-  final brandRepository=Get.put(BrandRepository());
+  /// Variables
+  final isLoading = false.obs;
+  final brandRepository = Get.put(BrandRepository());
+  RxList<BrandModel> allBrands = <BrandModel>[].obs;
+  RxList<BrandModel> featuredBrands = <BrandModel>[].obs;
 
-  void onInit(){
+  @override
+  void onInit() {
     getFeaturedBrands();
     super.onInit();
   }
 
-  //load brands
-  Future<void> getFeaturedBrands()async{
-    try{
-      isLoading.value=true;
-      final brands=await brandRepository.getAllBrands();
+  /// -- Load Brands
+  void getFeaturedBrands() async {
+    try {
+      // Show Loader while loading Brands
+      isLoading.value = true;
+
+      final brands = await brandRepository.fetchBrands();
+
       allBrands.assignAll(brands);
 
-      featuredBrands.assignAll(allBrands.where((brand)=>brand.isFeatured??false).take(4));
-    }catch(e){
-      Loaders.errorSnackBar(title: 'oh Snap!',message: e.toString());
-    }finally{
-      isLoading.value=false;
+      featuredBrands.assignAll(
+        allBrands.where((brand) => brand.isFeatured ?? false).take(4),
+      );
+    } catch (e) {
+      Loaders.errorSnackBar(title: 'Oops!', message: e.toString());
+    } finally {
+      // Remove Loader
+      isLoading.value = false;
     }
   }
 
-  //Get brands for category
-
-  //get brand for specific product from your data source
-  Future<List<ProductModel>>getBrandProducts({required String brandId, int limit=-1})async{
-    try{
-      final products=await ProductRepository.instance.getProductsForBrand(brandId: brandId,limit: limit);
-      return products;
-    }catch(e){
-      Loaders.errorSnackBar(title: 'oh Snap!',message: e.toString());
+  /// -- Get Brands for Category
+  Future<List<BrandModel>> getBrandsForCategory(String categoryId) async {
+    try {
+      final brands = await brandRepository.fetchBrandsForCategory(categoryId);
+      return brands;
+    } catch (e) {
+      Loaders.errorSnackBar(title: 'Oops!', message: e.toString());
       return [];
     }
   }
 
-  Future<List<BrandModel>>getBrandsForCategory(String categoryId)async{
-    try{
-      final brands=await brandRepository.getBrandsForCategory(categoryId);
-      return brands;
-    }
-    catch(e){
-      Loaders.errorSnackBar(title: 'oh Snap!',message: e.toString());
+  /// Get Brand Specific Products from your data source
+  Future<List<ProductModel>> getBrandProducts({
+    required String brandId,
+    int limit = -1,
+  }) async {
+    try {
+      final products = await ProductRepository.instance.getProductsForBrand(
+        brandId: brandId,
+        limit: limit,
+      );
+      return products;
+    } catch (e) {
+      Loaders.errorSnackBar(title: 'Oops!', message: e.toString());
       return [];
     }
   }
