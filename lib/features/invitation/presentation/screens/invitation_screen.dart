@@ -47,7 +47,7 @@ class InvitationScreen extends StatelessWidget {
         if (!hasData) {
           return CAnimationLoaderWidget(
             text: 'No invitations or collaborators found',
-            animation: CImages.bagIcon,
+            animation: CImages.cartPage,
             showAction: false,
             actionText: 'Let\'s fill it',
             onActionPressed: () => Get.off(() => const NavigationMenu()),
@@ -166,43 +166,62 @@ class InvitationScreen extends StatelessWidget {
     Invitation invite,
     bool dark,
   ) {
-    return Card(
-      margin: const EdgeInsets.only(bottom: CSizes.spaceBtItems),
-      child: ListTile(
-        leading: Icon(
+return Card(
+  margin: const EdgeInsets.only(bottom: CSizes.spaceBtItems),
+  child: Padding(
+    padding: const EdgeInsets.all(CSizes.md),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Icon(
           Iconsax.notification_bing,
           color: dark ? CColors.warning : CColors.primary,
         ),
-        title: Text('Invitation from: ${invite.senderName}'),
-        subtitle: const Text('Do you want to accept this invitation?'),
-        trailing: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ElevatedButton(
-              onPressed: () => controller.acceptInvite(invite.id),
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: CSizes.sm,
-                  vertical: CSizes.xs,
-                ),
+        const SizedBox(width: CSizes.sm),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Invitation from: ${invite.senderName}',
+                  style: Theme.of(context).textTheme.titleMedium),
+              const SizedBox(height: 4),
+              const Text('Do you want to accept this invitation?'),
+              const SizedBox(height: CSizes.sm),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  ElevatedButton(
+                    onPressed: () => controller.acceptInvite(invite.id),
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: CSizes.sm,
+                        vertical: CSizes.xs,
+                      ),
+                    ),
+                    child: const Text('Accept'),
+                  ),
+                  const SizedBox(height: CSizes.xs),
+                  OutlinedButton(
+                    onPressed: () => controller.rejectInvite(invite.id),
+                    style: OutlinedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: CSizes.sm,
+                        vertical: CSizes.xs,
+                      ),
+                    ),
+                    child: const Text('Reject'),
+                  ),
+                ],
               ),
-              child: const Text('Accept'),
-            ),
-            const SizedBox(width: CSizes.xs),
-            OutlinedButton(
-              onPressed: () => controller.rejectInvite(invite.id),
-              style: OutlinedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: CSizes.sm,
-                  vertical: CSizes.xs,
-                ),
-              ),
-              child: const Text('Reject'),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-    );
+      ],
+    ),
+  ),
+);
+
+
   }
 
   /// === Collaborator Tile ===
