@@ -1,3 +1,4 @@
+import 'package:clothiva_project/features/shop/controllers/products/image_controller.dart';
 import 'package:get/get.dart';
 
 import '../../models/product_model.dart';

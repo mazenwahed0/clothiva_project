@@ -2,6 +2,7 @@ import 'package:clothiva_project/common/widgets/appbar/appbar.dart';
 import 'package:clothiva_project/common/widgets/custom_shapes/containers/primary_header_container.dart';
 import 'package:clothiva_project/common/widgets/list_tiles/settings_menu_tile.dart';
 import 'package:clothiva_project/common/widgets/texts/section_heading.dart';
+import 'package:clothiva_project/features/invitation/presentation/screens/invitation_screen.dart';
 import 'package:clothiva_project/features/personalization/screens/profile/profile.dart';
 import 'package:clothiva_project/features/personalization/screens/settings/widgets/load_data.dart';
 import 'package:clothiva_project/features/personalization/controllers/user_controller.dart';
@@ -101,6 +102,14 @@ class SettingsScreen extends StatelessWidget {
                     title: 'Notifications',
                     subtitle: 'Set any kind of notification message',
                     onTap: () {},
+                  ),
+                  SettingsMenuTile(
+                    icon: Iconsax.people,
+                    title: 'Invitations & Collaborators',
+                    subtitle: 'Manage invitations and sharing permissions.',
+                    onTap: () {
+                      Get.to(() => const InvitationScreen());
+                    },
                   ),
                   SettingsMenuTile(
                     icon: Iconsax.security_card,

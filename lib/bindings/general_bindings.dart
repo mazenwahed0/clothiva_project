@@ -1,3 +1,5 @@
+import 'package:clothiva_project/features/invitation/data/repositories/invitation_repo.dart';
+import 'package:clothiva_project/features/invitation/presentation/Invitation/invitation_controller.dart';
 import 'package:clothiva_project/features/shop/controllers/products/favourites_controller.dart';
 import 'package:get/get.dart';
 
@@ -30,6 +32,13 @@ class GeneralBindings extends Bindings {
 
     /// -- Repository
     Get.lazyPut(() => AuthenticationRepository(), fenix: true);
+
+    Get.lazyPut(() => InvitationRepository(), fenix: true);
+    Get.lazyPut<InvitationController>(
+      () => InvitationController(Get.find()),
+      fenix: true,
+    );
+
     // Get.put(CartController());
     // // Get.put(ThemeController());
     Get.put(VariationController());
