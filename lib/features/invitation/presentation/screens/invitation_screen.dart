@@ -47,7 +47,7 @@ class InvitationScreen extends StatelessWidget {
         if (!hasData) {
           return CAnimationLoaderWidget(
             text: 'No invitations or collaborators found',
-            animation: CImages.cartPage,
+            animation: CImages.bagIcon,
             showAction: false,
             actionText: 'Let\'s fill it',
             onActionPressed: () => Get.off(() => const NavigationMenu()),
