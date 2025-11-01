@@ -53,7 +53,8 @@ class VariationController extends GetxController {
 
     // Show the selected Variation image as a Main Image
     if (selectedVariation.image.isNotEmpty) {
-      selectedProductImage.value = selectedVariation.image;
+      ImageController.instance.selectedProductImage.value =
+          selectedVariation.image;
     }
 
     // Show selected variation quantity already in the cart.
