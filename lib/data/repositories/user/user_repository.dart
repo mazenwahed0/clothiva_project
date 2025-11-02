@@ -29,29 +29,29 @@ class UserRepository extends GetxController {
   }
 
   // /// Function to check for existing user data by email in Firestore.
-  // Future<UserModel?> checkUserByEmail(String? email) async {
-  //   try {
-  //     final user = await _db
-  //         .collection("Users")
-  //         .where("email", isEqualTo: email)
-  //         .limit(1)
-  //         .get();
+  Future<UserModel?> checkUserByEmail(String? email) async {
+    try {
+      final user = await _db
+          .collection("Users")
+          .where("email", isEqualTo: email)
+          .limit(1)
+          .get();
 
-  //     if (user.docs.isNotEmpty) {
-  //       return UserModel.fromSnapshot(user.docs.first);
-  //     } else {
-  //       return null;
-  //     }
-  //   } on FirebaseException catch (e) {
-  //     throw CFirebaseException(e.code).message;
-  //   } on FormatException catch (_) {
-  //     throw const CFormatException();
-  //   } on PlatformException catch (e) {
-  //     throw CPlatformException(e.code).message;
-  //   } catch (e) {
-  //     throw 'Something went wrong. Please try again';
-  //   }
-  // }
+      if (user.docs.isNotEmpty) {
+        return UserModel.fromSnapshot(user.docs.first);
+      } else {
+        return null;
+      }
+    } on FirebaseException catch (e) {
+      throw CFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const CFormatException();
+    } on PlatformException catch (e) {
+      throw CPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again';
+    }
+  }
 
   /// Function to fetch user details based on user ID.
   Future<UserModel> fetchUserDetails() async {

@@ -166,62 +166,62 @@ class InvitationScreen extends StatelessWidget {
     Invitation invite,
     bool dark,
   ) {
-return Card(
-  margin: const EdgeInsets.only(bottom: CSizes.spaceBtItems),
-  child: Padding(
-    padding: const EdgeInsets.all(CSizes.md),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Icon(
-          Iconsax.notification_bing,
-          color: dark ? CColors.warning : CColors.primary,
-        ),
-        const SizedBox(width: CSizes.sm),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Invitation from: ${invite.senderName}',
-                  style: Theme.of(context).textTheme.titleMedium),
-              const SizedBox(height: 4),
-              const Text('Do you want to accept this invitation?'),
-              const SizedBox(height: CSizes.sm),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+    return Card(
+      margin: const EdgeInsets.only(bottom: CSizes.spaceBtItems),
+      child: Padding(
+        padding: const EdgeInsets.all(CSizes.md),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Icon(
+              Iconsax.notification_bing,
+              color: dark ? CColors.warning : CColors.primary,
+            ),
+            const SizedBox(width: CSizes.sm),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ElevatedButton(
-                    onPressed: () => controller.acceptInvite(invite.id),
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: CSizes.sm,
-                        vertical: CSizes.xs,
-                      ),
-                    ),
-                    child: const Text('Accept'),
+                  Text(
+                    'Invitation from: ${invite.senderName}',
+                    style: Theme.of(context).textTheme.titleMedium,
                   ),
-                  const SizedBox(height: CSizes.xs),
-                  OutlinedButton(
-                    onPressed: () => controller.rejectInvite(invite.id),
-                    style: OutlinedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: CSizes.sm,
-                        vertical: CSizes.xs,
+                  const SizedBox(height: 4),
+                  const Text('Do you want to accept this invitation?'),
+                  const SizedBox(height: CSizes.sm),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () => controller.acceptInvite(invite.id),
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: CSizes.sm,
+                            vertical: CSizes.xs,
+                          ),
+                        ),
+                        child: const Text('Accept'),
                       ),
-                    ),
-                    child: const Text('Reject'),
+                      const SizedBox(height: CSizes.xs),
+                      OutlinedButton(
+                        onPressed: () => controller.rejectInvite(invite.id),
+                        style: OutlinedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: CSizes.sm,
+                            vertical: CSizes.xs,
+                          ),
+                        ),
+                        child: const Text('Reject'),
+                      ),
+                    ],
                   ),
                 ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-      ],
-    ),
-  ),
-);
-
-
+      ),
+    );
   }
 
   /// === Collaborator Tile ===
