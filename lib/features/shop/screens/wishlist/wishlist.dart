@@ -1,7 +1,6 @@
 import 'package:clothiva_project/common/widgets/appbar/appbar.dart';
 import 'package:clothiva_project/common/widgets/icons/circular_icon.dart';
 import 'package:clothiva_project/common/widgets/layouts/grid_layout.dart';
-import 'package:clothiva_project/features/shop/screens/home/home.dart';
 import 'package:clothiva_project/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,6 +12,7 @@ import '../../../../common/widgets/shimmers/vertical_product_shimmer.dart';
 import '../../../../navigation_menu.dart';
 import '../../../../utils/constants/image_strings.dart';
 import '../../../../utils/helpers/cloud_helper_functions.dart';
+import '../../../invitation/screens/invitation_screen.dart';
 import '../../controllers/products/favourites_controller.dart';
 
 class WishlistScreen extends StatelessWidget {
@@ -20,17 +20,20 @@ class WishlistScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = FavouritesController.instance;
+    final favController = FavouritesController.instance;
+
     return Scaffold(
       appBar: CAppBar(
-        title: Text(
-          'Wishlist',
-          style: Theme.of(context).textTheme.headlineMedium,
+        title: Obx(
+          () => Text(
+            favController.isSharedMode.value ? 'Shared Wishlist' : 'Wishlist',
+            style: Theme.of(context).textTheme.headlineMedium,
+          ),
         ),
         actions: [
           CircularIcon(
-            icon: Iconsax.add,
-            onPressed: () => Get.to(NavigationMenu()),
+            icon: Iconsax.user_add,
+            onPressed: () => Get.to(() => const InvitationScreen()),
           ),
         ],
         showActions: true,
@@ -40,24 +43,32 @@ class WishlistScreen extends StatelessWidget {
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsetsGeometry.all(CSizes.defaultSpace),
-              child: Obx(
-                () => FutureBuilder(
-                  future: controller.favouriteProducts(),
-                  builder: (context, snapshot) {
-                    final emptyWidget = CAnimationLoaderWidget(
-                      text: 'Whoops! Wishlist is Empty',
-                      actionText: "Let's fill it",
-                      animation: CImages.whishlistPage,
-                      showAction: true,
-                      onActionPressed: () => Get.off(() => NavigationMenu()),
-                    );
+              padding: EdgeInsets.all(CSizes.defaultSpace),
+              child: Obx(() {
+                final productIds = favController.favourites.keys.toList();
 
+                if (productIds.isEmpty) {
+                  return CAnimationLoaderWidget(
+                    text: favController.isSharedMode.value
+                        ? 'No shared items yet.'
+                        : 'Whoops! Wishlist is Empty.',
+                    actionText: "Let's fill it",
+                    animation: favController.isSharedMode.value
+                        ? CImages.invitationPage
+                        : CImages.whishlistPage,
+                    showAction: true,
+                    onActionPressed: () => Get.off(() => NavigationMenu()),
+                  );
+                }
+
+                return FutureBuilder(
+                  future: favController.favouriteProducts(),
+                  builder: (context, snapshot) {
                     const loader = CVerticalProductShimmer(itemCount: 6);
                     final widget = CloudHelperFunctions.checkMultiRecordState(
                       snapshot: snapshot,
                       loader: loader,
-                      nothingFound: emptyWidget,
+                      nothingFound: const SizedBox.shrink(),
                     );
                     if (widget != null) return widget;
 
@@ -68,8 +79,8 @@ class WishlistScreen extends StatelessWidget {
                           ProductCardVertical(product: products[index]),
                     );
                   },
-                ),
-              ),
+                );
+              }),
             ),
           ],
         ),

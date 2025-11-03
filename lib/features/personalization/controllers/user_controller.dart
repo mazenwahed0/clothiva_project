@@ -110,181 +110,6 @@ class UserController extends GetxController {
     }
   }
 
-  // /// Fetch user record
-  // Future<void> fetchUserRecord({bool fetchLatestRecord = false}) async {
-  //   try {
-  //     if (fetchLatestRecord) {
-  //       profileLoading.value = true;
-  //       final user = await userRepository.fetchUserDetails();
-  //       this.user(user);
-  //     } else {
-  //       // Check if user is logged in and has a valid ID
-  //       if (user.value.id != AuthenticationRepository.instance.getUserID) {
-  //         user.value = UserModel.empty();
-  //       }
-
-  //       // Fetch user data from the repository
-  //       if (user.value.id.isEmpty) {
-  //         profileLoading.value = true;
-  //         final user = await userRepository.fetchUserDetails();
-  //         this.user(user);
-  //       }
-  //     }
-  //   } catch (e) {
-  //     Loaders.warningSnackBar(
-  //         title: 'Warning',
-  //         message: 'Unable to fetch your information. Try again.');
-  //   } finally {
-  //     profileLoading.value = false;
-  //   }
-  // }
-
-  // /// Save user Record from any Registration provider
-  // Future<void> saveUserRecord({UserModel? user, UserCredential? userCredentials}) async {
-  //   try {
-  //     // First UPDATE Rx User and then check if user data is already stored. If not store new data
-  //     await fetchUserRecord();
-
-  //     // If no record already stored.
-  //     if (this.user.value.id.isEmpty) {
-  //       if (userCredentials != null) {
-  //         // final fcmToken = await TNotificationService.getToken();
-  //         // Map data
-  //         final newUser = UserModel(
-  //           id: userCredentials.user!.uid,
-  //           fullName: userCredentials.user!.displayName ?? '',
-  //           email: userCredentials.user!.email ?? '',
-  //           profilePicture: userCredentials.user!.photoURL ?? '',
-  //           // deviceToken: fcmToken,
-  //           isEmailVerified: true,
-  //           isProfileActive: true,
-  //           updatedAt: DateTime.now(),
-  //           createdAt: DateTime.now(),
-  //           verificationStatus: VerificationStatus.approved,
-  //           phoneNumber: '',
-  //         );
-
-  //         // Save user data
-  //         await userRepository.saveUserRecord(newUser);
-
-  //         // Assign new user to the RxUser so that we can use it through out the app.
-  //         this.user(newUser);
-  //       } else if (user != null) {
-  //         // Save Model when user registers using Email and Password
-  //         await userRepository.saveUserRecord(user);
-
-  //         // Assign new user to the RxUser so that we can use it through out the app.
-  //         this.user(user);
-  //       }
-  //     }
-  //   } catch (e) {
-  //     Loaders.warningSnackBar(
-  //       title: 'Data not saved',
-  //       message: 'Something went wrong while saving your information. You can re-save your data in your Profile.',
-  //     );
-  //   }
-  // }
-
-  // Future<void> updateUserProfile() async {
-  //   try {
-  //     // Start Loading
-  //     FullScreenLoader.openLoadingDialog('We are updating your information...', TImages.docerAnimation);
-
-  //     // Check Internet Connectivity
-  //     final isConnected = await NetworkManager.instance.isConnected();
-  //     if (!isConnected) {
-  //       FullScreenLoader.stopLoading();
-  //       return;
-  //     }
-
-  //     // Form Validation
-  //     if (!updateUserProfileFormKey.currentState!.validate()) {
-  //       FullScreenLoader.stopLoading();
-  //       return;
-  //     }
-
-  //     // Update user's first & last name in the Firebase Firestore
-  //     Map<String, dynamic> json = {'fullName': fullName.text.trim(), 'email': email.text.trim()};
-  //     await userRepository.updateSingleField(json);
-
-  //     // Update the Rx User value
-  //     user.value.fullName = fullName.text.trim();
-  //     user.value.email = email.text.trim();
-  //     user.value.phoneNumber = phoneNo.text.trim();
-
-  //     // Remove Loader
-  //     FullScreenLoader.stopLoading();
-
-  //     // Show Success Message
-  //     Loaders.successSnackBar(title: 'Congratulations', message: 'Your Name has been updated.');
-
-  //     // Move to previous screen.
-  //     Get.offNamed(CRoutes.profileScreen);
-  //   } catch (e) {
-  //     FullScreenLoader.stopLoading();
-  //     Loaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
-  //   }
-  // }
-
-  // /// Upload Profile Picture
-  // uploadUserProfilePicture() async {
-  //   try {
-  //     final image = await ImagePicker().pickImage(
-  //       source: ImageSource.gallery,
-  //       imageQuality: 70,
-  //       maxHeight: 512,
-  //       maxWidth: 512,
-  //     );
-  //     if (image != null) {
-  //       // Upload Image
-  //       imageUploading.value = true;
-  //       final uploadedImage = await userRepository.uploadImage(
-  //         'Users/Images/Profile/',
-  //         image,
-  //       );
-  //       profileImageUrl.value = uploadedImage;
-  //       Map<String, dynamic> newImage = {'profilePicture': uploadedImage};
-  //       await userRepository.updateSingleField(newImage);
-  //       user.value.profilePicture = uploadedImage;
-  //       user.refresh();
-
-  //       imageUploading.value = false;
-  //       Loaders.successSnackBar(
-  //         title: 'Congratulations',
-  //         message: 'Your Profile Image has been updated!',
-  //       );
-  //     }
-  //   } catch (e) {
-  //     imageUploading.value = false;
-  //     Loaders.errorSnackBar(
-  //       title: 'OhSnap',
-  //       message: 'Something went wrong: $e',
-  //     );
-  //   }
-  // }
-
-  // /// Update user record after login (e.g., to update token)
-  // Future<void> updateUserRecordWithToken(String newToken) async {
-  //   try {
-  //     // Ensure we have fetched the user record before updating
-  //     await fetchUserRecord();
-  //     // Create a map to store the fields we want to update (e.g., token)
-  //     Map<String, dynamic> updatedFields = {'deviceToken': newToken};
-
-  //     // Call the repository to update the specific fields
-  //     await userRepository.updateSingleField(updatedFields);
-
-  //     // Update the local RxUser object with the new token
-  //     user.value.deviceToken = newToken;
-  //     user.refresh();
-  //   } catch (e) {
-  //     TLoaders.errorSnackBar(
-  //       title: 'Error',
-  //       message: 'Failed to update user record: $e',
-  //     );
-  //   }
-  // }
-
   /// Delete Account Warning
   void deleteAccountWarningPopup() {
     Get.defaultDialog(
@@ -349,52 +174,6 @@ class UserController extends GetxController {
     }
   }
 
-  // /// Delete User Account
-  // void deleteUserAccount() async {
-  //   try {
-  //     FullScreenLoader.openLoadingDialog('Processing', CImages.docerAnimation);
-
-  //     /// First re-authenticate user
-  //     final auth = AuthenticationRepository.instance;
-  //     final provider =
-  //         auth.firebaseUser!.providerData.map((e) => e.providerId).first;
-  //     if (provider.isNotEmpty) {
-  //       // Re Verify Auth Email
-  //       if (provider == 'google.com') {
-  //         await auth.signInWithGoogle();
-  //         await auth.deleteAccount();
-  //         FullScreenLoader.stopLoading();
-  //         Get.offAllNamed(TRoutes.logIn);
-  //       } else if (provider == 'facebook.com') {
-  //         TFullScreenLoader.stopLoading();
-  //         Get.offAllNamed(TRoutes.logIn);
-  //       } else if (provider == 'password') {
-  //         TFullScreenLoader.stopLoading();
-  //         Get.to(() => const ReAuthLoginForm());
-  //       } else if (provider == 'phone') {
-  //         TFullScreenLoader.stopLoading();
-  //         await AuthenticationRepository.instance
-  //             .loginWithPhoneNo(user.value.phoneNumber);
-  //         bool otpVerified = await Get.toNamed(
-  //             TRoutes.reAuthenticateOtpVerification,
-  //             parameters: {
-  //               'phoneNumberWithCountryCode': user.value.phoneNumber
-  //             });
-  //         if (otpVerified) {
-  //           TLoaders.successSnackBar(
-  //               title: TTexts.phoneVerifiedTitle,
-  //               message: TTexts.phoneVerifiedMessage);
-  //           await auth.deleteAccount();
-  //           Get.offAll(() => const WelcomeScreen());
-  //         }
-  //       }
-  //     }
-  //   } catch (e) {
-  //     TFullScreenLoader.stopLoading();
-  //     TLoaders.warningSnackBar(title: 'Oh Snap!', message: e.toString());
-  //   }
-  // }
-
   /// -- RE-AUTHENTICATE before deleting
   Future<void> reAuthenticateEmailAndPasswordUser() async {
     try {
@@ -432,16 +211,13 @@ class UserController extends GetxController {
       Get.defaultDialog(
         contentPadding: const EdgeInsets.all(CSizes.md),
         title: 'Logout',
-        titleStyle: const TextStyle(
-          color: Colors.black, // Force black title
-        ),
         middleText: 'Are you sure you want to Logout?',
-        middleTextStyle: const TextStyle(
-          color: Colors.black, // Force black title
-        ),
         confirm: ElevatedButton(
           child: const Padding(
-            padding: EdgeInsets.symmetric(horizontal: CSizes.lg),
+            padding: EdgeInsets.symmetric(
+              horizontal: CSizes.lg,
+              vertical: CSizes.xs / 2,
+            ),
             child: Text('Confirm'),
           ),
           onPressed: () async {
@@ -458,11 +234,12 @@ class UserController extends GetxController {
           },
         ),
         cancel: OutlinedButton(
-          child: const Text(
-            'Cancel',
-            style: TextStyle(
-              color: Colors.black, // Force black title
+          child: const Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: CSizes.xs,
+              vertical: CSizes.xs,
             ),
+            child: Text('Cancel'),
           ),
           onPressed: () => Navigator.of(Get.overlayContext!).pop(),
         ),
@@ -539,52 +316,4 @@ class UserController extends GetxController {
       Loaders.errorSnackBar(title: 'Failed', message: e.toString());
     }
   }
-
-  // /// Upload Profile Picture
-  // uploadUserProfilePicture() async {
-  //   try {
-  //     final image = await ImagePicker().pickImage(
-  //       source: ImageSource.gallery,
-  //       imageQuality: 70,
-  //       maxHeight: 512,
-  //       maxWidth: 512,
-  //     );
-  //     if (image != null) {
-  //       imageUploading.value = true;
-  //       // Upload Image
-  //       // final uploadedImage = await userRepository.uploadImage(
-  //       //   'Users/Images/Profile/',
-  //       //   image,
-  //       // );
-
-  //       // Upload to Cloudinary
-  //       final uploadedImage = await cloudinaryService.uploadImage(
-  //         image.path,
-  //         user.value.id,
-  //         folder: 'Users/Profile',
-  //       );
-
-  //       // Update Firestore User Image Record (User Repo)
-  //       profileImageUrl.value = uploadedImage;
-  //       Map<String, dynamic> newImage = {'profilePicture': uploadedImage};
-  //       await userRepository.updateSingleField(newImage);
-
-  //       // Update local user model
-  //       user.value.profilePicture = uploadedImage;
-  //       user.refresh();
-
-  //       imageUploading.value = false;
-  //       Loaders.successSnackBar(
-  //         title: 'Changes have been saved',
-  //         message: 'Your Profile Image has been updated!',
-  //       );
-  //     }
-  //   } catch (e) {
-  //     imageUploading.value = false;
-  //     Loaders.errorSnackBar(
-  //       title: 'OhSnap',
-  //       message: 'Something went wrong: $e',
-  //     );
-  //   }
-  // }
 }

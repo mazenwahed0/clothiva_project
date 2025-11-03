@@ -222,4 +222,5 @@ class CImages {
   static const String pencilDrawing =
       "assets/images/animations/pencil_drawing.json";
   static const String orderDelivery = "assets/images/animations/delivery.json";
+  static const String invitationPage = "assets/images/animations/welcome.json";
 }

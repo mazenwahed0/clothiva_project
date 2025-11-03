@@ -28,7 +28,7 @@ class UserRepository extends GetxController {
     }
   }
 
-  // /// Function to check for existing user data by email in Firestore.
+  /// Function to check for existing user data by email in Firestore.
   Future<UserModel?> checkUserByEmail(String? email) async {
     try {
       final user = await _db

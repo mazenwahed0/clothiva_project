@@ -15,13 +15,15 @@ class FavouriteIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(FavouritesController());
-    return Obx(() => CircularIcon(
-          icon: controller.isFavourite(productId)
-              ? Iconsax.heart5
-              : Iconsax.heart,
-          color: controller.isFavourite(productId) ? CColors.error : null,
-          onPressed: () => controller.toggleFavouriteProduct(productId),
-        ));
+    final controller = FavouritesController.instance;
+    return Obx(
+      () => CircularIcon(
+        icon: controller.isFavourite(productId)
+            ? Iconsax.heart5
+            : Iconsax.heart,
+        color: controller.isFavourite(productId) ? CColors.error : null,
+        onPressed: () => controller.toggleFavouriteProduct(productId),
+      ),
+    );
   }
 }

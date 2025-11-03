@@ -1,8 +1,5 @@
-// lib/features/invitation/data/models/invitation_model.dart
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-
-enum InvitationStatus { pending, accepted, rejected }
+import '../../../utils/constants/enums.dart';
 
 class Invitation {
   final String id;
@@ -10,6 +7,7 @@ class Invitation {
   final String senderName;
   final String recipientEmail;
   final String? recipientId; // Nullable until accepted
+  final String? recipientName;
   final InvitationStatus status;
   final DateTime createdAt;
   final bool shareEnabled;
@@ -20,6 +18,7 @@ class Invitation {
     required this.senderName,
     required this.recipientEmail,
     this.recipientId,
+    this.recipientName,
     required this.status,
     required this.createdAt,
     required this.shareEnabled,
@@ -34,12 +33,13 @@ class Invitation {
       senderName: data['senderName'] as String,
       recipientEmail: data['recipientEmail'] as String,
       recipientId: data['recipientId'] as String?,
+      recipientName: data['recipientName'] as String?,
       status: InvitationStatus.values.firstWhere(
         (e) => e.toString().split('.').last == data['status'],
         orElse: () => InvitationStatus.pending,
       ),
       createdAt: (data['createdAt'] as Timestamp).toDate(),
-      shareEnabled: data['shareEnabled'] as bool? ?? true, // Default to true
+      shareEnabled: data['shareEnabled'] ?? true, // Default to true
     );
   }
 
@@ -50,32 +50,10 @@ class Invitation {
       'senderName': senderName,
       'recipientEmail': recipientEmail,
       'recipientId': recipientId,
+      'recipientName': recipientName,
       'status': status.toString().split('.').last, // e.g., 'pending'
       'createdAt': createdAt,
       'shareEnabled': shareEnabled,
     };
-  }
-
-  // Helper method for updating the model immutably
-  Invitation copyWith({
-    String? id,
-    String? senderId,
-    String? senderName,
-    String? recipientEmail,
-    String? recipientId,
-    InvitationStatus? status,
-    DateTime? createdAt,
-    bool? shareEnabled,
-  }) {
-    return Invitation(
-      id: id ?? this.id,
-      senderId: senderId ?? this.senderId,
-      senderName: senderName ?? this.senderName,
-      recipientEmail: recipientEmail ?? this.recipientEmail,
-      recipientId: recipientId ?? this.recipientId,
-      status: status ?? this.status,
-      createdAt: createdAt ?? this.createdAt,
-      shareEnabled: shareEnabled ?? this.shareEnabled,
-    );
   }
 }

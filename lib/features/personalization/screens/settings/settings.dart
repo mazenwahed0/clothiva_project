@@ -2,7 +2,6 @@ import 'package:clothiva_project/common/widgets/appbar/appbar.dart';
 import 'package:clothiva_project/common/widgets/custom_shapes/containers/primary_header_container.dart';
 import 'package:clothiva_project/common/widgets/list_tiles/settings_menu_tile.dart';
 import 'package:clothiva_project/common/widgets/texts/section_heading.dart';
-import 'package:clothiva_project/features/invitation/presentation/screens/invitation_screen.dart';
 import 'package:clothiva_project/features/personalization/screens/profile/profile.dart';
 import 'package:clothiva_project/features/personalization/screens/settings/widgets/load_data.dart';
 import 'package:clothiva_project/features/personalization/controllers/user_controller.dart';
@@ -14,6 +13,7 @@ import 'package:iconsax/iconsax.dart';
 import '../../../../common/widgets/list_tiles/user_profile_tile.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../cart/screens/cart/cart.dart';
+import '../../../invitation/screens/invitation_screen.dart';
 import '../../../shop/screens/order/order.dart';
 import '../address/address.dart';
 
@@ -105,11 +105,9 @@ class SettingsScreen extends StatelessWidget {
                   ),
                   SettingsMenuTile(
                     icon: Iconsax.people,
-                    title: 'Invitations & Collaborators',
-                    subtitle: 'Manage invitations and sharing permissions.',
-                    onTap: () {
-                      Get.to(() => const InvitationScreen());
-                    },
+                    title: 'Invitations',
+                    subtitle: 'View or manage collaboration invites',
+                    onTap: () => Get.to(() => const InvitationScreen()),
                   ),
                   SettingsMenuTile(
                     icon: Iconsax.security_card,

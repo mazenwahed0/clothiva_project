@@ -11,6 +11,8 @@ class CKeys {
   static const String addressCollection = 'Addresses';
   static const String ordersCollection = 'Orders';
   static const String promoCodesCollection = 'PromoCodes';
+  static const String inviteCollection = 'Invitations';
+  static const String wishlistCollection = 'Wishlists';
 
   static const String rememberMeEmail = 'rememberEmail';
   static const String rememberMePassword = 'rememberPassword';
