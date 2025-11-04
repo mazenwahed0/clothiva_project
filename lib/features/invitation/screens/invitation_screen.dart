@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 
 import '../../../common/widgets/appbar/appbar.dart';
 import '../../../common/widgets/loaders/animation_loader.dart';
 import '../../../navigation_menu.dart';
-import '../../../utils/constants/enums.dart';
 import '../../../utils/constants/image_strings.dart';
 import '../../../utils/constants/sizes.dart';
+import '../../../utils/constants/text_strings.dart';
 import '../../../utils/validators/validation.dart';
 import '../controllers/invitation_controller.dart';
+import '../models/invitation_model.dart';
 import 'widgets/collaborator_tile.dart';
 import 'widgets/pending_invite_tile.dart';
 
@@ -44,7 +46,6 @@ class InvitationScreen extends StatelessWidget {
                 Text(isEnabled ? "Sharing ON" : "Sharing OFF"),
                 Switch(
                   value: isEnabled,
-                  // --- FIX: Removed isLoading check ---
                   onChanged: (value) => controller.toggleShareStatus(value),
                 ),
               ],
@@ -53,7 +54,6 @@ class InvitationScreen extends StatelessWidget {
         ],
       ),
       body: Obx(() {
-        // --- FIX: Simplified loading check ---
         final hasData =
             controller.pendingInvitations.isNotEmpty ||
             controller.collaborators.isNotEmpty ||
@@ -74,29 +74,30 @@ class InvitationScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               /// === Pending Invitations ===
-              Text(
-                'Pending Invitations to You',
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              const SizedBox(height: CSizes.spaceBtItems),
-              // --- FIX: Wrap list in its own Obx ---
-              Obx(
-                () => controller.pendingInvitations.isEmpty
-                    ? const Text('No pending invitations currently.')
-                    : Column(
-                        children: controller.pendingInvitations
-                            .map(
-                              (invite) => PendingInviteTile(
-                                context: context,
-                                invite: invite,
-                              ),
-                            )
-                            .toList(),
-                      ),
-              ),
-              const SizedBox(height: CSizes.spaceBtSections),
-              const Divider(),
-              const SizedBox(height: CSizes.spaceBtSections),
+              if (controller.collaborators.isEmpty) ...[
+                Text(
+                  'Pending Invitations to You',
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+                const SizedBox(height: CSizes.spaceBtItems),
+                Obx(
+                  () => controller.pendingInvitations.isEmpty
+                      ? const Text('No pending invitations currently.')
+                      : Column(
+                          children: controller.pendingInvitations
+                              .map(
+                                (invite) => PendingInviteTile(
+                                  context: context,
+                                  invite: invite,
+                                ),
+                              )
+                              .toList(),
+                        ),
+                ),
+                const SizedBox(height: CSizes.spaceBtSections),
+                const Divider(),
+                const SizedBox(height: CSizes.spaceBtSections),
+              ],
 
               /// === Active Collaborators ===
               Text(
@@ -104,7 +105,6 @@ class InvitationScreen extends StatelessWidget {
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: CSizes.spaceBtItems),
-              // --- FIX: Wrap list in its own Obx ---
               Obx(
                 () => controller.collaborators.isEmpty
                     ? const Text('You have no active collaborators.')
@@ -130,7 +130,6 @@ class InvitationScreen extends StatelessWidget {
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: CSizes.spaceBtItems),
-              // --- FIX: Wrap list in its own Obx ---
               Obx(
                 () => controller.sentInvitations.isEmpty
                     ? const Text('No sent invitations.')
@@ -235,7 +234,6 @@ class InvitationScreen extends StatelessWidget {
                 ),
                 const SizedBox(width: 12),
                 Expanded(
-                  // --- FIX: Removed Obx wrapper ---
                   child: ElevatedButton(
                     onPressed: () async {
                       if (!controller.formKey.currentState!.validate()) return;

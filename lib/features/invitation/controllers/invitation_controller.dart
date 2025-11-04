@@ -25,8 +25,6 @@ class InvitationController extends GetxController {
   final RxList<Invitation> sentInvitations = <Invitation>[].obs;
 
   /// Local-only toggle for recipient view mode.
-  /// NOTE: For this state to be saved, you must add `permanent: true`
-  /// when you `Get.put(InvitationController())` in your GeneralBindings.
   final RxBool isViewingShared = false.obs;
 
   String? get currentUserId => AuthenticationRepository.instance.authUser?.uid;
@@ -44,7 +42,6 @@ class InvitationController extends GetxController {
     invRepo.fetchPendingInvitations().listen(pendingInvitations.assignAll);
     invRepo.fetchSentInvitations().listen(sentInvitations.assignAll);
 
-    // --- FIX: Combined collaborator listeners ---
     // This single listener now handles updating the list AND setting the switch state.
     invRepo.fetchCollaborators().listen((collabs) {
       // Check if this is the very first time loading the list
@@ -123,7 +120,6 @@ class InvitationController extends GetxController {
         isViewingShared.value = true;
         favCtrl.isSharedMode.value = true;
 
-        // --- SNACKBAR ADDED ---
         Loaders.successSnackBar(
           title: 'Shared Wishlist is ON',
           message: 'You are now viewing the shared wishlist.',
@@ -134,7 +130,6 @@ class InvitationController extends GetxController {
       isViewingShared.value = false;
       favCtrl.isSharedMode.value = false;
 
-      // --- SNACKBAR ADDED ---
       Loaders.successSnackBar(
         title: 'Local Wishlist is ON',
         message: 'You are viewing your local wishlist.',
@@ -169,6 +164,22 @@ class InvitationController extends GetxController {
         Loaders.errorSnackBar(
           title: "Oops!",
           message: "You can't send invites to yourself.",
+        );
+        return;
+      }
+
+      // --- Prevent duplicate invites ---
+      final alreadySent = sentInvitations.any(
+        (invite) =>
+            invite.recipientEmail.toLowerCase() == email.toLowerCase() &&
+            (invite.status == InvitationStatus.pending ||
+                invite.status == InvitationStatus.accepted),
+      );
+
+      if (alreadySent) {
+        Loaders.errorSnackBar(
+          title: "Already sent",
+          message: "You already sent an invitation to this user.",
         );
         return;
       }
