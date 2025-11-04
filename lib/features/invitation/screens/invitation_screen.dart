@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
 
 import '../../../common/widgets/appbar/appbar.dart';
 import '../../../common/widgets/loaders/animation_loader.dart';
 import '../../../navigation_menu.dart';
+import '../../../utils/constants/enums.dart';
 import '../../../utils/constants/image_strings.dart';
 import '../../../utils/constants/sizes.dart';
-import '../../../utils/constants/text_strings.dart';
 import '../../../utils/validators/validation.dart';
 import '../controllers/invitation_controller.dart';
-import '../models/invitation_model.dart';
 import 'widgets/collaborator_tile.dart';
 import 'widgets/pending_invite_tile.dart';
 

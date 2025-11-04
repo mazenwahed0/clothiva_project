@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import '../../../data/repositories/authentication/authentication_repository.dart';
 import '../../../data/repositories/invitation/invitation_repository.dart';
 import '../../../data/repositories/user/user_repository.dart';
+import '../../../utils/constants/enums.dart';
 import '../../../utils/helpers/network_manager.dart';
 import '../../../utils/popups/full_screen_loader.dart';
 import '../../../utils/popups/loaders.dart';
