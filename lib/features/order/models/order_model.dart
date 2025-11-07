@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../../utils/constants/enums.dart';
 import '../../../utils/helpers/helper_functions.dart';
-import 'cart_item_model.dart';
+import '../../cart/models/cart_item_model.dart';
 import '../../personalization/models/address_model.dart';
 
 class OrderModel {
@@ -58,32 +58,6 @@ class OrderModel {
     };
   }
 
-  // factory OrderModel.fromSnapshot(DocumentSnapshot snapshot) {
-  //   final data = snapshot.data() as Map<String, dynamic>;
-
-  //   return OrderModel(
-  //     id: data['id'] as String,
-  //     userId: data['userId'] as String,
-  //     status: Orderstatus.values
-  //         .firstWhere((element) => element.toString() == data['status']),
-  //     totalAmount: data['totalAmount'] as double,
-  //     orderDate: (data['orderDate'] as Timestamp).toDate(),
-  //     paymentMethod: data['paymentMethod'] as String,
-  //     address: AddressModel.fromMap(data['address'] as Map<String, dynamic>),
-  //     deliveryDate: (data.containsKey('deliveryDate') &&
-  //             data['deliveryDate'] is Timestamp)
-  //         ? (data['deliveryDate'] as Timestamp).toDate()
-  //         : null,
-  //     items: (data['items'] as List<dynamic>)
-  //         .map(
-  //           (itemData) =>
-  //               CartItemModel.fromJson(itemData as Map<String, dynamic>),
-  //         )
-  //         .toList(),
-  //   );
-  // }
-
-  //CG
   factory OrderModel.fromSnapshot(DocumentSnapshot snapshot) {
     final data = snapshot.data() as Map<String, dynamic>;
 

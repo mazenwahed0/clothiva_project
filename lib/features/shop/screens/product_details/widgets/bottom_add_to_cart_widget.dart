@@ -1,7 +1,6 @@
 import 'package:clothiva_project/common/widgets/icons/circular_icon.dart';
 import 'package:clothiva_project/utils/constants/colors.dart';
 import 'package:clothiva_project/utils/constants/sizes.dart';
-import 'package:clothiva_project/utils/helpers/context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -11,13 +10,15 @@ import '../../../../cart/controllers/cart_controller.dart';
 import '../../../models/product_model.dart';
 
 class CBottomAddToCart extends StatelessWidget {
-  CartController get controller => CartController.instance; ///////
+  CartController get controller => CartController.instance;
+
   const CBottomAddToCart({super.key, required this.product});
   final ProductModel product;
+
   @override
   Widget build(BuildContext context) {
     controller.updateAlreadyAddedProductCount(product);
-    final dark = context.isDarkMode || context.isDarkModeMedia;
+    final bool dark = context.isDarkMode;
 
     return Container(
       padding: const EdgeInsets.symmetric(

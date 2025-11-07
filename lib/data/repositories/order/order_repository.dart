@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
-import '../../../features/cart/models/order_model.dart';
+import '../../../features/order/models/order_model.dart';
 import '../../../utils/constants/keys.dart';
 import '../authentication/authentication_repository.dart';
 
@@ -37,8 +37,9 @@ class OrderRepository extends GetxController {
           .collection(CKeys.ordersCollection)
           .get();
       if (query.docs.isNotEmpty) {
-        List<OrderModel> orders =
-            query.docs.map((doc) => OrderModel.fromSnapshot(doc)).toList();
+        List<OrderModel> orders = query.docs
+            .map((doc) => OrderModel.fromSnapshot(doc))
+            .toList();
         return orders;
       }
 

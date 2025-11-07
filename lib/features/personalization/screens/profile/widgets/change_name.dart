@@ -1,5 +1,4 @@
 import 'package:clothiva_project/common/widgets/appbar/appbar.dart';
-import 'package:clothiva_project/features/personalization/screens/profile/profile.dart';
 import 'package:clothiva_project/utils/constants/sizes.dart';
 import 'package:clothiva_project/utils/constants/text_strings.dart';
 import 'package:clothiva_project/utils/validators/validation.dart';

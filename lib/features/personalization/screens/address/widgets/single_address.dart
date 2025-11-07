@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:get/get.dart';
 
-import 'package:clothiva_project/utils/helpers/context_extensions.dart';
 import '../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/constants/sizes.dart';
 import '../../../controllers/address_controller.dart';
 import '../../../models/address_model.dart';
 
-class TSingleAddress extends StatelessWidget {
-  const TSingleAddress({super.key, required this.address, required this.onTap});
+class CSingleAddress extends StatelessWidget {
+  const CSingleAddress({super.key, required this.address, required this.onTap});
 
   final AddressModel address;
   final VoidCallback onTap;
@@ -19,7 +18,7 @@ class TSingleAddress extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = AddressController.instance;
 
-    bool dark = context.isDarkMode || context.isDarkModeMedia;
+    bool dark = context.isDarkMode;
 
     return Obx(() {
       final selectedAddressId = controller.selectedAddress.value.id;

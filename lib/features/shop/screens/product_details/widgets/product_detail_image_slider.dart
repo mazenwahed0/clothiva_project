@@ -1,16 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:clothiva_project/utils/helpers/context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
 
 import '../../../../../common/widgets/appbar/appbar.dart';
 import '../../../../../common/widgets/custom_shapes/curved_edges/curved_edges_widget.dart';
-import '../../../../../common/widgets/icons/circular_icon.dart';
 import '../../../../../common/widgets/images/rounded_image.dart';
 import '../../../../../common/widgets/products/favourite_icon/favourite_icon.dart';
 import '../../../../../utils/constants/colors.dart';
-import '../../../../../utils/constants/image_strings.dart';
 import '../../../../../utils/constants/sizes.dart';
 import '../../../controllers/products/image_controller.dart';
 import '../../../models/product_model.dart';
@@ -24,7 +20,7 @@ class CProductImageSlider extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(ImageController());
     final images = controller.getAllProductImages(product);
-    bool dark = context.isDarkMode || context.isDarkModeMedia;
+    final bool dark = context.isDarkMode;
     return CurvedEdgesWidget(
       child: Container(
         color: dark ? CColors.darkerGrey : CColors.lightContainer,

@@ -1,5 +1,6 @@
 import 'package:clothiva_project/common/styles/spacing_styles.dart';
 import 'package:clothiva_project/utils/constants/text_strings.dart';
+import 'package:clothiva_project/utils/device/device_utility.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import '../../../utils/constants/sizes.dart';
@@ -27,9 +28,7 @@ class SuccessScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ///Lottie Animation
-              // CHelperFunctions.screenWidth()
-              // MediaQuery.of(context).size.width
-              Lottie.asset(image, width: CHelperFunctions.screenWidth() * 0.6),
+              Lottie.asset(image, width: CDeviceUtils.screenWidth() * 0.6),
               const SizedBox(height: CSizes.spaceBtSections),
 
               ///Title & Subtitle

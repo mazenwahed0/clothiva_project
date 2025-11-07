@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:clothiva_project/utils/helpers/context_extensions.dart';
 import '../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../../../common/widgets/texts/section_heading.dart';
 import '../../../../../utils/constants/colors.dart';
@@ -14,7 +13,7 @@ class CBillingPaymentSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(CheckoutController());
-    bool dark = context.isDarkMode || context.isDarkModeMedia;
+    bool dark = context.isDarkMode;
     return Column(
       children: [
         SectionHeading(

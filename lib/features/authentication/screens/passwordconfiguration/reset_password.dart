@@ -2,11 +2,11 @@ import 'package:clothiva_project/features/authentication/controllers/forget_pass
 import 'package:clothiva_project/features/authentication/screens/login/login.dart';
 import 'package:clothiva_project/utils/constants/image_strings.dart';
 import 'package:clothiva_project/utils/constants/text_strings.dart';
+import 'package:clothiva_project/utils/device/device_utility.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../utils/constants/sizes.dart';
-import '../../../../utils/helpers/helper_functions.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   const ResetPasswordScreen({super.key, required this.email});
@@ -50,7 +50,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             ///MARK: Image
             Image(
               image: AssetImage(CImages.resetEmail),
-              width: CHelperFunctions.screenWidth() * 0.6,
+              width: CDeviceUtils.screenWidth() * 0.6,
             ),
 
             ///MARK: Email, Title & Subtitle

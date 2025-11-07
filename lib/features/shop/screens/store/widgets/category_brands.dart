@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import '../../../../../common/widgets/brands/brand_show_case.dart';
 import '../../../../../common/widgets/shimmers/boxes_shimmer.dart';
 import '../../../../../common/widgets/shimmers/list_tile_shimmer.dart';
-import '../../../../../utils/constants/image_strings.dart';
 import '../../../../../utils/constants/sizes.dart';
 import '../../../../../utils/helpers/cloud_helper_functions.dart';
 import '../../../controllers/brand_controller.dart';
@@ -44,20 +43,22 @@ class CategoryBrands extends StatelessWidget {
           itemBuilder: (_, index) {
             final brand = brands[index];
             return FutureBuilder(
-                future:
-                    controller.getBrandProducts(brandId: brand.id, limit: 3),
-                builder: (context, snapshot) {
-                  final widget = CloudHelperFunctions.checkMultiRecordState(
-                      snapshot: snapshot, loader: loader);
-                  if (widget != null) return widget;
+              future: controller.getBrandProducts(brandId: brand.id, limit: 3),
+              builder: (context, snapshot) {
+                final widget = CloudHelperFunctions.checkMultiRecordState(
+                  snapshot: snapshot,
+                  loader: loader,
+                );
+                if (widget != null) return widget;
 
-                  final products = snapshot.data!;
+                final products = snapshot.data!;
 
-                  return CBrandShowcase(
-                    images: products.map((e) => e.thumbnail).toList(),
-                    brand: brand,
-                  );
-                });
+                return CBrandShowcase(
+                  images: products.map((e) => e.thumbnail).toList(),
+                  brand: brand,
+                );
+              },
+            );
           },
         );
       },

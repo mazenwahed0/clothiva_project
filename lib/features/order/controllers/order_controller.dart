@@ -9,10 +9,10 @@ import '../../../utils/constants/enums.dart';
 import '../../../utils/constants/image_strings.dart';
 import '../../../utils/popups/full_screen_loader.dart';
 import '../../../utils/popups/loaders.dart';
-import '../../cart/models/order_model.dart';
+import '../models/order_model.dart';
 import '../../personalization/controllers/address_controller.dart';
 import '../../cart/controllers/cart_controller.dart';
-import 'checkout_controller.dart';
+import '../../checkout/controllers/checkout_controller.dart';
 
 class OrderController extends GetxController {
   static OrderController get instance => Get.find();
@@ -21,7 +21,7 @@ class OrderController extends GetxController {
   final cartController = CartController.instance;
   final addressController = AddressController.instance;
   final checkoutController = CheckoutController.instance;
-  final orderRepository = Get.put(OrderRepository());
+  final orderRepository = OrderRepository.instance;
 
   // Fetch User's order history
   Future<List<OrderModel>> fetchUserOrders() async {
@@ -29,7 +29,7 @@ class OrderController extends GetxController {
       final userOrders = await orderRepository.fetchUserOrders();
       return userOrders;
     } catch (e) {
-      Loaders.warningSnackBar(title: 'Oh Snap!', message: e.toString());
+      Loaders.warningSnackBar(title: 'Oops!', message: e.toString());
       return [];
     }
   }
@@ -37,6 +37,15 @@ class OrderController extends GetxController {
   // Add Method for order processing
   void processOrder(double totalAmount) async {
     try {
+      // Check if address is selected
+      if (addressController.selectedAddress.value.id.isEmpty) {
+        Loaders.warningSnackBar(
+          title: 'No Address Selected',
+          message: 'Please select a shipping address to proceed.',
+        );
+        return; // Stop execution
+      }
+
       FullScreenLoader.openLoadingDialog(
         'Processing Your Order',
         CImages.signInAnimation,
@@ -60,7 +69,6 @@ class OrderController extends GetxController {
       );
 
       // Save The Order To FireStore
-      // await orderRepository.saveOrder(order, userId);
       await orderRepository.saveOrder(order);
 
       // Update The Cart Status
@@ -76,7 +84,8 @@ class OrderController extends GetxController {
         ),
       );
     } catch (e) {
-      Loaders.errorSnackBar(title: 'Oh Snap', message: e.toString());
+      FullScreenLoader.stopLoading();
+      Loaders.errorSnackBar(title: 'Oops', message: e.toString());
     }
   }
 }

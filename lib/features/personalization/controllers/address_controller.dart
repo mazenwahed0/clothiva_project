@@ -1,7 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../common/widgets/loaders/circular_loader.dart';
 import '../../../common/widgets/texts/section_heading.dart';
 import '../../../data/repositories/address/address_repository.dart';
 import '../../../utils/constants/image_strings.dart';
@@ -28,7 +29,7 @@ class AddressController extends GetxController {
 
   RxBool refreshData = true.obs;
   final Rx<AddressModel> selectedAddress = AddressModel.empty().obs;
-  final addressRepository = Get.put(AddressRepository());
+  final addressRepository = AddressRepository.instance;
 
   // fetch all users specific addresses
   Future<List<AddressModel>> getAllUserAddresses() async {
@@ -46,15 +47,7 @@ class AddressController extends GetxController {
   }
 
   Future<void> selectAddress(AddressModel newSelectedAddress) async {
-    Get.defaultDialog(
-      title: '',
-      onWillPop: () async {
-        return false;
-      },
-      barrierDismissible: false,
-      backgroundColor: Colors.transparent,
-      content: const CircularLoader(),
-    );
+    if (selectedAddress.value.id == newSelectedAddress.id) return;
 
     try {
       // clear the selected field
@@ -74,8 +67,6 @@ class AddressController extends GetxController {
         selectedAddress.value.id,
         true,
       );
-
-      Get.back();
     } catch (e) {
       Loaders.errorSnackBar(title: 'Error in Selection', message: e.toString());
     }
@@ -138,6 +129,7 @@ class AddressController extends GetxController {
 
       // Redirect
       Navigator.of(Get.context!).pop();
+      Navigator.of(Get.context!).pop();
     } catch (e) {
       // Remove Loader
       FullScreenLoader.stopLoading();
@@ -160,30 +152,37 @@ class AddressController extends GetxController {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SectionHeading(title: 'Select Address'),
-              const SizedBox(height: CSizes.spaceBtItems),
-              FutureBuilder(
-                future: getAllUserAddresses(),
-                builder: (_, snapshot) {
-                  final response = CloudHelperFunctions.checkMultiRecordState(
-                    snapshot: snapshot,
-                  );
-                  if (response != null) return response;
-
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: snapshot.data!.length,
-                    itemBuilder: (_, index) => TSingleAddress(
-                      address: snapshot.data![index],
-                      onTap: () async {
-                        await selectAddress(snapshot.data![index]);
-                        Get.back();
-                      },
-                    ),
-                  );
-                },
+              const SectionHeading(
+                title: 'Select Address',
+                showActionButton: false,
               ),
+              const SizedBox(height: CSizes.spaceBtItems),
+              Obx(() {
+                final _ = refreshData.value;
+
+                return FutureBuilder(
+                  future: getAllUserAddresses(),
+                  builder: (_, snapshot) {
+                    final response = CloudHelperFunctions.checkMultiRecordState(
+                      snapshot: snapshot,
+                    );
+                    if (response != null) return response;
+
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (_, index) => CSingleAddress(
+                        address: snapshot.data![index],
+                        onTap: () async {
+                          await selectAddress(snapshot.data![index]);
+                          Get.back();
+                        },
+                      ),
+                    );
+                  },
+                );
+              }),
               const SizedBox(height: CSizes.defaultSpace * 2),
               SizedBox(
                 width: double.infinity,

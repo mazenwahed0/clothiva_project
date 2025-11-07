@@ -1,7 +1,6 @@
 import 'package:clothiva_project/common/widgets/custom_shapes/containers/primary_header_container.dart';
 import 'package:clothiva_project/common/widgets/layouts/grid_layout.dart';
 import 'package:clothiva_project/common/widgets/products/product_cards/product_card_vertical.dart';
-import 'package:clothiva_project/features/shop/screens/brand/all_brands.dart';
 
 import 'package:clothiva_project/utils/constants/colors.dart';
 import 'package:clothiva_project/utils/constants/sizes.dart';
@@ -14,7 +13,6 @@ import '../../../../common/widgets/custom_shapes/containers/search_container.dar
 import '../../../../common/widgets/shimmers/vertical_product_shimmer.dart';
 import '../../../../common/widgets/texts/section_heading.dart';
 import '../../../../data/repositories/authentication/authentication_repository.dart';
-import '../../controllers/brand_controller.dart';
 import '../../controllers/products/product_controller.dart';
 import '../all_products/all_products.dart';
 import 'widgets/home_appbar.dart';
@@ -30,8 +28,6 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(ProductController());
-    final brandController = BrandController.instance;
-    // bool dark = context.isDarkMode || context.isDarkModeMedia;
     return Scaffold(
       extendBodyBehindAppBar: true,
       body: SingleChildScrollView(
@@ -90,8 +86,13 @@ class HomeScreen extends StatelessWidget {
                   /// -- Popular Products (Gridview)
                   SectionHeading(
                     title: 'Products Flash Sale',
-                    onPressed: () => Get.to(() => AllBrandsScreen()),
                     showActionButton: true,
+                    onPressed: () => Get.to(
+                      () => AllProducts(
+                        title: 'Products on Sale',
+                        futureMethod: controller.fetchAllSaleProducts(),
+                      ),
+                    ),
                   ),
                   SizedBox(height: CSizes.spaceBtItems),
 

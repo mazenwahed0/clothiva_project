@@ -90,6 +90,34 @@ class SignUpForm extends StatelessWidget {
             ),
           ),
 
+          Obx(
+            () => DropdownMenuFormField<String>(
+              initialSelection: controller.selectedGender.value,
+              label: Text("Gender"),
+              hintText: "Gender",
+              leadingIcon: Icon(Iconsax.user_tag),
+              width: double.infinity,
+              dropdownMenuEntries: controller.genders
+                  .map(
+                    (gender) => DropdownMenuEntry(
+                      value: gender,
+                      label: gender,
+                      style: ButtonStyle(
+                        textStyle: WidgetStateProperty.all(
+                          TextStyle(color: Colors.white, fontSize: 18),
+                        ),
+                      ),
+                    ),
+                  )
+                  .toList(),
+              onSelected: (value) {
+                controller.selectedGender.value = value;
+              },
+              validator: (value) =>
+                  value == null ? "Please select a gender" : null,
+            ),
+          ),
+
           ///MARK: - Password
           //Obx is the observer widget like BLoCBuilder to redraw UI for stateless widget
           Obx(

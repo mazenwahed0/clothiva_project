@@ -1,5 +1,4 @@
 import 'package:clothiva_project/features/authentication/controllers/signup/signup_controller.dart';
-import 'package:clothiva_project/utils/helpers/context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,7 +11,7 @@ class TermsConditions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool dark = context.isDarkMode || context.isDarkModeMedia;
+    bool dark = context.isDarkMode;
     final controller = SignupController.instance;
 
     //Note1: SizedBox to remove extra space behind it

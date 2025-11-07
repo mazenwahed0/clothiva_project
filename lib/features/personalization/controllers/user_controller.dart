@@ -4,12 +4,16 @@ import 'package:clothiva_project/features/authentication/screens/login/login.dar
 import 'package:clothiva_project/utils/constants/keys.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../common/widgets/loaders/circular_loader.dart';
 import '../../../data/repositories/authentication/authentication_repository.dart';
 import '../../../data/services/storage/cloudinary_service.dart';
 import '../../../data/repositories/user/user_repository.dart';
+import '../../../utils/constants/text_strings.dart';
+import '../../../utils/validators/validation.dart';
 import '../screens/profile/widgets/re_authenticate_user_login_form.dart';
 import '../../../utils/constants/image_strings.dart';
 import '../../../utils/constants/sizes.dart';
@@ -44,6 +48,12 @@ class UserController extends GetxController {
   void onInit() {
     fetchUserRecord();
     super.onInit();
+  }
+
+  /// Copy to Clipboard
+  void copyToClipboard(String text) {
+    Clipboard.setData(ClipboardData(text: text));
+    Loaders.customToast(message: 'Copied to Clipboard!');
   }
 
   /// Save user Record from any Registration provider
@@ -115,14 +125,8 @@ class UserController extends GetxController {
     Get.defaultDialog(
       contentPadding: const EdgeInsets.all(CSizes.md),
       title: 'Delete Account',
-      titleStyle: const TextStyle(
-        color: Colors.black, // Force black title
-      ),
       middleText:
           'Are you sure you want to delete your account permanently? This action is not reversible and all of your data will be removed permanently.',
-      middleTextStyle: const TextStyle(
-        color: Colors.black, // Force black content
-      ),
       confirm: ElevatedButton(
         onPressed: () async => deleteUserAccount(),
         style: ElevatedButton.styleFrom(
@@ -130,16 +134,20 @@ class UserController extends GetxController {
           side: const BorderSide(color: Colors.red),
         ),
         child: const Padding(
-          padding: EdgeInsets.symmetric(horizontal: CSizes.lg),
+          padding: EdgeInsets.symmetric(
+            horizontal: CSizes.lg,
+            vertical: CSizes.xs / 2,
+          ),
           child: Text('Delete'),
         ),
       ),
       cancel: OutlinedButton(
-        child: const Text(
-          'Cancel',
-          style: TextStyle(
-            color: Colors.black, // Force black content
+        child: const Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: CSizes.xs,
+            vertical: CSizes.xs,
           ),
+          child: Text('Cancel'),
         ),
         onPressed: () => Navigator.of(Get.overlayContext!).pop(),
       ),
@@ -170,7 +178,7 @@ class UserController extends GetxController {
       }
     } catch (e) {
       FullScreenLoader.stopLoading();
-      Loaders.warningSnackBar(title: 'Oh Snap!', message: e.toString());
+      Loaders.warningSnackBar(title: CTexts.ohSnap, message: e.toString());
     }
   }
 
@@ -201,7 +209,7 @@ class UserController extends GetxController {
       Get.offAll(() => LoginScreen());
     } catch (e) {
       FullScreenLoader.stopLoading();
-      Loaders.warningSnackBar(title: 'Oh Snap!', message: e.toString());
+      Loaders.warningSnackBar(title: CTexts.ohSnap, message: e.toString());
     }
   }
 
@@ -245,7 +253,7 @@ class UserController extends GetxController {
         ),
       );
     } catch (e) {
-      Loaders.errorSnackBar(title: 'Oh Snap', message: e.toString());
+      Loaders.errorSnackBar(title: CTexts.ohSnap, message: e.toString());
     }
   }
 
@@ -314,6 +322,135 @@ class UserController extends GetxController {
     } catch (e) {
       imageUploading.value = false;
       Loaders.errorSnackBar(title: 'Failed', message: e.toString());
+    }
+  }
+
+  /// Dialog to update Phone Number
+  void updatePhoneNumberDialog() {
+    final phoneController = TextEditingController(text: user.value.phoneNumber);
+    final formKey = GlobalKey<FormState>();
+
+    Get.defaultDialog(
+      title: 'Change Phone Number',
+      content: Form(
+        key: formKey,
+        child: TextFormField(
+          controller: phoneController,
+          validator: CValidator.validatePhoneNumber,
+          keyboardType: TextInputType.phone,
+          decoration: const InputDecoration(
+            labelText: CTexts.phoneNumber,
+            prefixIcon: Icon(Iconsax.call),
+          ),
+        ),
+      ),
+      confirm: ElevatedButton(
+        onPressed: () async {
+          if (formKey.currentState!.validate()) {
+            Get.back(); // <-- CHANGED: Close dialog FIRST
+            await updateSingleField({
+              'phoneNumber': phoneController.text.trim(),
+            });
+          }
+        },
+        child: const Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: CSizes.lg,
+            vertical: CSizes.xs / 2,
+          ),
+          child: Text('Save'),
+        ),
+      ),
+      cancel: OutlinedButton(
+        onPressed: () => Get.back(),
+        child: const Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: CSizes.xs,
+            vertical: CSizes.xs,
+          ),
+          child: Text('Cancel'),
+        ),
+      ),
+    );
+  }
+
+  /// Dialog to update Gender
+  void updateGenderDialog() {
+    final List<String> genders = ['Male', 'Female'];
+    final Rx<String> selectedGender = (user.value.gender ?? 'Not Set').obs;
+
+    Get.defaultDialog(
+      title: 'Select Gender',
+      content: Obx(
+        () => Column(
+          mainAxisSize: MainAxisSize.min,
+          children: genders
+              .map(
+                (gender) => RadioListTile(
+                  title: Text(
+                    gender,
+                    style: Theme.of(Get.context!).textTheme.titleMedium,
+                  ),
+                  value: gender,
+                  groupValue: selectedGender.value,
+                  onChanged: (value) => selectedGender.value = value as String,
+                ),
+              )
+              .toList(),
+        ),
+      ),
+      confirm: ElevatedButton(
+        onPressed: () async {
+          Get.back();
+          await updateSingleField({'gender': selectedGender.value});
+        },
+        child: const Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: CSizes.lg,
+            vertical: CSizes.xs / 2,
+          ),
+          child: Text('Save'),
+        ),
+      ),
+      cancel: OutlinedButton(
+        onPressed: () => Get.back(),
+        child: const Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: CSizes.xs,
+            vertical: CSizes.xs,
+          ),
+          child: Text('Cancel'),
+        ),
+      ),
+    );
+  }
+
+  /// Generic function to update a single field in Firestore
+  Future<void> updateSingleField(Map<String, dynamic> json) async {
+    try {
+      FullScreenLoader.openLoadingDialog('Updating...', CImages.docerAnimation);
+
+      // Update the data in Firestore
+      await userRepository.updateSingleField(json);
+
+      // Update the local Rx user object
+      // This is a bit manual but ensures the UI updates instantly
+      if (json.containsKey('phoneNumber')) {
+        user.value.phoneNumber = json['phoneNumber'];
+      }
+      if (json.containsKey('gender')) {
+        user.value.gender = json['gender'];
+      }
+      user.refresh();
+
+      FullScreenLoader.stopLoading();
+      Loaders.successSnackBar(
+        title: 'Success',
+        message: 'Your profile has been updated.',
+      );
+    } catch (e) {
+      FullScreenLoader.stopLoading();
+      Loaders.errorSnackBar(title: CTexts.ohSnap, message: e.toString());
     }
   }
 }

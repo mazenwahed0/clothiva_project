@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 
 import '../../../data/repositories/banners/banner_repository.dart';
 import '../../../utils/constants/text_strings.dart';
-import '../../../utils/popups/exports.dart';
+import '../../../utils/popups/loaders.dart';
 import '../models/banner_model.dart';
 
 class BannerController extends GetxController {

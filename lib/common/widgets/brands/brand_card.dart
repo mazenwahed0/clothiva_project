@@ -1,11 +1,9 @@
 import 'package:clothiva_project/features/shop/models/brand_model.dart';
-import 'package:clothiva_project/utils/helpers/context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/enums.dart';
-import '../../../utils/constants/image_strings.dart';
 import '../../../utils/constants/sizes.dart';
 import '../custom_shapes/containers/rounded_container.dart';
 import '../images/circular_image.dart';
@@ -25,7 +23,7 @@ class CBrandCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool dark = context.isDarkMode || context.isDarkModeMedia;
+    bool dark = context.isDarkMode;
 
     return GestureDetector(
       onTap: onTap,

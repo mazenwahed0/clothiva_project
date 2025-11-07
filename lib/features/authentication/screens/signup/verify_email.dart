@@ -1,7 +1,7 @@
 import 'package:clothiva_project/utils/constants/image_strings.dart';
 import 'package:clothiva_project/utils/constants/sizes.dart';
 import 'package:clothiva_project/utils/constants/text_strings.dart';
-import 'package:clothiva_project/utils/helpers/helper_functions.dart';
+import 'package:clothiva_project/utils/device/device_utility.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -46,7 +46,7 @@ class VerifyEmailScreen extends StatelessWidget {
               ///Image
               Image(
                 image: AssetImage(CImages.verifyEmail),
-                width: CHelperFunctions.screenWidth() * 0.6,
+                width: CDeviceUtils.screenWidth() * 0.6,
               ),
 
               ///Title & Subtitle

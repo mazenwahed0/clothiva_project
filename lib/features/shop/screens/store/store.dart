@@ -3,7 +3,6 @@ import 'package:clothiva_project/features/shop/controllers/brand_controller.dart
 import 'package:clothiva_project/features/shop/controllers/category_controller.dart';
 import 'package:clothiva_project/features/shop/screens/brand/all_brands.dart';
 import 'package:clothiva_project/features/shop/screens/store/widgets/category_tab.dart';
-import 'package:clothiva_project/utils/helpers/context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../common/widgets/appbar/appbar.dart';
@@ -21,8 +20,8 @@ class StoreScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool dark = context.isDarkMode || context.isDarkModeMedia;
-    final brandController = Get.put(BrandController());
+    bool dark = context.isDarkMode;
+    final brandController = BrandController.instance;
     final categories = CategoryController.instance.featuredCategories;
 
     return DefaultTabController(

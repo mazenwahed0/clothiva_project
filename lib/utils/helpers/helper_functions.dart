@@ -5,6 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
+import '../constants/colors.dart';
+
 class CHelperFunctions {
   // Function to get color based on string input (product specific colors)
   static Color? getColor(String value) {
@@ -89,9 +91,17 @@ class CHelperFunctions {
   }
 
   // Function to show a Snackbar
-  static void showSnackBar(String message) {
-    ScaffoldMessenger.of(Get.context!).showSnackBar(
-      SnackBar(content: Text(message)),
+  static void showSnackBar(String title, String message) {
+    Get.snackbar(
+      title,
+      message,
+      snackPosition: SnackPosition.BOTTOM,
+      backgroundColor: CColors.darkerGrey,
+      colorText: Colors.white,
+      margin: const EdgeInsets.all(15),
+      borderRadius: 15,
+      isDismissible: true,
+      duration: const Duration(seconds: 3),
     );
   }
 
@@ -112,44 +122,6 @@ class CHelperFunctions {
         );
       },
     );
-  }
-
-  // Function to navigate to a new screen
-  static void navigateToScreen(BuildContext context, Widget screen) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (_) => screen),
-    );
-  }
-
-  // Function to truncate text if it exceeds a max length
-  static String truncateText(String text, int maxLength) {
-    if (text.length <= maxLength) {
-      return text;
-    } else {
-      return '${text.substring(0, maxLength)}...';
-    }
-  }
-
-  // (Replaced in context.isDarkMode for Get Package)
-  // Function to check if Dark Mode is enabled
-  // That's not working well:
-  // static bool isDarkMode(BuildContext context) {
-  //   return Theme.of(context).brightness == Brightness.dark;
-  // }
-  // Working well!
-  // static bool isDarkMode(BuildContext context) {
-  //   return MediaQuery.of(context).platformBrightness == Brightness.dark;
-  // }
-
-  // Function to get screen height
-  static double screenHeight() {
-    return MediaQuery.of(Get.context!).size.height;
-  }
-
-  // Function to get screen width
-  static double screenWidth() {
-    return MediaQuery.of(Get.context!).size.width;
   }
 
   static String getGreetingMessage() {
@@ -185,26 +157,10 @@ class CHelperFunctions {
   }
 
   // Function to format date into a specific format
-  static String getFormattedDate(DateTime date,
-      {String format = 'dd MMM yyyy'}) {
+  static String getFormattedDate(
+    DateTime date, {
+    String format = 'dd MMM yyyy',
+  }) {
     return DateFormat(format).format(date);
-  }
-
-  // Function to remove duplicates from a list
-  static List<T> removeDuplicates<T>(List<T> list) {
-    return list.toSet().toList();
-  }
-
-  // Function to wrap widgets into rows with a specified size
-  static List<Widget> wrapWidgets(List<Widget> widgets, int rowSize) {
-    final wrappedList = <Widget>[];
-    for (var i = 0; i < widgets.length; i += rowSize) {
-      final rowChildren = widgets.sublist(
-        i,
-        i + rowSize > widgets.length ? widgets.length : i + rowSize,
-      );
-      wrappedList.add(Row(children: rowChildren));
-    }
-    return wrappedList;
   }
 }

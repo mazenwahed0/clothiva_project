@@ -9,7 +9,7 @@ import 'package:iconsax/iconsax.dart';
 import '../../../../../common/widgets/appbar/appbar.dart';
 import '../../../../../common/widgets/list_tiles/settings_menu_tile.dart';
 import '../../../../../common/widgets/texts/section_heading.dart';
-import '../../../../../data/repositories/brand/brand_repository.dart';
+import '../../../../../data/repositories/brands/brand_repository.dart';
 import '../../../../../utils/constants/sizes.dart';
 
 class LoadData extends StatelessWidget {

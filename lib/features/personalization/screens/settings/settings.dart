@@ -14,7 +14,7 @@ import '../../../../common/widgets/list_tiles/user_profile_tile.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../cart/screens/cart/cart.dart';
 import '../../../invitation/screens/invitation_screen.dart';
-import '../../../shop/screens/order/order.dart';
+import '../../../order/screens/order/order.dart';
 import '../address/address.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -86,34 +86,10 @@ class SettingsScreen extends StatelessWidget {
                     onTap: () => Get.to(() => OrderScreen()),
                   ),
                   SettingsMenuTile(
-                    icon: Iconsax.bank,
-                    title: 'Bank Account',
-                    subtitle: 'Withdraw balance to registered bank account',
-                    onTap: () {},
-                  ),
-                  SettingsMenuTile(
-                    icon: Iconsax.discount_shape,
-                    title: 'My Coupons',
-                    subtitle: 'List of all the discounted coupons',
-                    onTap: () {},
-                  ),
-                  SettingsMenuTile(
-                    icon: Iconsax.notification,
-                    title: 'Notifications',
-                    subtitle: 'Set any kind of notification message',
-                    onTap: () {},
-                  ),
-                  SettingsMenuTile(
                     icon: Iconsax.people,
                     title: 'Invitations',
                     subtitle: 'View or manage collaboration invites',
                     onTap: () => Get.to(() => const InvitationScreen()),
-                  ),
-                  SettingsMenuTile(
-                    icon: Iconsax.security_card,
-                    title: 'Account Privacy',
-                    subtitle: 'Manage data usage and connected accounts',
-                    onTap: () {},
                   ),
 
                   /// -- App Settings
@@ -128,24 +104,6 @@ class SettingsScreen extends StatelessWidget {
                     title: 'Load Data',
                     subtitle: 'Upload data to your cloud Firebase',
                     onTap: () => Get.to(() => LoadData()),
-                  ),
-                  SettingsMenuTile(
-                    icon: Iconsax.location,
-                    title: 'Geolocation',
-                    subtitle: 'Set recommendation based on location',
-                    trailing: Switch(value: true, onChanged: (value) {}),
-                  ),
-                  SettingsMenuTile(
-                    icon: Iconsax.security_user,
-                    title: 'Safe Mode',
-                    subtitle: 'Search result is safe for all ages',
-                    trailing: Switch(value: false, onChanged: (value) {}),
-                  ),
-                  SettingsMenuTile(
-                    icon: Iconsax.security_user,
-                    title: 'HD Image Quality',
-                    subtitle: 'Set image quality to be seen',
-                    trailing: Switch(value: false, onChanged: (value) {}),
                   ),
 
                   /// -- Logout Button

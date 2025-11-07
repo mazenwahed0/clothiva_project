@@ -342,4 +342,25 @@ class ProductRepository extends GetxController {
       throw 'Something went wrong. Please try again';
     }
   }
+
+  /// Fetch all products that are on sale
+  Future<List<ProductModel>> fetchAllSaleProducts() async {
+    try {
+      final snapshot = await _db
+          .collection('Products')
+          .where('salePrice', isGreaterThan: 0)
+          .get();
+
+      final products = snapshot.docs
+          .map((doc) => ProductModel.fromSnapshot(doc))
+          .toList();
+      return products;
+    } on FirebaseException catch (e) {
+      throw CFirebaseException(e.code).message;
+    } on PlatformException catch (e) {
+      throw CPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again';
+    }
+  }
 }

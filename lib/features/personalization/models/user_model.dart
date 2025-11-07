@@ -11,6 +11,7 @@ class UserModel {
   String phoneNumber;
   String profilePicture;
   String publicId;
+  String? gender;
 
   UserModel({
     required this.id,
@@ -21,6 +22,7 @@ class UserModel {
     required this.phoneNumber,
     required this.profilePicture,
     this.publicId = '',
+    this.gender,
   });
 
   /// Function to get the full name.
@@ -64,6 +66,7 @@ class UserModel {
       'phoneNumber': phoneNumber,
       'profilePicture': profilePicture,
       'publicId': publicId,
+      'gender': gender,
     };
   }
 
@@ -81,6 +84,7 @@ class UserModel {
         phoneNumber: data['phoneNumber'] ?? '',
         profilePicture: data['profilePicture'] ?? '',
         publicId: data['publicId'],
+        gender: data['gender'],
       );
     } else {
       return UserModel.empty();

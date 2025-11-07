@@ -33,17 +33,18 @@ class CDeviceUtils {
   // Set full-screen mode
   static void setFullScreen(bool enable) {
     SystemChrome.setEnabledSystemUIMode(
-        enable ? SystemUiMode.immersiveSticky : SystemUiMode.edgeToEdge);
+      enable ? SystemUiMode.immersiveSticky : SystemUiMode.edgeToEdge,
+    );
   }
 
-  // Get screen height
-  static double getScreenHeight() {
+  // Function to get screen height
+  static double screenHeight() {
     return MediaQuery.of(Get.context!).size.height;
   }
 
-  // Get screen width
-  static double getScreenWidth(BuildContext context) {
-    return MediaQuery.of(context).size.width;
+  // Function to get screen width
+  static double screenWidth() {
+    return MediaQuery.of(Get.context!).size.width;
   }
 
   // Get pixel ratio
@@ -92,7 +93,8 @@ class CDeviceUtils {
 
   // Set preferred orientations
   static Future<void> setPreferredOrientations(
-      List<DeviceOrientation> orientations) async {
+    List<DeviceOrientation> orientations,
+  ) async {
     await SystemChrome.setPreferredOrientations(orientations);
   }
 
@@ -103,8 +105,10 @@ class CDeviceUtils {
 
   // Show status bar
   static void showStatusBar() {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-        overlays: SystemUiOverlay.values);
+    SystemChrome.setEnabledSystemUIMode(
+      SystemUiMode.manual,
+      overlays: SystemUiOverlay.values,
+    );
   }
 
   // Check if there is an internet connection

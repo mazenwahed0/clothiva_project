@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../common/widgets/loaders/animation_loader.dart';
 import '../constants/colors.dart';
-import '/utils/helpers/context_extensions.dart';
 
 // A utility class for managing a full-screen loading dialog.
 class FullScreenLoader {
@@ -14,7 +13,7 @@ class FullScreenLoader {
   /// - text: The text to be displayed in the loading dialog.
   /// - animation: The Lottie animation to be shown.
   static void openLoadingDialog(String text, String animation) {
-    bool dark = Get.context!.isDarkMode || Get.context!.isDarkModeMedia;
+    bool dark = Get.context!.isDarkMode;
     showDialog(
       context:
           Get.overlayContext!, // Use Get.overlayContext for overlay dialogs

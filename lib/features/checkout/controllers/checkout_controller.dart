@@ -5,7 +5,7 @@ import '../../../common/widgets/texts/section_heading.dart';
 import '../../../utils/constants/image_strings.dart';
 import '../../../utils/constants/sizes.dart';
 import '../models/payment_method_model.dart';
-import '../../shop/models/payment_tile.dart';
+import '../screens/checkout/widgets/payment_tile.dart';
 
 class CheckoutController extends GetxController {
   static CheckoutController get instance => Get.find();
@@ -35,56 +35,56 @@ class CheckoutController extends GetxController {
                 showActionButton: false,
               ),
               SizedBox(height: CSizes.spaceBtSections),
-              TPaymentTile(
+              CPaymentTile(
                 paymentMethod: PaymentMethodModel(
                   name: 'Paypal',
                   image: CImages.paypal,
                 ),
               ),
               const SizedBox(height: CSizes.spaceBtItems / 2),
-              TPaymentTile(
+              CPaymentTile(
                 paymentMethod: PaymentMethodModel(
                   name: 'Google Pay',
                   image: CImages.googlePay,
                 ),
               ),
               const SizedBox(height: CSizes.spaceBtItems / 2),
-              TPaymentTile(
+              CPaymentTile(
                 paymentMethod: PaymentMethodModel(
                   name: 'Apple Pay',
                   image: CImages.applePay,
                 ),
               ),
               const SizedBox(height: CSizes.spaceBtItems / 2),
-              TPaymentTile(
+              CPaymentTile(
                 paymentMethod: PaymentMethodModel(
                   name: 'VISA',
                   image: CImages.visa,
                 ),
               ),
               const SizedBox(height: CSizes.spaceBtItems / 2),
-              TPaymentTile(
+              CPaymentTile(
                 paymentMethod: PaymentMethodModel(
                   name: 'Master Card',
                   image: CImages.masterCard,
                 ),
               ),
               const SizedBox(height: CSizes.spaceBtItems / 2),
-              TPaymentTile(
+              CPaymentTile(
                 paymentMethod: PaymentMethodModel(
                   name: 'Paytm',
                   image: CImages.paytm,
                 ),
               ),
               const SizedBox(height: CSizes.spaceBtItems / 2),
-              TPaymentTile(
+              CPaymentTile(
                 paymentMethod: PaymentMethodModel(
                   name: 'Paystack',
                   image: CImages.paystack,
                 ),
               ),
               const SizedBox(height: CSizes.spaceBtItems / 2),
-              TPaymentTile(
+              CPaymentTile(
                 paymentMethod: PaymentMethodModel(
                   name: 'Credit Card',
                   image: CImages.creditCard,

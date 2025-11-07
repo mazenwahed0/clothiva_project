@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:clothiva_project/utils/helpers/context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -48,7 +47,7 @@ class CBrandShowcase extends StatelessWidget {
 }
 
 Widget brandTopProductImageWidget(String image, BuildContext context) {
-  bool dark = context.isDarkMode || context.isDarkModeMedia;
+  bool dark = context.isDarkMode;
   return Expanded(
     child: RoundedContainer(
       height: 100,

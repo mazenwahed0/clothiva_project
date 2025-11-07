@@ -1,10 +1,9 @@
-import 'package:clothiva_project/data/repositories/brand/brand_repository.dart';
+import 'package:clothiva_project/data/repositories/brands/brand_repository.dart';
 import 'package:clothiva_project/data/repositories/product/product_repository.dart';
 import 'package:clothiva_project/features/shop/models/brand_model.dart';
 import 'package:clothiva_project/features/shop/models/product_model.dart';
 import 'package:get/get.dart';
 
-import '../../../utils/constants/text_strings.dart';
 import '../../../utils/popups/loaders.dart';
 
 class BrandController extends GetxController {

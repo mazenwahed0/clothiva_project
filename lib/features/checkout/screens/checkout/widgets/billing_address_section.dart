@@ -25,8 +25,10 @@ class CBillingAddressSection extends StatelessWidget {
         Obx(() {
           final address = addressController.selectedAddress.value;
           if (address.id.isEmpty) {
-            return Text('Select Address',
-                style: Theme.of(context).textTheme.bodyMedium);
+            return Text(
+              'Select Address',
+              style: Theme.of(context).textTheme.bodyMedium,
+            );
           }
 
           return Column(
@@ -38,8 +40,10 @@ class CBillingAddressSection extends StatelessWidget {
                 children: [
                   const Icon(Icons.phone, color: Colors.grey, size: 16),
                   const SizedBox(width: CSizes.spaceBtItems / 2),
-                  Text(address.phoneNumber,
-                      style: Theme.of(context).textTheme.bodyMedium),
+                  Text(
+                    address.phoneNumber,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
                 ],
               ),
               const SizedBox(height: CSizes.spaceBtItems / 2),

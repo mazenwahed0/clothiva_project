@@ -67,13 +67,10 @@ class LoginController extends GetxController {
       }
 
       // Login user using Email & Password Authentication
-      final userCredentials = await AuthenticationRepository.instance
-          .loginWithEmailAndPassword(email.text.trim(), password.text.trim());
-
-      // final userController = Get.put(UserController());
-      // await userController.updateUserRecordWithToken(token);
-      // // Assign user data to RxUser of UserController to use in app
-      // await userController.fetchUserRecord();
+      await AuthenticationRepository.instance.loginWithEmailAndPassword(
+        email.text.trim(),
+        password.text.trim(),
+      );
 
       // Remove Loader
       FullScreenLoader.stopLoading();
@@ -110,16 +107,11 @@ class LoginController extends GetxController {
       // Save Authenticated user data in the Firebase Firestore
       await userController.saveUserRecord(userCredentials: userCredentials);
 
-      // Get.put(CreateNotificationController());
-      // await CreateNotificationController.instance.createNotification();
-
       // Remove Loader
       FullScreenLoader.stopLoading();
 
       // Redirect
       await AuthenticationRepository.instance.screenRedirect();
-      // await AuthenticationRepository.instance
-      //     .screenRedirect(userCredentials?.user);
     } catch (e) {
       FullScreenLoader.stopLoading();
       Loaders.errorSnackBar(title: CTexts.ohSnap, message: e.toString());

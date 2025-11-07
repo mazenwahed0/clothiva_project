@@ -3,12 +3,12 @@ import 'package:clothiva_project/data/repositories/user/user_repository.dart';
 import 'package:clothiva_project/features/authentication/screens/signup/verify_email.dart';
 import 'package:clothiva_project/utils/constants/image_strings.dart';
 import 'package:clothiva_project/utils/constants/text_strings.dart';
-import 'package:clothiva_project/utils/helpers/exports.dart';
 import 'package:clothiva_project/utils/popups/full_screen_loader.dart';
 import 'package:clothiva_project/utils/popups/loaders.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../utils/helpers/network_manager.dart';
 import '../../../personalization/models/user_model.dart';
 
 class SignupController extends GetxController {
@@ -27,6 +27,9 @@ class SignupController extends GetxController {
       TextEditingController(); // Controller for phone number input
   GlobalKey<FormState> signupFormKey =
       GlobalKey<FormState>(); // Form Key for form validation
+
+  final Rx<String?> selectedGender = RxnString();
+  final RxList<String> genders = ['Male', 'Female'].obs;
 
   ///MARK: - SIGNUP
   void signup() async {
@@ -77,6 +80,7 @@ class SignupController extends GetxController {
         email: email.text.trim(),
         phoneNumber: phonenumber.text.trim(),
         profilePicture: '',
+        gender: selectedGender.value,
       );
 
       final userRepository = Get.put(

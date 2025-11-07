@@ -1,4 +1,3 @@
-import 'package:clothiva_project/utils/helpers/context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -6,6 +5,7 @@ import 'package:iconsax/iconsax.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../../../utils/device/device_utility.dart';
+import '../../../../utils/helpers/helper_functions.dart';
 
 class SearchContainer extends StatelessWidget {
   const SearchContainer({
@@ -22,27 +22,33 @@ class SearchContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool dark = context.isDarkMode || context.isDarkModeMedia;
+    bool dark = context.isDarkMode;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: CSizes.defaultSpace),
-      child: Container(
-        width: CDeviceUtils.getScreenWidth(context),
-        padding: EdgeInsets.all(CSizes.md),
-        decoration: BoxDecoration(
-          color: showBackground
-              ? dark
-                    ? CColors.dark
-                    : CColors.lightContainer
-              : Colors.transparent,
-          borderRadius: BorderRadius.circular(CSizes.cardRadiusLg),
-          border: showborder ? Border.all(color: CColors.grey) : null,
+      child: GestureDetector(
+        onTap: () => CHelperFunctions.showSnackBar(
+          'Coming Soon!',
+          'Search functionality is in development.',
         ),
-        child: Row(
-          children: [
-            Icon(icon, color: CColors.darkerGrey),
-            SizedBox(width: CSizes.spaceBtItems),
-            Text(text, style: Theme.of(context).textTheme.bodySmall!),
-          ],
+        child: Container(
+          width: CDeviceUtils.screenWidth(),
+          padding: EdgeInsets.all(CSizes.md),
+          decoration: BoxDecoration(
+            color: showBackground
+                ? dark
+                      ? CColors.dark
+                      : CColors.lightContainer
+                : Colors.transparent,
+            borderRadius: BorderRadius.circular(CSizes.cardRadiusLg),
+            border: showborder ? Border.all(color: CColors.grey) : null,
+          ),
+          child: Row(
+            children: [
+              Icon(icon, color: CColors.darkerGrey),
+              SizedBox(width: CSizes.spaceBtItems),
+              Text(text, style: Theme.of(context).textTheme.bodySmall!),
+            ],
+          ),
         ),
       ),
     );

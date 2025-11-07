@@ -30,7 +30,6 @@ class AuthenticationRepository extends GetxController {
   var phoneNoVerificationId = ''.obs;
   var isPhoneAutoVerified = false;
   final _auth = FirebaseAuth.instance;
-  // int? _resendToken;
 
   /// Getters
   // Get Authenticated User Data
@@ -53,7 +52,6 @@ class AuthenticationRepository extends GetxController {
     _firebaseUser.bindStream(_auth.userChanges());
     FlutterNativeSplash.remove();
     screenRedirect();
-    // ever(_firebaseUser, _setInitialScreen);
   }
 
   /// Function to Show Relevant Screen
@@ -107,9 +105,8 @@ class AuthenticationRepository extends GetxController {
         password: password,
       ); //If success we'll move data to firestore and save it
     } on FirebaseAuthException catch (e) {
-      throw CFirebaseAuthException(
-        e.code,
-      ).message; //The reason to catch these exceptions seperately is to make sure that the user can see a relevant message but NOT a Technical Message
+      throw CFirebaseAuthException(e.code).message;
+      // Note: The reason to catch these exceptions seperately is to make sure that the user can see a relevant message but NOT a Technical Message
     } on FirebaseException catch (e) {
       throw CFirebaseException(e.code).message;
     } on FormatException catch (_) {
@@ -224,7 +221,6 @@ class AuthenticationRepository extends GetxController {
     try {
       await _auth.signOut();
       await GoogleSignIn().signOut();
-      // await FacebookAuth.instance.logOut();
       Get.offAll(() => const LoginScreen());
     } on FirebaseAuthException catch (e) {
       throw CFirebaseAuthException(e.code).message;

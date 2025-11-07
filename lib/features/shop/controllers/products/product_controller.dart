@@ -46,6 +46,17 @@ class ProductController extends GetxController {
     }
   }
 
+  /// Fetch all sale products
+  Future<List<ProductModel>> fetchAllSaleProducts() async {
+    try {
+      final products = await productRepository.fetchAllSaleProducts();
+      return products;
+    } catch (e) {
+      Loaders.errorSnackBar(title: 'Error', message: e.toString());
+      return [];
+    }
+  }
+
   String getProductPrice(ProductModel product) {
     double smallestPrice = double.infinity;
     double largestPrice = 0;
@@ -56,8 +67,9 @@ class ProductController extends GetxController {
     } else {
       //Calculate the smallest and largest prices among variations
       for (var variation in product.productVariations!) {
-        double priceToConsider =
-            variation.salePrice > 0 ? variation.salePrice : variation.price;
+        double priceToConsider = variation.salePrice > 0
+            ? variation.salePrice
+            : variation.price;
         if (priceToConsider < smallestPrice) {
           smallestPrice = priceToConsider;
         }

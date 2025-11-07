@@ -3,7 +3,6 @@ import 'package:clothiva_project/common/widgets/texts/brand_title_text_with_veri
 import 'package:clothiva_project/common/widgets/texts/product_price_text.dart';
 import 'package:clothiva_project/common/widgets/texts/product_title_text.dart';
 import 'package:clothiva_project/features/shop/models/product_model.dart';
-import 'package:clothiva_project/utils/helpers/context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -23,7 +22,7 @@ class ProductCardHorizontal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dark = context.isDarkMode || context.isDarkModeMedia;
+    final dark = context.isDarkMode;
 
     final controller = ProductController.instance;
     final salePercentage = controller.CalculateSalePercentage(
@@ -144,23 +143,6 @@ class ProductCardHorizontal extends StatelessWidget {
 
                         /// Add to Cart Button
                         ProductCardAddToCartButton(product: product),
-                        // Container(
-                        //   decoration: BoxDecoration(
-                        //     color: CColors.dark,
-                        //     borderRadius: BorderRadius.only(
-                        //       topLeft: Radius.circular(CSizes.cardRadiusMd),
-                        //       bottomRight:
-                        //           Radius.circular(CSizes.productImageRadius),
-                        //     ),
-                        //   ),
-                        //   child: SizedBox(
-                        //     width: CSizes.iconLg * 1.2,
-                        //     height: CSizes.iconLg * 1.2,
-                        //     child: Center(
-                        //       child: Icon(Iconsax.add, color: CColors.white),
-                        //     ),
-                        //   ),
-                        // ),
                       ],
                     ),
                   ],

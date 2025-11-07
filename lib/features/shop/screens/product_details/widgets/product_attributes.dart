@@ -2,10 +2,8 @@ import 'package:clothiva_project/common/widgets/chips/rounded_choice_chips.dart'
 import 'package:clothiva_project/common/widgets/custom_shapes/containers/rounded_container.dart';
 import 'package:clothiva_project/common/widgets/texts/product_title_text.dart';
 import 'package:clothiva_project/common/widgets/texts/section_heading.dart';
-import 'package:clothiva_project/features/shop/screens/product_details/widgets/attribute_widget.dart';
 import 'package:clothiva_project/utils/constants/colors.dart';
 import 'package:clothiva_project/utils/constants/sizes.dart';
-import 'package:clothiva_project/utils/helpers/context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -20,7 +18,7 @@ class CProductAttributes extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = VariationController.instance;
-    bool dark = context.isDarkMode || context.isDarkModeMedia;
+    final bool dark = context.isDarkMode;
     return Obx(
       () => Column(
         children: [

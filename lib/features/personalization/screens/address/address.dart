@@ -49,7 +49,7 @@ class UserAddressScreen extends StatelessWidget {
                 return ListView.builder(
                   shrinkWrap: true,
                   itemCount: addresses.length,
-                  itemBuilder: (_, index) => TSingleAddress(
+                  itemBuilder: (_, index) => CSingleAddress(
                     address: addresses[index],
                     onTap: () => controller.selectedAddress(addresses[index]),
                   ),

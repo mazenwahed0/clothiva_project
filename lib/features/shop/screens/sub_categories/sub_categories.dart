@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../common/widgets/appbar/appbar.dart';
-import '../../../../common/widgets/images/rounded_image.dart';
 import '../../../../common/widgets/products/product_cards/product_card_horizontal.dart';
 import '../../../../common/widgets/shimmers/horizontal_product_shimmer.dart';
 import '../../../../common/widgets/texts/section_heading.dart';
 import '../../../../utils/constants/sizes.dart';
-import '../../../../utils/helpers/exports.dart';
+import '../../../../utils/helpers/cloud_helper_functions.dart';
 import '../../controllers/category_controller.dart';
 import '../../models/category_model.dart';
 import '../all_products/all_products.dart';
@@ -30,24 +29,15 @@ class SubCategoriesScreen extends StatelessWidget {
           padding: EdgeInsets.all(CSizes.defaultSpace),
           child: Column(
             children: [
-              /// Banner
-              // RoundedImage(
-              //   isNetworkImage: true,
-              //   width: double.infinity,
-              //   imageUrl: category.image,
-              //   applyImageRadius: true,
-              // ),
-              // SizedBox(
-              //   height: CSizes.spaceBtItems,
-              // ),
-
               /// Sub-Categories
               FutureBuilder(
                 future: controller.getSubCategory(category.id),
                 builder: (context, snapshot) {
                   const loader = CHorizontalProductShimmer();
                   final widget = CloudHelperFunctions.checkMultiRecordState(
-                      snapshot: snapshot, loader: loader);
+                    snapshot: snapshot,
+                    loader: loader,
+                  );
 
                   if (widget != null) return widget;
 
@@ -61,11 +51,14 @@ class SubCategoriesScreen extends StatelessWidget {
                       final subCategory = subCategories[index];
                       return FutureBuilder(
                         future: controller.getCategoryProducts(
-                            categoryId: subCategory.id),
+                          categoryId: subCategory.id,
+                        ),
                         builder: (context, snapshot) {
                           final widget =
                               CloudHelperFunctions.checkMultiRecordState(
-                                  snapshot: snapshot, loader: loader);
+                                snapshot: snapshot,
+                                loader: loader,
+                              );
 
                           if (widget != null) return widget;
 
@@ -78,32 +71,33 @@ class SubCategoriesScreen extends StatelessWidget {
                                 onPressed: () => Get.to(
                                   () => AllProducts(
                                     title: subCategory.name,
-                                    futureMethod:
-                                        controller.getCategoryProducts(
-                                            categoryId: subCategory.id,
-                                            limit: -1),
+                                    futureMethod: controller
+                                        .getCategoryProducts(
+                                          categoryId: subCategory.id,
+                                          limit: -1,
+                                        ),
                                   ),
                                 ),
                               ),
-                              SizedBox(
-                                height: CSizes.spaceBtItems / 2,
-                              ),
+                              SizedBox(height: CSizes.spaceBtItems / 2),
 
                               /// Thumbnail Image
                               SizedBox(
                                 height: 120,
                                 child: ListView.separated(
-                                    itemCount: products.length,
-                                    scrollDirection: Axis.horizontal,
-                                    separatorBuilder: (context, index) =>
-                                        const SizedBox(
-                                          width: CSizes.spaceBtItems,
-                                        ),
-                                    itemBuilder: (context, index) =>
-                                        ProductCardHorizontal(
-                                            product: products[index])),
+                                  itemCount: products.length,
+                                  scrollDirection: Axis.horizontal,
+                                  separatorBuilder: (context, index) =>
+                                      const SizedBox(
+                                        width: CSizes.spaceBtItems,
+                                      ),
+                                  itemBuilder: (context, index) =>
+                                      ProductCardHorizontal(
+                                        product: products[index],
+                                      ),
+                                ),
                               ),
-                              const SizedBox(height: CSizes.spaceBtItems)
+                              const SizedBox(height: CSizes.spaceBtItems),
                             ],
                           );
                         },

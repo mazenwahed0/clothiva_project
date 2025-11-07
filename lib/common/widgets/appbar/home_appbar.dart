@@ -1,4 +1,3 @@
-import 'package:clothiva_project/utils/helpers/context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -32,7 +31,7 @@ class CHomeAppbar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dark = context.isDarkMode || context.isDarkModeMedia;
+    final dark = context.isDarkMode;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: CSizes.md),
       child: AppBar(

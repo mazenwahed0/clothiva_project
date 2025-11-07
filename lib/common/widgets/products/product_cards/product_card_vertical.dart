@@ -6,14 +6,14 @@ import 'package:clothiva_project/common/widgets/texts/product_title_text.dart';
 import 'package:clothiva_project/features/shop/screens/product_details/product_detail.dart';
 import 'package:clothiva_project/utils/constants/colors.dart';
 import 'package:clothiva_project/utils/constants/sizes.dart';
-import 'package:clothiva_project/utils/helpers/context_extensions.dart';
-import 'package:clothiva_project/utils/helpers/exports.dart';
+import 'package:clothiva_project/utils/device/device_utility.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../features/shop/controllers/products/product_controller.dart';
 import '../../../../features/shop/models/product_model.dart';
 import '../../../../utils/constants/enums.dart';
+import '../../../../utils/helpers/helper_functions.dart';
 import '../../texts/brand_title_text_with_verified_icon.dart';
 import '../favourite_icon/favourite_icon.dart';
 import 'add_to_cart_button.dart';
@@ -24,7 +24,7 @@ class ProductCardVertical extends StatelessWidget {
   final ProductModel product;
   @override
   Widget build(BuildContext context) {
-    final dark = context.isDarkMode || context.isDarkModeMedia;
+    final dark = context.isDarkMode;
     final controller = ProductController.instance;
     final salePercentage = controller.CalculateSalePercentage(
       product.price,
@@ -46,7 +46,7 @@ class ProductCardVertical extends StatelessWidget {
           children: [
             /// Thumbnail, Wishlist Button, Discount Tag
             RoundedContainer(
-              height: CHelperFunctions.screenHeight() * 0.17,
+              height: CDeviceUtils.screenHeight() * 0.17,
               padding: EdgeInsetsGeometry.all(CSizes.sm),
               backgroundColor: dark ? CColors.dark : CColors.white,
               child: Stack(

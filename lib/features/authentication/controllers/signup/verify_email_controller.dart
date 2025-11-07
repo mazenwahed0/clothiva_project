@@ -2,15 +2,18 @@ import 'dart:async';
 
 import 'package:clothiva_project/data/repositories/authentication/authentication_repository.dart';
 import 'package:clothiva_project/utils/constants/text_strings.dart';
-import 'package:clothiva_project/utils/popups/exports.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 import '../../../../common/widgets/success_screen/success_screen.dart';
 import '../../../../utils/constants/image_strings.dart';
+import '../../../../utils/popups/loaders.dart';
 
 class VerifyEmailController extends GetxController {
   static VerifyEmailController get instance => Get.find();
+
+  /// Variables
+  Timer? _timer;
 
   @override
   void onInit() {
@@ -35,7 +38,7 @@ class VerifyEmailController extends GetxController {
 
   /// Timer to automatically redirect on Email Verification
   setTimerForAutoRedirect() {
-    Timer.periodic(Duration(seconds: 1), (timer) async {
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) async {
       await FirebaseAuth.instance.currentUser?.reload();
       final user = FirebaseAuth.instance.currentUser;
       if (user?.emailVerified ?? false) {
@@ -46,7 +49,6 @@ class VerifyEmailController extends GetxController {
             title: CTexts.yourAccountCreatedTitle,
             subTitle: CTexts.yourAccountCreatedSubTitle,
             onPressed: () => AuthenticationRepository.instance.screenRedirect(),
-            // FirebaseAuth.instance.currentUser
           ),
         );
       }
@@ -57,6 +59,8 @@ class VerifyEmailController extends GetxController {
   checkEmailVerificationStatus() async {
     final currentUser = FirebaseAuth.instance.currentUser;
     if (currentUser != null && currentUser.emailVerified) {
+      _timer?.cancel();
+
       Get.off(
         () => SuccessScreen(
           image: CImages.successfullyRegisterAnimation,
@@ -66,5 +70,11 @@ class VerifyEmailController extends GetxController {
         ),
       );
     }
+  }
+
+  @override
+  void onClose() {
+    _timer?.cancel();
+    super.onClose();
   }
 }

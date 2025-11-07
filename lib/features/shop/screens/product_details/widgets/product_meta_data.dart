@@ -3,8 +3,6 @@ import 'package:clothiva_project/common/widgets/texts/brand_title_text_with_veri
 import 'package:clothiva_project/common/widgets/texts/product_price_text.dart';
 import 'package:clothiva_project/common/widgets/texts/product_title_text.dart';
 import 'package:clothiva_project/utils/constants/enums.dart';
-import 'package:clothiva_project/utils/constants/image_strings.dart';
-import 'package:clothiva_project/utils/helpers/context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,6 +10,7 @@ import '../../../../../common/widgets/custom_shapes/containers/rounded_container
 import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/constants/sizes.dart';
 import '../../../controllers/products/product_controller.dart';
+import '../../../controllers/products/variation_controller.dart';
 import '../../../models/product_model.dart';
 
 class CProductMetaData extends StatelessWidget {
@@ -20,12 +19,14 @@ class CProductMetaData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool dark = context.isDarkMode;
     final controller = ProductController.instance;
+    final variationController = VariationController.instance;
     final salePercentage = controller.CalculateSalePercentage(
       product.price,
       product.salePrice,
     );
-    bool dark = context.isDarkMode || context.isDarkModeMedia;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -79,16 +80,22 @@ class CProductMetaData extends StatelessWidget {
         SizedBox(width: CSizes.spaceBtItems / 1.5),
 
         /// Stock Status
-        Row(
-          children: [
-            ProductTitleText(title: 'Stock:'),
-            SizedBox(width: CSizes.spaceBtItems),
-            Text(
-              controller.getProductStockStatus(product.stock),
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-          ],
-        ),
+        Obx(() {
+          if (variationController.selectedVariation.value.id.isEmpty) {
+            return Row(
+              children: [
+                ProductTitleText(title: 'Stock:'),
+                SizedBox(width: CSizes.spaceBtItems),
+                Text(
+                  controller.getProductStockStatus(product.stock),
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              ],
+            );
+          } else {
+            return SizedBox();
+          }
+        }),
 
         SizedBox(width: CSizes.spaceBtItems / 1.5),
 

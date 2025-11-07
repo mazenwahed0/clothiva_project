@@ -1,12 +1,12 @@
 import 'package:clothiva_project/common/widgets/shimmers/shimmer.dart';
 import 'package:clothiva_project/features/personalization/controllers/user_controller.dart';
-import 'package:clothiva_project/utils/helpers/exports.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../../common/widgets/appbar/appbar.dart';
 import '../../../../../common/widgets/products/cart/cart_menu_icon.dart';
 import '../../../../../utils/constants/colors.dart';
+import '../../../../../utils/helpers/helper_functions.dart';
 
 class HomeAppBar extends StatelessWidget {
   const HomeAppBar({super.key});

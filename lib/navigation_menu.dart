@@ -3,7 +3,6 @@ import 'package:clothiva_project/features/shop/screens/home/home.dart';
 import 'package:clothiva_project/features/shop/screens/store/store.dart';
 import 'package:clothiva_project/features/shop/screens/wishlist/wishlist.dart';
 import 'package:clothiva_project/utils/constants/colors.dart';
-import 'package:clothiva_project/utils/helpers/context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -14,7 +13,7 @@ class NavigationMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(NavigationController());
-    bool dark = context.isDarkMode || context.isDarkModeMedia;
+    bool dark = context.isDarkMode;
 
     return Scaffold(
       bottomNavigationBar: Obx(

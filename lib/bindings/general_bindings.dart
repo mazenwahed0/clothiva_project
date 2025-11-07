@@ -1,7 +1,10 @@
+import 'package:clothiva_project/data/repositories/address/address_repository.dart';
+import 'package:clothiva_project/features/order/controllers/order_controller.dart';
 import 'package:get/get.dart';
 
 import '../data/repositories/authentication/authentication_repository.dart';
 import '../data/repositories/invitation/invitation_repository.dart';
+import '../data/repositories/order/order_repository.dart';
 import '../data/repositories/user/user_repository.dart';
 import '../data/repositories/wishlist/wishlist_repository.dart';
 import '../features/authentication/controllers/signup/signup_controller.dart';
@@ -26,16 +29,18 @@ class GeneralBindings extends Bindings {
     Get.lazyPut(() => InvitationRepository(), fenix: true);
     Get.lazyPut(() => WishlistRepository(), fenix: true);
     Get.lazyPut(() => UserRepository(), fenix: true);
+    Get.lazyPut(() => AddressRepository(), fenix: true);
+    Get.lazyPut(() => OrderRepository(), fenix: true);
 
     /// -- Controllers
     Get.put(FavouritesController(), permanent: true);
     Get.put(VariationController());
     Get.put(CartController(), permanent: true);
+    Get.lazyPut(() => AddressController(), fenix: true);
+    Get.lazyPut(() => OrderController(), fenix: true);
+    Get.lazyPut(() => CheckoutController(), fenix: true);
 
     Get.lazyPut(() => InvitationController(), fenix: true);
-
-    Get.put(AddressController());
-    Get.put(CheckoutController());
 
     Get.lazyPut(() => UserController(), fenix: true);
     Get.lazyPut(() => BrandController(), fenix: true);

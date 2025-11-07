@@ -1,7 +1,6 @@
 import 'package:badges/badges.dart' as badges;
 import 'package:clothiva_project/common/styles/spacing_styles.dart';
 import 'package:clothiva_project/utils/constants/text_strings.dart';
-import 'package:clothiva_project/utils/helpers/context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -46,7 +45,7 @@ class CAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dark = context.isDarkMode || context.isDarkModeMedia;
+    final dark = context.isDarkMode;
 
     return Padding(
       padding: CSpacingStyle.paddingWithAppBarHeight,

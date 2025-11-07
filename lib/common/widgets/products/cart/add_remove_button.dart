@@ -1,4 +1,3 @@
-import 'package:clothiva_project/utils/helpers/context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:get/get.dart';
@@ -20,7 +19,7 @@ class CProductQuantityWithAddRemoveButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool dark = context.isDarkMode || context.isDarkModeMedia;
+    bool dark = context.isDarkMode;
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [

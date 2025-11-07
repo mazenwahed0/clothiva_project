@@ -1,4 +1,3 @@
-import 'package:clothiva_project/utils/helpers/context_extensions.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -11,7 +10,7 @@ import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/constants/image_strings.dart';
 import '../../../../../utils/constants/sizes.dart';
 import '../../../../../utils/helpers/cloud_helper_functions.dart';
-import '../../../../checkout/controllers/order_controller.dart';
+import '../../../controllers/order_controller.dart';
 
 class COrderList extends StatelessWidget {
   const COrderList({super.key});
@@ -19,7 +18,7 @@ class COrderList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(OrderController());
-    bool dark = context.isDarkMode || context.isDarkModeMedia;
+    bool dark = context.isDarkMode;
 
     return FutureBuilder(
       future: controller.fetchUserOrders(),

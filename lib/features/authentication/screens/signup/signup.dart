@@ -3,7 +3,6 @@ import 'package:clothiva_project/features/authentication/screens/signup/widgets/
 import 'package:clothiva_project/utils/constants/colors.dart';
 import 'package:clothiva_project/utils/constants/sizes.dart';
 import 'package:clothiva_project/utils/constants/text_strings.dart';
-import 'package:clothiva_project/utils/helpers/context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -20,7 +19,7 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
-    bool dark = context.isDarkMode || context.isDarkModeMedia;
+    bool dark = context.isDarkMode;
     return Scaffold(
       appBar: AppBar(
         //Note: Use Get.off() instead of Get.to() when navigating

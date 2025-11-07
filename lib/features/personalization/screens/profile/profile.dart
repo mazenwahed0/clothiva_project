@@ -77,6 +77,7 @@ class ProfileScreen extends StatelessWidget {
                   title: 'Name',
                   value: controller.user.value.fullName,
                   isLoading: controller.profileLoading,
+                  icon: Iconsax.arrow_right_34,
                   onPressed: () => Get.to(() => ChangeName()),
                 ),
 
@@ -103,7 +104,8 @@ class ProfileScreen extends StatelessWidget {
                   value: controller.user.value.id,
                   isLoading: controller.profileLoading,
                   icon: Iconsax.copy,
-                  onPressed: () {},
+                  onPressed: () =>
+                      controller.copyToClipboard(controller.user.value.id),
                 ),
                 ProfileMenu(
                   title: 'Email',
@@ -113,21 +115,19 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 ProfileMenu(
                   title: 'Phone Number',
-                  value: controller.user.value.phoneNumber,
+                  value: controller.user.value.phoneNumber.isEmpty
+                      ? 'Not set'
+                      : controller.user.value.phoneNumber,
                   isLoading: controller.profileLoading,
-                  onPressed: () {},
+                  icon: Iconsax.arrow_right_34,
+                  onPressed: () => controller.updatePhoneNumberDialog(),
                 ),
                 ProfileMenu(
                   title: 'Gender',
-                  value: "Male",
+                  value: controller.user.value.gender ?? 'Not set',
                   isLoading: controller.profileLoading,
-                  onPressed: () {},
-                ),
-                ProfileMenu(
-                  title: 'Date of Birth',
-                  value: "4 July, 2002",
-                  isLoading: controller.profileLoading,
-                  onPressed: () {},
+                  icon: Iconsax.arrow_right_34,
+                  onPressed: () => controller.updateGenderDialog(),
                 ),
 
                 Divider(),

@@ -1,4 +1,3 @@
-import 'package:clothiva_project/utils/helpers/context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -9,29 +8,31 @@ class Loaders {
       ScaffoldMessenger.of(Get.context!).hideCurrentSnackBar();
 
   static customToast({required message}) {
-    bool dark = Get.context!.isDarkMode || Get.context!.isDarkModeMedia;
-    ScaffoldMessenger.of(Get.context!).showSnackBar(
-      SnackBar(
-        elevation: 0,
-        duration: const Duration(seconds: 3),
-        backgroundColor: Colors.transparent,
-        content: Container(
-          padding: const EdgeInsets.all(12.0),
-          margin: const EdgeInsets.symmetric(horizontal: 30),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30),
-            color: dark
-                ? CColors.darkerGrey.withValues(alpha: 0.9)
-                : CColors.grey.withValues(alpha: 0.9),
-          ),
-          child: Center(
-            child: Text(
-              message,
-              style: Theme.of(Get.context!).textTheme.bodySmall,
-            ),
+    final dark = Get.isDarkMode;
+    Get.snackbar(
+      '', // No title
+      '', // No message
+      titleText: const SizedBox.shrink(), // Hides the title
+      messageText: Center(
+        child: Text(
+          message,
+          // Use a style that will be visible on the background
+          style: Theme.of(Get.context!).textTheme.bodyLarge!.apply(
+            color: dark ? CColors.white : CColors.dark,
           ),
         ),
       ),
+      snackPosition: SnackPosition.BOTTOM,
+      backgroundColor: dark
+          ? CColors.darkerGrey.withValues(alpha: 0.9)
+          : CColors.grey.withValues(alpha: 0.9),
+      borderRadius: 30,
+      margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
+      padding: const EdgeInsets.all(12),
+      duration: const Duration(seconds: 1, milliseconds: 500),
+      isDismissible: true,
+      barBlur: 0,
+      overlayBlur: 0,
     );
   }
 
