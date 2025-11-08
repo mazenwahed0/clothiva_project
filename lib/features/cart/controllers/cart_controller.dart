@@ -49,7 +49,7 @@ class CartController extends GetxController {
     if (product.productType == ProductType.variable.toString()) {
       if (variationController.selectedVariation.value.stock < 1) {
         Loaders.warningSnackBar(
-          title: 'Oh Snap!',
+          title: 'Oops!',
           message: 'Selected variation is out of stock',
         );
         return;
@@ -57,7 +57,7 @@ class CartController extends GetxController {
     } else {
       if (product.stock < 1) {
         Loaders.warningSnackBar(
-          title: 'Oh Snap!',
+          title: 'Oops!',
           message: 'Selected Product is out of stock',
         );
         return;
@@ -104,37 +104,28 @@ class CartController extends GetxController {
     updateCart();
   }
 
-  void removeOneFromCart(CartItemModel item) {
-    int index = cartItems.indexWhere(
-      (cartItem) =>
-          cartItem.productId == item.productId &&
-          cartItem.variationId == item.variationId,
-    );
-
-    if (index >= 0) {
-      if (cartItems[index].quantity > 1) {
-        cartItems[index].quantity -= 1;
-      } else {
-        cartItems[index].quantity == 1
-            ? removeFromCartDialog(index)
-            : cartItems.removeAt(index);
-      }
-      updateCart();
-    }
-  }
-
-  void removeFromCartDialog(int index) {
+  void removeItemFromCart(CartItemModel cartItem) {
     Get.defaultDialog(
       title: 'Remove Product',
-      middleText: 'Are you sure you want to remove this product from the cart?',
+      middleText: 'Are you sure you want to remove this product?',
       onConfirm: () {
-        cartItems.removeAt(index);
-        updateCart();
-        Loaders.customToast(message: 'Product removed from cart');
+        // Remove the item from the cart
+        cartItems.remove(cartItem);
+        // Remove that product from the Product Quantities.
+        // productQuantities.remove(cartItem.productId);
+        // Remove the price from the total
+        totalCartPrice.value -= calculateSingleProductTotal(
+          cartItem.price!,
+          cartItem.quantity,
+        );
+        cartItems.refresh();
+
         Get.back();
+        Loaders.customToast(message: 'Product removed from the cart.');
       },
       onCancel: () =>
           () => Get.back(),
+      barrierDismissible: true,
     );
   }
 

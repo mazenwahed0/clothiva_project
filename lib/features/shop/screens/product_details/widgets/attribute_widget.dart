@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../../../utils/constants/colors.dart';
 import '../../../models/product_attribute_model.dart';
@@ -20,15 +21,17 @@ class AttributeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
+    final isDark = context.isDarkMode;
 
     // Pass the variations to check which attributes are available and stock is not 0
     final availableVariationValues = variations
-        .where((variation) =>
-            // Check Empty / Out of Stock Attributes
-            variation.attributeValues[attribute.name] != null &&
-            variation.attributeValues[attribute.name]!.isNotEmpty &&
-            variation.stock > 0)
+        .where(
+          (variation) =>
+              // Check Empty / Out of Stock Attributes
+              variation.attributeValues[attribute.name] != null &&
+              variation.attributeValues[attribute.name]!.isNotEmpty &&
+              variation.stock > 0,
+        )
         // Fetch all non-empty attributes of variations
         .map((variation) => variation.attributeValues[attribute.name])
         .toSet();
@@ -54,27 +57,32 @@ class AttributeWidget extends StatelessWidget {
                 },
                 selectedColor: CColors.primary,
                 labelStyle: TextStyle(
-                    color: isSelected
-                        ? Colors.white
-                        : (isAvailable
+                  color: isSelected
+                      ? Colors.white
+                      : (isAvailable
                             ? isDark
-                                ? CColors.white
-                                : CColors.dark
+                                  ? CColors.white
+                                  : CColors.dark
                             : isDark
-                                ? Colors.white30
-                                : Colors.grey)),
+                            ? Colors.white30
+                            : Colors.grey),
+                ),
                 elevation: isSelected ? 5.0 : 0.0,
                 backgroundColor: isSelected
                     ? CColors.primary
                     : (isAvailable
-                        ? Colors.transparent
-                        : isDark
-                            ? CColors.dark
-                            : Colors.grey.shade200),
+                          ? Colors.transparent
+                          : isDark
+                          ? CColors.dark
+                          : Colors.grey.shade200),
                 iconTheme: IconThemeData(
-                    color: isSelected ? Colors.white : Colors.black, size: 18),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12.0, vertical: 12),
+                  color: isSelected ? Colors.white : Colors.black,
+                  size: 18,
+                ),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12.0,
+                  vertical: 12,
+                ),
               ),
             );
           }).toList(),

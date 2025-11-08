@@ -3,7 +3,6 @@ import 'package:clothiva_project/data/repositories/categories/category_repositor
 import 'package:clothiva_project/data/repositories/product/product_repository.dart';
 import 'package:clothiva_project/dummy_data.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 import '../../../../../common/widgets/appbar/appbar.dart';
@@ -19,8 +18,8 @@ class LoadData extends StatelessWidget {
   Widget build(BuildContext context) {
     final categoryController = CategoryRepository.instance;
     final bannerController = BannerRepository.instance;
-    final productController = Get.put(ProductRepository());
-    final brandController = Get.put(BrandRepository());
+    final productController = ProductRepository.instance;
+    final brandController = BrandRepository.instance;
     return Scaffold(
       appBar: CAppBar(
         title: Text(

@@ -15,6 +15,7 @@ import '../../../../utils/constants/colors.dart';
 import '../../../cart/screens/cart/cart.dart';
 import '../../../invitation/screens/invitation_screen.dart';
 import '../../../order/screens/order/order.dart';
+import '../../controllers/theme_controller.dart';
 import '../address/address.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -23,6 +24,7 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = UserController.instance;
+    final themeController = ThemeController.instance;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -39,8 +41,24 @@ class SettingsScreen extends StatelessWidget {
                         context,
                       ).textTheme.headlineMedium!.apply(color: CColors.white),
                     ),
-                    showActions: false,
+                    showActions: true,
                     showSkipButton: false,
+                    actions: [
+                      Obx(() {
+                        final mode = themeController.themeMode.value;
+
+                        final IconData icon = (mode == ThemeMode.light)
+                            ? Iconsax.sun_1
+                            : (mode == ThemeMode.dark)
+                            ? Iconsax.moon
+                            : Iconsax.monitor;
+
+                        return IconButton(
+                          icon: Icon(icon, color: CColors.white),
+                          onPressed: () => themeController.cycleTheme(),
+                        );
+                      }),
+                    ],
                   ),
 
                   /// -- User Profile Card

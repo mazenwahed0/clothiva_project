@@ -11,7 +11,7 @@ class BrandController extends GetxController {
 
   /// Variables
   final isLoading = false.obs;
-  final brandRepository = Get.put(BrandRepository());
+  final brandRepository = BrandRepository.instance;
   RxList<BrandModel> allBrands = <BrandModel>[].obs;
   RxList<BrandModel> featuredBrands = <BrandModel>[].obs;
 

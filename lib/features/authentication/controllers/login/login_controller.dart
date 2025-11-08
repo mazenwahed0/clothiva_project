@@ -20,7 +20,7 @@ class LoginController extends GetxController {
   final email = TextEditingController();
   final password = TextEditingController();
   GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
-  final userController = Get.put(UserController());
+  final userController = UserController.instance;
 
   /// Loader
   final isLoading = false.obs;

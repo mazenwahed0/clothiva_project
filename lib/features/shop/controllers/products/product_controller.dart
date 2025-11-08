@@ -10,7 +10,7 @@ class ProductController extends GetxController {
 
   /// Variables
   final isLoading = false.obs;
-  final productRepository = Get.put(ProductRepository());
+  final productRepository = ProductRepository.instance;
   // List of Products to fetch and keep the data to avoid many reads from the Firestore Database
   final RxList<ProductModel> featuredProducts = <ProductModel>[].obs;
 

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:get/get.dart';
 import '../../../../data/repositories/invitation/invitation_repository.dart';
@@ -6,6 +7,7 @@ import '../../../../data/repositories/wishlist/wishlist_repository.dart';
 import '../../../../utils/local_storage/storage_utility.dart';
 import '../../../../utils/popups/loaders.dart';
 import '../../models/product_model.dart';
+import '../../models/wishlist_model.dart';
 
 class FavouritesController extends GetxController {
   static FavouritesController get instance => Get.find();
@@ -13,16 +15,30 @@ class FavouritesController extends GetxController {
   final favourites = <String, bool>{}.obs;
   final _wishlistRepo = WishlistRepository.instance;
   final _inviteRepo = InvitationRepository.instance;
+  final _productsRepo = ProductRepository.instance;
 
   final RxBool isSharedMode = false.obs;
+
+  /// Stream subscription to manage the Firestore listener
+  StreamSubscription<WishlistModel?>? _wishlistSubscription;
+  final RxList<ProductModel> favouriteProductsList = <ProductModel>[].obs;
+  final RxBool isLoading = false.obs;
 
   @override
   void onInit() {
     super.onInit();
-    initFavourites();
+    ever(isSharedMode, (_) => refreshMode());
+    ever(favourites, (_) => _fetchFavouriteProducts());
+    _initialize();
   }
 
-  /// Called on initial app load to set the default state
+  /// Helper to set initial state before listeners are active
+  Future<void> _initialize() async {
+    await initFavourites();
+    refreshMode();
+  }
+
+  /// (This method is largely the same, just to set the initial isSharedMode)
   Future<void> initFavourites() async {
     try {
       final invites = await _inviteRepo.fetchCollaborators().first;
@@ -33,7 +49,6 @@ class FavouritesController extends GetxController {
       // 1. Check if user is a recipient AND sharing is disabled
       if (invite != null && !invite.shareEnabled) {
         isSharedMode.value = false;
-        _loadLocalWishlist();
         return;
       }
 
@@ -41,19 +56,14 @@ class FavouritesController extends GetxController {
       final shared = await _wishlistRepo.getUserWishlist();
       if (shared != null && shared.isShared) {
         isSharedMode.value = true;
-        favourites.clear();
-        for (final id in shared.productIds) {
-          favourites[id] = true;
-        }
-        favourites.refresh();
         return;
       }
 
       // 3. Fallback to local storage
       isSharedMode.value = false;
-      _loadLocalWishlist();
     } catch (e) {
-      Loaders.errorSnackBar(title: 'Oh Snap', message: e.toString());
+      Loaders.errorSnackBar(title: 'Oops!', message: e.toString());
+      isSharedMode.value = false; // Default to local on error
     }
   }
 
@@ -73,27 +83,21 @@ class FavouritesController extends GetxController {
           Loaders.warningSnackBar(
             title: "Sharing Disabled",
             message:
-                "The owner disabled sharing. You can’t modify the shared wishlist.",
+                "The owner disabled sharing. You can't modify the shared wishlist.",
           );
           return;
         }
 
-        // --- All checks passed, update Firestore ---
         await _wishlistRepo.toggleProduct(productId);
-        // Refresh local cache from Firestore
-        final w = await _wishlistRepo.getUserWishlist();
-        favourites.clear();
-        if (w != null) {
-          for (final id in w.productIds) favourites[id] = true;
-        }
-        favourites.refresh();
+
+        final isNowFavourite = isFavourite(productId);
         Loaders.customToast(
-          message: w != null && w.productIds.contains(productId)
+          message: isNowFavourite
               ? 'Product added to shared wishlist.'
               : 'Product removed from shared wishlist.',
         );
       } else {
-        // --- Local Mode ---
+        // Local Mode
         if (!favourites.containsKey(productId)) {
           favourites[productId] = true;
           saveFavouritesToStorage();
@@ -101,7 +105,7 @@ class FavouritesController extends GetxController {
         } else {
           favourites.remove(productId);
           saveFavouritesToStorage();
-          favourites.refresh();
+          favourites.refresh(); // Need refresh here for local
           Loaders.customToast(message: 'Product removed from wishlist.');
         }
       }
@@ -115,43 +119,59 @@ class FavouritesController extends GetxController {
     CLocalStorage.instance().saveData('favourites', encoded);
   }
 
-  Future<List<ProductModel>> favouriteProducts() async {
-    try {
-      final List<String> productIds;
-      if (isSharedMode.value) {
-        final w = await _wishlistRepo.getUserWishlist();
-        productIds = w?.productIds ?? [];
-      } else {
-        productIds = favourites.keys.toList();
-      }
+  /// Loads data based on the current 'isSharedMode.value'
+  void refreshMode() {
+    // Cancel any existing stream listener
+    _wishlistSubscription?.cancel();
+    favourites.clear();
 
-      if (productIds.isEmpty) return [];
-      return await ProductRepository.instance.getFavouriteProducts(productIds);
+    try {
+      if (isSharedMode.value) {
+        // SHARED MODE
+        // Start listening to the Firestore stream
+        _wishlistSubscription = _wishlistRepo.getWishlistStream().listen((
+          wishlist,
+        ) {
+          final productIds = wishlist?.productIds ?? [];
+          final newFavs = <String, bool>{};
+          for (final id in productIds) {
+            newFavs[id] = true;
+          }
+          favourites.assignAll(newFavs);
+        });
+      } else {
+        // LOCAL MODE
+        _loadLocalWishlist();
+        // Manually trigger product fetch for local mode
+        _fetchFavouriteProducts();
+      }
     } catch (e) {
-      Loaders.errorSnackBar(title: 'Error', message: e.toString());
-      return [];
+      Loaders.errorSnackBar(
+        title: 'Error refreshing wishlist',
+        message: e.toString(),
+      );
     }
   }
 
-  /// Simplified: Loads data based on the current 'isSharedMode.value'
-  Future<void> refreshMode() async {
+  /// Fetches the full ProductModel details based on the current list of IDs
+  Future<void> _fetchFavouriteProducts() async {
     try {
-      if (isSharedMode.value) {
-        // Load SHARED
-        final shared = await _wishlistRepo.getUserWishlist();
-        favourites.clear();
-        if (shared != null) {
-          favourites.addEntries(
-            shared.productIds.map((id) => MapEntry(id, true)),
-          );
-        }
+      isLoading.value = true;
+      final productIds = favourites.keys.toList();
+
+      if (productIds.isEmpty) {
+        favouriteProductsList.clear();
       } else {
-        // Load LOCAL
-        _loadLocalWishlist();
+        final products = await _productsRepo.getFavouriteProducts(productIds);
+        favouriteProductsList.assignAll(products);
       }
-      favourites.refresh();
     } catch (e) {
-      Loaders.errorSnackBar(title: 'Error', message: e.toString());
+      Loaders.errorSnackBar(
+        title: 'Error loading products',
+        message: e.toString(),
+      );
+    } finally {
+      isLoading.value = false;
     }
   }
 
@@ -162,5 +182,11 @@ class FavouritesController extends GetxController {
       final stored = jsonDecode(json) as Map<String, dynamic>;
       favourites.assignAll(stored.map((k, v) => MapEntry(k, v as bool)));
     }
+  }
+
+  @override
+  void onClose() {
+    _wishlistSubscription?.cancel();
+    super.onClose();
   }
 }

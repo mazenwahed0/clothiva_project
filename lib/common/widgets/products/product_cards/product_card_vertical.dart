@@ -13,7 +13,6 @@ import 'package:get/get.dart';
 import '../../../../features/shop/controllers/products/product_controller.dart';
 import '../../../../features/shop/models/product_model.dart';
 import '../../../../utils/constants/enums.dart';
-import '../../../../utils/helpers/helper_functions.dart';
 import '../../texts/brand_title_text_with_verified_icon.dart';
 import '../favourite_icon/favourite_icon.dart';
 import 'add_to_cart_button.dart';

@@ -104,32 +104,42 @@ lib/
 
 ### 2. Progress Log
 
-| Date       | Member         | Update                                                    |
-| :--------- | :------------- | :-------------------------------------------------------- |
-| 2025-09-16 | Mazen Wahed    | Setup Firebase + Auth repository                          |
-| 2025-09-20 | Mazen Wahed    | Login/Reset Firebase + Added New Files                    |
-| 2025-10-04 | Kholoud Nabil  | Home & Store Screen (Frontend)                            |
-| 2025-10-05 | Ali Hassan     | Product Detail Page (Started)                             |
-| 2025-10-06 | Mazen Wahed    | Settings + Storage Service + New Files                    |
-| 2025-10-06 | Ali Hassan     | Product Detail widgets & image slider                     |
-| 2025-10-12 | Mazen Wahed    | Store & Settings (Firestore) + Update V1.1                |
-| 2025-10-16 | Ali Hassan     | Product Details Screen (Finished)                         |
-| 2025-10-20 | Ali Hassan     | User Ratings and Reviews (Frontend)                       |
-| 2025-10-22 | Ali Hassan     | Sub-Categories & All Products pages (Frontend)            |
-| 2025-10-22 | Youssef Hassan | Backend for Product Details, Brands & Sub-Categories      |
-| 2025-10-26 | Youssef Hesham | Created Addresses, Cart, Orders & Checkout (Full-Stack)   |
-| 2025-10-31 | Mazen Wahed    | Pushed Update V2.0                                        |
-| 2025-11-01 | Youssef Hesham | Implemented Invitation feature                            |
-| 2025-11-02 | Youssef Hesham | Added user email checks for Invitation controller         |
-| 2025-11-03 | Mazen Wahed    | Pushed Update V2.1 (Shared Wishlist)                      |
-| 2025-11-04 | Mazen Wahed    | Pushed V2.2 (Bug Fixes)                                   |
-| 2025-11-08 | Mazen Wahed    | Pushed V2.3 (Refactor, bug fixes, & profile enhancements) |
+| Date       | Member         | Update                                                     |
+| :--------- | :------------- | :--------------------------------------------------------- |
+| 2025-09-16 | Mazen Wahed    | Setup Firebase + Auth repository                           |
+| 2025-09-20 | Mazen Wahed    | Login/Reset Firebase + Added New Files                     |
+| 2025-10-04 | Kholoud Nabil  | Home & Store Screen (Frontend)                             |
+| 2025-10-05 | Ali Hassan     | Product Detail Page (Started)                              |
+| 2025-10-06 | Mazen Wahed    | Settings + Storage Service + New Files                     |
+| 2025-10-06 | Ali Hassan     | Product Detail widgets & image slider                      |
+| 2025-10-12 | Mazen Wahed    | Store & Settings (Firestore) + Update V1.1                 |
+| 2025-10-16 | Ali Hassan     | Product Details Screen (Finished)                          |
+| 2025-10-20 | Ali Hassan     | User Ratings and Reviews (Frontend)                        |
+| 2025-10-22 | Ali Hassan     | Sub-Categories & All Products pages (Frontend)             |
+| 2025-10-22 | Youssef Hassan | Backend for Product Details, Brands & Sub-Categories       |
+| 2025-10-26 | Youssef Hesham | Created Addresses, Cart, Orders & Checkout (Full-Stack)    |
+| 2025-10-31 | Mazen Wahed    | Pushed Update V2.0                                         |
+| 2025-11-01 | Youssef Hesham | Implemented Invitation feature                             |
+| 2025-11-02 | Youssef Hesham | Added user email checks for Invitation controller          |
+| 2025-11-03 | Mazen Wahed    | Pushed Update V2.1 (Shared Wishlist)                       |
+| 2025-11-04 | Mazen Wahed    | Pushed V2.2 (Bug Fixes)                                    |
+| 2025-11-07 | Mazen Wahed    | Pushed V2.3 (Refactor, bug fixes, & profile enhancements)  |
+| 2025-11-08 | Mazen Wahed    | Pushed V2.4 (Theme Feature, Realtime Wishlist & bug fixes) |
 
 ---
 
 ### 3. Version History (Changelog)
 
-#### V2.3b (Latest)
+#### V2.4 (Latest)
+
+- **New Feature: Theme Control:** Implemented 3-state theme switching (System Default, Light, Dark) accessible via the Settings Appbar. Theme preference is saved locally using GetStorage.
+- **Realtime Shared Wishlist:** The shared wishlist now updates in real-time for all users using a Stream instead of a FutureBuilder, so all collaborators see new items added by others instantly.
+- **Cart Bug Fix:** Fixed a bug where the "Remove Item" dialog would persist after the item was removed. The dialog now closes correctly, and a confirmation snackbar is shown.
+- **Core Cleanup:** Explicitly added all major Repositories (Product, Brand, Category, etc.) to `GeneralBindings` to ensure robust dependency injection and prevent runtime errors.
+- **Refactor:** Removed unnecessary nested `Obx` widget inside the Profile Screen for cleaner state management.
+- **Cleanup:** Removed several redundant and unused files from the project source code.
+
+#### V2.3
 
 - **Auth & Profile:**
 
@@ -154,7 +164,7 @@ lib/
 
 - **Core & Refactor:**
   - Refactor: Cleaned up the Settings screen by removing unnecessary tiles.
-  - Refactor: Simplified theme management by removing `context_extension.dart` and relying purely on GetX (`Get.isDarkMode`).
+  - Refactor: Simplified theme management by removing `context_extension.dart` and relying on GetX (`context.isDarkMode`).
   - Refactor: Refactored `Order` logic into its own controller from `CheckoutController`.
 
 #### V2.2

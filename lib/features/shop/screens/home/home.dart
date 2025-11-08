@@ -27,7 +27,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(ProductController());
+    final controller = ProductController.instance;
     return Scaffold(
       extendBodyBehindAppBar: true,
       body: SingleChildScrollView(

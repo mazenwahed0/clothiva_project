@@ -11,7 +11,7 @@ class BannerController extends GetxController {
   /// Variables
   final carouselCurrentindex = 0.obs;
   final isLoading = false.obs;
-  final _bannerRepository = Get.put(BannerRepository());
+  final _bannerRepository = BannerRepository.instance;
   // List of Banners to fetch and keep the data to avoid the reads from the Firestore Database
   final RxList<BannerModel> banners = <BannerModel>[].obs;
 

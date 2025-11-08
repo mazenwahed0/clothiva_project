@@ -11,7 +11,6 @@ import '../../../../common/widgets/products/product_cards/product_card_vertical.
 import '../../../../common/widgets/shimmers/vertical_product_shimmer.dart';
 import '../../../../navigation_menu.dart';
 import '../../../../utils/constants/image_strings.dart';
-import '../../../../utils/helpers/cloud_helper_functions.dart';
 import '../../../invitation/screens/invitation_screen.dart';
 import '../../controllers/products/favourites_controller.dart';
 
@@ -30,6 +29,7 @@ class WishlistScreen extends StatelessWidget {
             style: Theme.of(context).textTheme.headlineMedium,
           ),
         ),
+
         actions: [
           CircularIcon(
             icon: Iconsax.user_add,
@@ -45,9 +45,10 @@ class WishlistScreen extends StatelessWidget {
             Padding(
               padding: EdgeInsets.all(CSizes.defaultSpace),
               child: Obx(() {
-                final productIds = favController.favourites.keys.toList();
-
-                if (productIds.isEmpty) {
+                if (favController.isLoading.value) {
+                  return const CVerticalProductShimmer(itemCount: 6);
+                }
+                if (favController.favouriteProductsList.isEmpty) {
                   return CAnimationLoaderWidget(
                     text: favController.isSharedMode.value
                         ? 'No shared items yet.'
@@ -61,24 +62,11 @@ class WishlistScreen extends StatelessWidget {
                   );
                 }
 
-                return FutureBuilder(
-                  future: favController.favouriteProducts(),
-                  builder: (context, snapshot) {
-                    const loader = CVerticalProductShimmer(itemCount: 6);
-                    final widget = CloudHelperFunctions.checkMultiRecordState(
-                      snapshot: snapshot,
-                      loader: loader,
-                      nothingFound: const SizedBox.shrink(),
-                    );
-                    if (widget != null) return widget;
-
-                    final products = snapshot.data!;
-                    return GridLayout(
-                      itemCount: products.length,
-                      itemBuilder: (_, index) =>
-                          ProductCardVertical(product: products[index]),
-                    );
-                  },
+                final products = favController.favouriteProductsList;
+                return GridLayout(
+                  itemCount: products.length,
+                  itemBuilder: (_, index) =>
+                      ProductCardVertical(product: products[index]),
                 );
               }),
             ),

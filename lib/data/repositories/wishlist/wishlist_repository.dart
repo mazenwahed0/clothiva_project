@@ -16,6 +16,31 @@ class WishlistRepository extends GetxController {
 
   User? get currentUser => _auth.currentUser;
 
+  /// Returns a stream of the user's wishlist (owned or shared).
+  Stream<WishlistModel?> getWishlistStream() {
+    try {
+      if (currentUser == null) return Stream.value(null);
+      final uid = currentUser!.uid;
+
+      return _db
+          .collection(CKeys.wishlistCollection)
+          .where(
+            Filter.or(
+              Filter('ownerId', isEqualTo: uid),
+              Filter('sharedWith', arrayContains: uid),
+            ),
+          )
+          .limit(1)
+          .snapshots() // <-- Use .snapshots() to listen for real-time updates
+          .map((snapshot) {
+            if (snapshot.docs.isEmpty) return null;
+            return WishlistModel.fromDoc(snapshot.docs.first);
+          });
+    } catch (e) {
+      return Stream.error('Failed to listen to wishlist.');
+    }
+  }
+
   /// Returns the wishlist that the user either owns or is a collaborator of.
   /// If [forceOwner] = true → only fetch wishlists owned by the user.
   Future<WishlistModel?> getUserWishlist({bool forceOwner = false}) async {

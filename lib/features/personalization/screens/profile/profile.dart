@@ -18,6 +18,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = UserController.instance;
+
     return Scaffold(
       appBar: CAppBar(
         title: Text('Profile'),
@@ -30,29 +31,25 @@ class ProfileScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsetsGeometry.all(CSizes.defaultSpace),
-          child: Obx(
-            () => Column(
+          child: Obx(() {
+            final networkImage = controller.user.value.profilePicture;
+            final image = networkImage.isNotEmpty ? networkImage : CImages.user;
+            return Column(
               children: [
                 /// -- Profile Picture
                 SizedBox(
                   width: double.infinity,
                   child: Column(
                     children: [
-                      Obx(() {
-                        final networkImage =
-                            controller.user.value.profilePicture;
-                        final image = networkImage.isNotEmpty
-                            ? networkImage
-                            : CImages.user;
-                        return controller.imageUploading.value
-                            ? CShimmerEffect(width: 80, height: 80, radius: 80)
-                            : CircularImage(
-                                image: image,
-                                width: 80,
-                                height: 80,
-                                isNetworkImage: networkImage.isNotEmpty,
-                              );
-                      }),
+                      controller.imageUploading.value
+                          ? CShimmerEffect(width: 80, height: 80, radius: 80)
+                          : CircularImage(
+                              image: image,
+                              width: 80,
+                              height: 80,
+                              isNetworkImage: networkImage.isNotEmpty,
+                            ),
+
                       TextButton(
                         onPressed: () => controller.uploadUserProfilePicture(),
                         child: Text('Change Profile Picture'),
@@ -144,8 +141,8 @@ class ProfileScreen extends StatelessWidget {
                   ),
                 ),
               ],
-            ),
-          ),
+            );
+          }),
         ),
       ),
     );

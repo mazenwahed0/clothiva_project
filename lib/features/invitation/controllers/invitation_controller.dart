@@ -206,7 +206,7 @@ class InvitationController extends GetxController {
       }
 
       await invRepo.acceptInvite(inviteId);
-      await FavouritesController.instance.refreshMode();
+      FavouritesController.instance.refreshMode();
 
       Loaders.successSnackBar(
         title: "Accepted",
@@ -251,7 +251,7 @@ class InvitationController extends GetxController {
       }
 
       await invRepo.updateShareStatus(invite.id, enabled);
-      await FavouritesController.instance.refreshMode();
+      FavouritesController.instance.refreshMode();
 
       Loaders.successSnackBar(
         title: "Updated",

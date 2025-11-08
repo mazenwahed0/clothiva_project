@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/image_strings.dart';
 import '../../../utils/constants/sizes.dart';
+import '../../../utils/helpers/helper_functions.dart';
 
 class SocialButtons extends StatelessWidget {
   const SocialButtons({super.key});
@@ -36,7 +37,10 @@ class SocialButtons extends StatelessWidget {
             borderRadius: BorderRadius.circular(100),
           ),
           child: IconButton(
-            onPressed: () {},
+            onPressed: () => CHelperFunctions.showSnackBar(
+              'Coming Soon!',
+              'Facebook Sign In is in development.',
+            ),
             icon: const Image(
               width: CSizes.iconLg,
               height: CSizes.iconLg,
