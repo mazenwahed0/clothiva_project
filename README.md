@@ -22,7 +22,7 @@ It features robust, real-time CRUD operations for managing products, categories,
 
 - **Mazen Wahed:** Project Lead, Firebase Auth, Core Structure, Shared Wishlist
 - **Kholoud Nabil:** Frontend (Home & Store Screens), Local Wishlist
-- **Ali Hassan:** Frontend (Product Details, Ratings, Reviews, Sub-Categories, All Products)
+- **Ali Hassan:** Frontend (Product Details, Ratings, Sub-Categories, All Products)
 - **Youssef Hassan:** Backend (Product Details, Brands, Sub-Categories)
 - **Youssef Hesham:** Full-Stack (Addresses, Cart, Orders, Checkout), Invitation Feature
 
@@ -73,7 +73,7 @@ lib/
 │   ├── 📁 invitation/      # Invitation Feature
 │   ├── 📁 personalization/ # User Profile, Settings, Change Name, Address
 │   └── 📁 shop/            # Home, Store, Categories, Brands, Wishlist (Local & Shared)
-│           └── 📁 product/        # Product Details, Ratings, Reviews
+│           └── 📁 product/        # Product Details, Ratings
 │
 └── 📁 utils/               # Core utilities
     ├── 📁 constants/       # Enums, API keys, image strings, sizes
@@ -129,7 +129,7 @@ lib/
 
 ### 3. Version History (Changelog)
 
-#### V2.3 (Latest)
+#### V2.3b (Latest)
 
 - **Auth & Profile:**
 
