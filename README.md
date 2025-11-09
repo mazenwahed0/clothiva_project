@@ -22,8 +22,8 @@ It features robust, real-time CRUD operations for managing products, categories,
 
 - **Mazen Wahed:** Project Lead, Firebase Auth, Core Structure, Shared Wishlist
 - **Kholoud Nabil:** Frontend (Home & Store Screens), Local Wishlist
-- **Ali Hassan:** Frontend (Product Details, Ratings, Sub-Categories, All Products)
-- **Youssef Hassan:** Backend (Product Details, Brands, Sub-Categories)
+- **Ali Hassan:** Frontend (Product Details, Brands, Sub-Categories, All Products)
+- **Youssef Hassan:** Backend (Product Details, Brands, Sub-Categories, All Products)
 - **Youssef Hesham:** Full-Stack (Addresses, Cart, Orders, Checkout), Invitation Feature
 
 ---
@@ -125,10 +125,17 @@ lib/
 | 2025-11-04 | Mazen Wahed    | Pushed V2.2 (Bug Fixes)                                    |
 | 2025-11-07 | Mazen Wahed    | Pushed V2.3 (Refactor, bug fixes, & profile enhancements)  |
 | 2025-11-08 | Mazen Wahed    | Pushed V2.4 (Theme Feature, Realtime Wishlist & bug fixes) |
+| 2025-11-09 | Mazen Wahed    | Pushed V2.5 (Search Feature, AutoPlay PromoSlider)         |
 
 ---
 
 ### 3. Version History (Changelog)
+
+#### V2.5 (Latest)
+
+- **New Feature: Real-time Search:** Implemented a debounced search feature in `CSearchController` using a Timer for efficient, real-time database queries. The `ProductRepository` was updated to use array-contains-any on a List<String> of search terms, allowing for multi-word "OR" matching.
+- **Home:** Enabled autoPlay on the PromoSlider so banners now cycle automatically.
+- **Home:** Fixed a state bug where the PromoSlider would visually reset to the first banner when rebuilding the screen, even though the page indicator (from BannerController) remembered the correct position. This was fixed by setting the initialPage in CarouselOptions.
 
 #### V2.4 (Latest)
 

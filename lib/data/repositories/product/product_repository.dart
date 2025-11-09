@@ -363,4 +363,35 @@ class ProductRepository extends GetxController {
       throw 'Something went wrong. Please try again';
     }
   }
+
+  /// [Search] - Function to search products by title (using keywords)
+  Future<List<ProductModel>> searchProductsByTitle(
+    List<String> searchTerms,
+  ) async {
+    try {
+      if (searchTerms.isEmpty) return []; // <-- Check if the list is empty
+
+      // Then, use 'array-contains-any'
+      final snapshot = await _db
+          .collection(CKeys.productsCollection)
+          .where('searchKeywords', arrayContainsAny: searchTerms)
+          .limit(10)
+          .get();
+
+      if (snapshot.docs.isNotEmpty) {
+        return snapshot.docs
+            .map((document) => ProductModel.fromSnapshot(document))
+            .toList();
+      }
+      return [];
+    } on FirebaseException catch (e) {
+      throw CFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw CFormatException();
+    } on PlatformException catch (e) {
+      throw CPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again';
+    }
+  }
 }

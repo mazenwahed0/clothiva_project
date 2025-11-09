@@ -1,3 +1,4 @@
+import 'package:clothiva_project/features/shop/screens/search/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -5,7 +6,6 @@ import 'package:iconsax/iconsax.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../../../utils/device/device_utility.dart';
-import '../../../../utils/helpers/helper_functions.dart';
 
 class SearchContainer extends StatelessWidget {
   const SearchContainer({
@@ -26,10 +26,7 @@ class SearchContainer extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: CSizes.defaultSpace),
       child: GestureDetector(
-        onTap: () => CHelperFunctions.showSnackBar(
-          'Coming Soon!',
-          'Search functionality is in development.',
-        ),
+        onTap: () => Get.to(() => SearchScreen()),
         child: Container(
           width: CDeviceUtils.screenWidth(),
           padding: EdgeInsets.all(CSizes.md),

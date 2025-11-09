@@ -1,22 +1,28 @@
 import 'package:clothiva_project/features/personalization/screens/settings/settings.dart';
+import 'package:clothiva_project/features/shop/screens/search/search_screen.dart';
 import 'package:get/get.dart';
 
+import '../features/cart/screens/cart/cart.dart';
+import '../features/checkout/screens/checkout/checkout.dart';
+import '../features/order/screens/order/order.dart';
 import '../features/personalization/screens/profile/profile.dart';
 import '../features/shop/screens/home/home.dart';
+import '../features/shop/screens/store/store.dart';
 import '../features/shop/screens/wishlist/wishlist.dart';
 import 'routes.dart';
 
 class AppRoutes {
   static final screens = [
     GetPage(name: CRoutes.home, page: () => HomeScreen()),
-    // GetPage(name: CRoutes.store, page: () => const StoreScreen(),),
+    GetPage(name: CRoutes.store, page: () => const StoreScreen()),
+    GetPage(name: CRoutes.search, page: () => const SearchScreen()),
     GetPage(name: CRoutes.wishlist, page: () => const WishlistScreen()),
     GetPage(name: CRoutes.settings, page: () => const SettingsScreen()),
-    // GetPage(name: CRoutes.order, page: () => const OrderScreen(),),
-    // GetPage(name: CRoutes.checkout, page: () => const CheckoutScreen(),),
-    // GetPage(name: CRoutes.cart, page: () => const CartScreen(),),
+    GetPage(name: CRoutes.order, page: () => const OrderScreen()),
+    GetPage(name: CRoutes.checkout, page: () => const CheckoutScreen()),
+    GetPage(name: CRoutes.cart, page: () => const CartScreen()),
     GetPage(name: CRoutes.userProfile, page: () => const ProfileScreen()),
-    // GetPage(name: CRoutes.userAddress, page: () => const AddressScreen(),),
+    // GetPage(name: CRoutes.userAddress, page: () => const AddressesScreen(),),
     // GetPage(name: CRoutes.signup, page: () => const SignupScreen(),),
     // GetPage(name: CRoutes.verifyEmail, page: () => const VerifyEmailScreen(),),
     // GetPage(name: CRoutes.signIn, page: () => const LoginScreen(),),

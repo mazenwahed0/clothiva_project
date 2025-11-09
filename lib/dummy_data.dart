@@ -191,6 +191,7 @@ class CDummyData {
       categoryId: '09',
       brand: brands[0],
       sku: "NIKE-SPORTS-SHOES",
+      searchKeywords: ['nike', 'shoe', 'sports', 'green', 'shoes'],
       description:
           "Step into effortless fashion with Green Nike Sports Shoe. These casual yet stylish shoes are perfect for pairing with jeans, skirts, or athleisure wear—ideal for everything from brunch to weekend strolls.",
       productAttributes: [
@@ -256,6 +257,7 @@ class CDummyData {
       description:
           "Keep it cool and casual with this light grey relaxed fit shirt from Breakout. Featuring short sleeves, a soft collar, and breathable fabric, it’s perfect for summer days, beach outings, or layering over a tee. A wardrobe staple with effortless style.",
       sku: "SHORT-WHITE-BREAKOUT",
+      searchKeywords: ['breakout', 'shirt', 'men', 'grey', 'relaxed'],
       productType: 'ProductType.single',
     ),
 
@@ -274,6 +276,7 @@ class CDummyData {
       categoryId: '06',
       brand: brands[1],
       sku: "BREAKOUT-JACKET-RED",
+      searchKeywords: ['breakout', 'jacket', 'bomber', 'varsity', 'red', 's'],
       description:
           "Make a statement with this retro-inspired Varsity Bomber Jacket, featuring a bold red body, contrasting white leather-look sleeves, and a stitched S emblem on the chest. Whether you’re channeling school spirit or street-style cool, this jacket brings timeless edge and warmth in one fresh fit.",
       productAttributes: [
@@ -312,12 +315,12 @@ class CDummyData {
       price: 70,
       isFeatured: true,
       thumbnail: CImages.productImage7,
-      //16/512
       description:
           "Smoky Vanillin is an intense and captivating fragrance that blends rich vanilla with deep smoky undertones. Designed for those who love bold and lasting scents, this perfume brings a touch of luxury and mystery to your signature style.",
       brand: brands[2],
       salePrice: 64.99,
       sku: 'SKU-PERFUME',
+      searchKeywords: ['j.', 'perfume', 'smoky', 'vanillin', 'romantic'],
       categoryId: '11',
       productType: 'ProductType.single',
     ),
@@ -335,6 +338,15 @@ class CDummyData {
       description:
           "This berry pink handbag combines elegance with everyday functionality. Featuring dual top handles, a structured silhouette, and a statement gold-accented tassel, it’s perfect for elevating your outfit — whether at work, brunch, or a night out.",
       sku: 'J.-BAG',
+      searchKeywords: [
+        'j.',
+        'bag',
+        'handbag',
+        'elegant',
+        'tassel',
+        'pink',
+        'female',
+      ],
       categoryId: '10',
       productType: 'ProductType.single',
       productAttributes: [
@@ -357,6 +369,16 @@ class CDummyData {
       description:
           "Add timeless charm to your formal look with these sleek tan brown slip-on dress shoes. Featuring a smooth leather finish, cushioned insole, and durable sole, they’re perfect for the office, business events, or formal occasions.",
       sku: "FORMAL-BROWN-NDURE",
+      searchKeywords: [
+        'ndure',
+        'men',
+        'classic',
+        'slip-on',
+        'dress',
+        'shoes',
+        'formal',
+        'brown',
+      ],
       productType: 'ProductType.single',
     ),
 
@@ -377,6 +399,15 @@ class CDummyData {
       sku: "NORTHSTAR_BAG",
       description:
           "Step out in style with the North Star Classic Backpack, featuring a striking red-and-black design and practical layout for everyday use. Whether you’re heading to school, work, or a weekend trip, this durable backpack keeps your essentials organized and secure.",
+      searchKeywords: [
+        'north',
+        'star',
+        'classic',
+        'backpack',
+        'red',
+        'black',
+        'bag',
+      ],
       productAttributes: [
         ProductAttributeModel(name: 'Color', values: ['Red', 'Green']),
       ],
@@ -418,6 +449,15 @@ class CDummyData {
       categoryId: '05',
       brand: brands[5],
       sku: "POLO-SHIRT",
+      searchKeywords: [
+        'polo',
+        'shirt',
+        'aquacore',
+        'classic',
+        'aqua',
+        'blue',
+        'green',
+      ],
       description:
           "Add a splash of freshness to your wardrobe with the AquaCore Classic Polo. Made from breathable cotton, it features a sleek collar, button placket, and a perfect slim fit for all-day comfort. Ideal for both casual outings and semi-formal looks.",
       productAttributes: [
@@ -548,126 +588,4 @@ class CDummyData {
     ProductCategoryModel(categoryId: '11', productId: '007'), //-- NorthStar
     // Watches
   ];
-
-  // static final List<PromoCodeModel> promoCodes = [
-  //   PromoCodeModel(
-  //       id: '1',
-  //       code: 'WELCOME10',
-  //       name: 'Welcome Offer',
-  //       discount: 10,
-  //       discountType: DiscountType.percentage,
-  //       startDate: DateTime.now(),
-  //       endDate: DateTime.now().add(Duration(days: 30)),
-  //       isActive: true,
-  //       minOrderPrice: 1000,
-  //       noOfPromoCodes: 100),
-  //   PromoCodeModel(
-  //     id: '2',
-  //     code: 'FLAT50',
-  //     name: 'Flat ${UTexts.currency}50 Off',
-  //     discount: 50,
-  //     discountType: DiscountType.fixed,
-  //     startDate: DateTime.now(),
-  //     endDate: DateTime.now().add(Duration(days: 10)),
-  //     isActive: true,
-  //     minOrderPrice: 500,
-  //     noOfPromoCodes: 50,
-  //   ),
-  //   PromoCodeModel(
-  //     id: '3',
-  //     code: 'SUMMER20',
-  //     name: 'Summer Special 20% Off',
-  //     discount: 20,
-  //     discountType: DiscountType.percentage,
-  //     startDate: DateTime.now(),
-  //     endDate: DateTime.now().add(Duration(days: 20)),
-  //     isActive: true,
-  //     minOrderPrice: 1200,
-  //     noOfPromoCodes: 200,
-  //   ),
-  //   PromoCodeModel(
-  //     id: '4',
-  //     code: 'FIRSTORDER',
-  //     name: 'First Order Bonus',
-  //     discount: 30,
-  //     discountType: DiscountType.fixed,
-  //     startDate: DateTime.now(),
-  //     endDate: DateTime.now().add(Duration(days: 15)),
-  //     isActive: true,
-  //     minOrderPrice: 800,
-  //     noOfPromoCodes: 75,
-  //   ),
-  //   PromoCodeModel(
-  //     id: '5',
-  //     code: 'FLASH15',
-  //     name: 'Flash Sale 15% Off',
-  //     discount: 15,
-  //     discountType: DiscountType.percentage,
-  //     startDate: DateTime.now(),
-  //     endDate: DateTime.now().add(Duration(days: 5)),
-  //     isActive: true,
-  //     minOrderPrice: 1500,
-  //     noOfPromoCodes: 30,
-  //   ),
-  //   PromoCodeModel(
-  //     id: '6',
-  //     code: 'BIGSAVE100',
-  //     name: 'Big Save ${UTexts.currency}100 Off',
-  //     discount: 100,
-  //     discountType: DiscountType.fixed,
-  //     startDate: DateTime.now(),
-  //     endDate: DateTime.now().add(Duration(days: 45)),
-  //     isActive: true,
-  //     minOrderPrice: 3000,
-  //     noOfPromoCodes: 120,
-  //   ),
-  //   PromoCodeModel(
-  //     id: '7',
-  //     code: 'FREESHIP',
-  //     name: 'Free Shipping',
-  //     discount: 5,
-  //     discountType: DiscountType.percentage,
-  //     startDate: DateTime.now(),
-  //     endDate: DateTime.now().add(Duration(days: 90)),
-  //     isActive: true,
-  //     minOrderPrice: 0,
-  //     noOfPromoCodes: 999,
-  //   ),
-  //   PromoCodeModel(
-  //     id: '8',
-  //     code: 'NEWYEAR25',
-  //     name: 'New Year 25% Off',
-  //     discount: 25,
-  //     discountType: DiscountType.percentage,
-  //     startDate: DateTime.now(),
-  //     endDate: DateTime.now().add(Duration(days: 60)),
-  //     isActive: true,
-  //     minOrderPrice: 2000,
-  //     noOfPromoCodes: 80,
-  //   ),
-  //   PromoCodeModel(
-  //     id: '9',
-  //     code: 'DIWALI500',
-  //     name: 'Diwali Mega ${UTexts.currency}500 Off',
-  //     discount: 500,
-  //     discountType: DiscountType.fixed,
-  //     startDate: DateTime.now(),
-  //     endDate: DateTime.now().add(Duration(days: 25)),
-  //     isActive: true,
-  //     minOrderPrice: 3500,
-  //     noOfPromoCodes: 40,
-  //   ),
-  //   PromoCodeModel(
-  //     id: '10',
-  //     code: 'SAVE70',
-  //     name: 'Save ${UTexts.currency}70 Instantly',
-  //     discount: 70,
-  //     discountType: DiscountType.fixed,
-  //     startDate: DateTime.now().subtract(Duration(days: 2)),
-  //     endDate: DateTime.now().subtract(Duration(days: 1)),
-  //     isActive: true,
-  //     minOrderPrice: 1000,
-  //     noOfPromoCodes: 70,
-  //   ),
-  // ];
 }

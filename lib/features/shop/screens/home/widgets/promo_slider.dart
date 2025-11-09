@@ -29,8 +29,13 @@ class PromoSlider extends StatelessWidget {
             CarouselSlider(
               options: CarouselOptions(
                 viewportFraction: 1,
+                initialPage: controller.carouselCurrentindex.value,
                 onPageChanged: (index, _) =>
                     controller.updatePageIndicator(index),
+                autoPlay: true,
+                autoPlayInterval: const Duration(seconds: 3),
+                autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                autoPlayCurve: Curves.fastOutSlowIn,
               ),
               items: controller.banners
                   .map(

@@ -21,27 +21,36 @@ class ProductModel {
   String productType;
   List<ProductAttributeModel>? productAttributes;
   List<ProductVariationModel>? productVariations;
+  List<String>? searchKeywords;
 
-  ProductModel(
-      {required this.id,
-      required this.title,
-      required this.stock,
-      required this.price,
-      required this.thumbnail,
-      required this.productType,
-      this.sku,
-      this.brand,
-      this.date,
-      this.images,
-      this.salePrice = 0.0,
-      this.isFeatured,
-      this.productVariations,
-      this.description,
-      this.productAttributes,
-      this.categoryId});
+  ProductModel({
+    required this.id,
+    required this.title,
+    required this.stock,
+    required this.price,
+    required this.thumbnail,
+    required this.productType,
+    this.sku,
+    this.brand,
+    this.date,
+    this.images,
+    this.salePrice = 0.0,
+    this.isFeatured,
+    this.productVariations,
+    this.description,
+    this.productAttributes,
+    this.categoryId,
+    this.searchKeywords,
+  });
 
   static ProductModel empty() => ProductModel(
-      id: '', title: '', stock: 0, price: 0, thumbnail: '', productType: '');
+    id: '',
+    title: '',
+    stock: 0,
+    price: 0,
+    thumbnail: '',
+    productType: '',
+  );
 
   Map<String, dynamic> toJson() {
     return {
@@ -63,66 +72,75 @@ class ProductModel {
       'productVariations': productVariations != null
           ? productVariations!.map((e) => e.toJson()).toList()
           : [],
-      'date': date
+      'date': date,
+      'searchKeywords': searchKeywords ?? [],
     };
   }
 
   factory ProductModel.fromSnapshot(
-      DocumentSnapshot<Map<String, dynamic>> document) {
+    DocumentSnapshot<Map<String, dynamic>> document,
+  ) {
     if (document.data()!.isEmpty && document.data() == null) {
       return ProductModel.empty();
     }
 
     final data = document.data()!;
     return ProductModel(
-        id: document.id,
-        title: data['title'] ?? '',
-        stock: data['stock'] ?? 0,
-        price: double.parse((data['price'] ?? 0.0).toString()),
-        thumbnail: data['thumbnail'] ?? '',
-        productType: data['productType'] ?? '',
-        sku: data['sku'] ?? '',
-        salePrice: double.parse((data['salePrice'] ?? 0.0).toString()),
-        isFeatured: data['isFeatured'] ?? false,
-        brand: BrandModel.fromJson(data['brand']),
-        description: data['description'] ?? '',
-        categoryId: data['categoryId'] ?? '',
-        images: data['images'] != null ? List<String>.from(data['images']) : [],
-        productAttributes: (data['productAttributes'] as List<dynamic>)
-            .map((e) => ProductAttributeModel.fromJson(e))
-            .toList(),
-        productVariations: (data['productVariations'] as List<dynamic>)
-            .map((e) => ProductVariationModel.fromJson(e))
-            .toList(),
-        date:
-            data['date'] != null ? (data['date'] as Timestamp).toDate() : null);
+      id: document.id,
+      title: data['title'] ?? '',
+      stock: data['stock'] ?? 0,
+      price: double.parse((data['price'] ?? 0.0).toString()),
+      thumbnail: data['thumbnail'] ?? '',
+      productType: data['productType'] ?? '',
+      sku: data['sku'] ?? '',
+      salePrice: double.parse((data['salePrice'] ?? 0.0).toString()),
+      isFeatured: data['isFeatured'] ?? false,
+      brand: BrandModel.fromJson(data['brand']),
+      description: data['description'] ?? '',
+      categoryId: data['categoryId'] ?? '',
+      images: data['images'] != null ? List<String>.from(data['images']) : [],
+      productAttributes: (data['productAttributes'] as List<dynamic>)
+          .map((e) => ProductAttributeModel.fromJson(e))
+          .toList(),
+      productVariations: (data['productVariations'] as List<dynamic>)
+          .map((e) => ProductVariationModel.fromJson(e))
+          .toList(),
+      date: data['date'] != null ? (data['date'] as Timestamp).toDate() : null,
+      searchKeywords: data['searchKeywords'] != null
+          ? List<String>.from(data['searchKeywords'])
+          : [],
+    );
   }
 
   // Map json-oriented document snapshot from firebase to model
   factory ProductModel.fromQuerySnapshot(
-      QueryDocumentSnapshot<Object?> document) {
+    QueryDocumentSnapshot<Object?> document,
+  ) {
     final data = document.data()! as Map<String, dynamic>;
     return ProductModel(
-        id: document.id,
-        title: data['title'] ?? '',
-        stock: data['stock'] ?? 0,
-        price: double.parse((data['price'] ?? 0.0).toString()),
-        thumbnail: data['thumbnail'] ?? '',
-        productType: data['productType'] ?? '',
-        sku: data['sku'] ?? '',
-        salePrice: double.parse((data['salePrice'] ?? 0.0).toString()),
-        isFeatured: data['isFeatured'] ?? false,
-        brand: BrandModel.fromJson(data['brand']),
-        description: data['description'] ?? '',
-        categoryId: data['categoryId'] ?? '',
-        images: data['images'] != null ? List<String>.from(data['images']) : [],
-        productAttributes: (data['productAttributes'] as List<dynamic>)
-            .map((e) => ProductAttributeModel.fromJson(e))
-            .toList(),
-        productVariations: (data['productVariations'] as List<dynamic>)
-            .map((e) => ProductVariationModel.fromJson(e))
-            .toList(),
-        date:
-            data['date'] != null ? (data['date'] as Timestamp).toDate() : null);
+      id: document.id,
+      title: data['title'] ?? '',
+      stock: data['stock'] ?? 0,
+      price: double.parse((data['price'] ?? 0.0).toString()),
+      thumbnail: data['thumbnail'] ?? '',
+      productType: data['productType'] ?? '',
+      sku: data['sku'] ?? '',
+      salePrice: double.parse((data['salePrice'] ?? 0.0).toString()),
+      isFeatured: data['isFeatured'] ?? false,
+      brand: BrandModel.fromJson(data['brand']),
+      description: data['description'] ?? '',
+      categoryId: data['categoryId'] ?? '',
+      images: data['images'] != null ? List<String>.from(data['images']) : [],
+      productAttributes: (data['productAttributes'] as List<dynamic>)
+          .map((e) => ProductAttributeModel.fromJson(e))
+          .toList(),
+      productVariations: (data['productVariations'] as List<dynamic>)
+          .map((e) => ProductVariationModel.fromJson(e))
+          .toList(),
+      date: data['date'] != null ? (data['date'] as Timestamp).toDate() : null,
+      searchKeywords: data['searchKeywords'] != null
+          ? List<String>.from(data['searchKeywords'])
+          : [],
+    );
   }
 }

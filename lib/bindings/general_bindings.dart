@@ -18,6 +18,7 @@ import '../features/invitation/controllers/invitation_controller.dart';
 import '../features/personalization/controllers/address_controller.dart';
 import '../features/personalization/controllers/theme_controller.dart';
 import '../features/personalization/controllers/user_controller.dart';
+import '../features/shop/controllers/search_controller.dart';
 import '../features/shop/controllers/brand_controller.dart';
 import '../features/shop/controllers/products/favourites_controller.dart';
 import '../features/shop/controllers/products/product_controller.dart';
@@ -51,6 +52,7 @@ class GeneralBindings extends Bindings {
     Get.lazyPut(() => AddressController(), fenix: true);
     Get.lazyPut(() => OrderController(), fenix: true);
     Get.lazyPut(() => CheckoutController(), fenix: true);
+    Get.lazyPut(() => CSearchController(), fenix: true);
 
     Get.lazyPut(() => InvitationController(), fenix: true);
 
