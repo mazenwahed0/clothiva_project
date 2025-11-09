@@ -137,7 +137,7 @@ lib/
 - **Home:** Enabled autoPlay on the PromoSlider so banners now cycle automatically.
 - **Home:** Fixed a state bug where the PromoSlider would visually reset to the first banner when rebuilding the screen, even though the page indicator (from BannerController) remembered the correct position. This was fixed by setting the initialPage in CarouselOptions.
 
-#### V2.4 (Latest)
+#### V2.4
 
 - **New Feature: Theme Control:** Implemented 3-state theme switching (System Default, Light, Dark) accessible via the Settings Appbar. Theme preference is saved locally using GetStorage.
 - **Realtime Shared Wishlist:** The shared wishlist now updates in real-time for all users using a Stream instead of a FutureBuilder, so all collaborators see new items added by others instantly.
