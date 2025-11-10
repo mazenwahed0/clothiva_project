@@ -139,7 +139,7 @@ lib/
 - **Invitation Bug Fix:** Fixed a UI bug where the "Remove Collaborator" dialog would persist after confirmation. It now closes as expected.
 - **Shared Wishlist Snackbar Bug Fix:** Fixed an infinite loop of "Shared Wishlist is ON" snackbars. This was caused by a dependency conflict between the InvitationController's stream listener and the FavouritesController's ever listener, which was resolved by removing both the redundant refreshMode() call and the initial "Shared Wishlist is ON" snackbar from the `_handleCollaborationUpdate` function.
 - **Cart Bug Fix:** The cart now correctly decreases item quantity by one and properly prompts the user with a dialog when removing the last item.
-- **Cart Bug Fix:** Set permanent: false for the CartController in GeneralBindings to fix a bug where the cart icon counter would persist even after the cart was emptied.
+- **Cart Bug Fix:** Set `permanent: false` for the `CartController` in `GeneralBindings` to fix a bug where the cart icon counter would persist even after the cart was emptied.
 - **Auth UI Fix:** Corrected a UI issue where the "Get back" arrow on the Forget Password screen was not visible in dark mode.
 - **Auth UI Fix:** Removed the "Clear" button from the Reset Password screen; the "Done" button now correctly navigates to the Login screen.
 - **Refactor:** Removed the completely unused `HomeController` to clean up the project structure.
@@ -148,7 +148,7 @@ lib/
 - **Refactor (Products):** Updated `DropdownButtonFormField` in `sortable_products.dart` to use `value` instead of the `initialValue` property.
 - **Core:** Reduced the default `Loaders.customToast` & `Loaders.successSnackBar` duration to 1.2 seconds to prevent conflicts with other snackbars or dialogs.
 
-#### V2.5 (Latest)
+#### V2.5
 
 - **New Feature: Real-time Search:** Implemented a debounced search feature in `CSearchController` using a Timer for efficient, real-time database queries. The `ProductRepository` was updated to use array-contains-any on a List<String> of search terms, allowing for multi-word "OR" matching.
 - **Home:** Enabled autoPlay on the PromoSlider so banners now cycle automatically.
