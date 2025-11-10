@@ -20,42 +20,47 @@ class SortableProducts extends StatelessWidget {
     return Column(
       children: [
         DropdownButtonFormField(
-            decoration: InputDecoration(
-              prefixIcon: const Icon(Iconsax.sort),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide.none,
-              ),
-              contentPadding:
-                  const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          decoration: InputDecoration(
+            prefixIcon: const Icon(Iconsax.sort),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide.none,
             ),
-            dropdownColor: Theme.of(context).brightness == Brightness.dark
-                ? CColors.darkerGrey
-                : CColors.grey,
-            items: [
-              'Name',
-              'Higher Price',
-              'Lower Price',
-              'Sale',
-              'Newest',
-              'Oldest'
-            ]
-                .map((option) => DropdownMenuItem(
-                      value: option,
-                      child: Text(option),
-                    ))
-                .toList(),
-            initialValue: controller.selectedSortOption.value,
-            onChanged: (value) {
-              controller.sortProducts(value!);
-            }),
-        const SizedBox(
-          height: CSizes.spaceBtItems,
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 12,
+            ),
+          ),
+          dropdownColor: Theme.of(context).brightness == Brightness.dark
+              ? CColors.darkerGrey
+              : CColors.grey,
+          items:
+              [
+                    'Name',
+                    'Higher Price',
+                    'Lower Price',
+                    'Sale',
+                    'Newest',
+                    'Oldest',
+                  ]
+                  .map(
+                    (option) =>
+                        DropdownMenuItem(value: option, child: Text(option)),
+                  )
+                  .toList(),
+          value: controller.selectedSortOption.value,
+          onChanged: (value) {
+            controller.sortProducts(value!);
+          },
         ),
-        Obx(() => GridLayout(
+        const SizedBox(height: CSizes.spaceBtItems),
+        Obx(
+          () => GridLayout(
             itemCount: controller.products.length,
             itemBuilder: (_, index) =>
-                ProductCardVertical(product: controller.products[index])))
+                ProductCardVertical(product: controller.products[index]),
+          ),
+        ),
       ],
     );
   }

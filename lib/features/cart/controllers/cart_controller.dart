@@ -104,7 +104,26 @@ class CartController extends GetxController {
     updateCart();
   }
 
-  void removeItemFromCart(CartItemModel cartItem) {
+  void removeOneFromCart(CartItemModel item) {
+    int index = cartItems.indexWhere(
+      (cartItem) =>
+          cartItem.productId == item.productId &&
+          cartItem.variationId == item.variationId,
+    );
+
+    if (index >= 0) {
+      if (cartItems[index].quantity > 1) {
+        cartItems[index].quantity -= 1;
+      } else {
+        cartItems[index].quantity == 1
+            ? removeFromCartDialog(item)
+            : cartItems.removeAt(index);
+      }
+      updateCart();
+    }
+  }
+
+  void removeFromCartDialog(CartItemModel cartItem) {
     Get.defaultDialog(
       title: 'Remove Product',
       middleText: 'Are you sure you want to remove this product?',
@@ -119,6 +138,7 @@ class CartController extends GetxController {
           cartItem.quantity,
         );
         cartItems.refresh();
+        updateCart();
 
         Get.back();
         Loaders.customToast(message: 'Product removed from the cart.');

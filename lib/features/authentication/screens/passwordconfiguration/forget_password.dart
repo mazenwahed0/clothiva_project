@@ -2,9 +2,13 @@ import 'package:clothiva_project/features/authentication/controllers/forget_pass
 import 'package:clothiva_project/utils/constants/sizes.dart';
 import 'package:clothiva_project/utils/constants/text_strings.dart';
 import 'package:clothiva_project/utils/validators/validation.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+
+import '../../../../common/widgets/appbar/appbar.dart';
+import '../../../../utils/constants/colors.dart';
 
 class ForgetPasswordScreen extends StatelessWidget {
   const ForgetPasswordScreen({super.key});
@@ -12,8 +16,19 @@ class ForgetPasswordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(ForgetPasswordController());
+    bool dark = context.isDarkMode;
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        //Note: Use Get.off() instead of Get.to() when navigating
+        //This replaces the current screen instead of stacking both
+        leading: IconButton(
+          onPressed: () => Get.back(),
+          icon: Icon(
+            Icons.arrow_back,
+            color: dark ? CColors.white : CColors.black,
+          ),
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(CSizes.defaultSpace),
         child: Column(

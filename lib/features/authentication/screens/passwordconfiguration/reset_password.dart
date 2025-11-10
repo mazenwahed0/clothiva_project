@@ -3,7 +3,6 @@ import 'package:clothiva_project/features/authentication/screens/login/login.dar
 import 'package:clothiva_project/utils/constants/image_strings.dart';
 import 'package:clothiva_project/utils/constants/text_strings.dart';
 import 'package:clothiva_project/utils/device/device_utility.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../utils/constants/sizes.dart';
@@ -33,15 +32,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   Widget build(BuildContext context) {
     controller.startResendTimer();
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        actions: [
-          IconButton(
-            onPressed: () => Get.back(),
-            icon: Icon(CupertinoIcons.clear),
-          ),
-        ],
-      ),
+      appBar: AppBar(automaticallyImplyLeading: false),
       body: Padding(
         padding: const EdgeInsets.all(CSizes.defaultSpace),
         child: Column(

@@ -70,18 +70,11 @@ class InvitationController extends GetxController {
       myInvite = collabs.firstWhereOrNull((c) => c.senderId == currentUserId);
     }
 
-    // --- FIX: Logic for Recipient Switch ---
+    // Logic for Recipient Switch
     if (isInitialLoad && myInvite != null) {
       // 1. On FIRST LOAD, set state from the database
       isViewingShared.value = myInvite.shareEnabled;
       favCtrl.isSharedMode.value = myInvite.shareEnabled;
-
-      if (isRecipient && myInvite.shareEnabled) {
-        Loaders.successSnackBar(
-          title: 'Shared Wishlist is ON',
-          message: 'You are viewing the shared list by default.',
-        );
-      }
     } else if (isRecipient && myInvite != null) {
       // 2. On SUBSEQUENT loads, check if the owner forced sharing off
       if (!myInvite.shareEnabled && isViewingShared.value) {
@@ -103,7 +96,7 @@ class InvitationController extends GetxController {
       favCtrl.isSharedMode.value = false;
     }
 
-    favCtrl.refreshMode();
+    // favCtrl.refreshMode();
   }
 
   /// Recipient attempts to toggle their local view mode.
@@ -206,7 +199,7 @@ class InvitationController extends GetxController {
       }
 
       await invRepo.acceptInvite(inviteId);
-      FavouritesController.instance.refreshMode();
+      // FavouritesController.instance.refreshMode();
 
       Loaders.successSnackBar(
         title: "Accepted",
@@ -277,9 +270,9 @@ class InvitationController extends GetxController {
       middleText: message,
       textConfirm: "Confirm",
       textCancel: "Cancel",
-      onConfirm: () {
-        Get.back(); // Close dialog
-        _removeOrLeave(invite);
+      onConfirm: () async {
+        Get.back();
+        await _removeOrLeave(invite);
       },
     );
   }

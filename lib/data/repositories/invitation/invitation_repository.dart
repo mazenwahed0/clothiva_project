@@ -6,6 +6,7 @@ import '../../../../utils/constants/keys.dart';
 import '../../../../utils/exceptions/firebase_exceptions.dart';
 import '../../../../utils/exceptions/format_exceptions.dart';
 import '../../../features/invitation/models/invitation_model.dart';
+import '../../../features/personalization/models/user_model.dart';
 import '../../../utils/constants/enums.dart';
 import '../wishlist/wishlist_repository.dart';
 
@@ -22,6 +23,21 @@ class InvitationRepository extends GetxController {
     try {
       if (_currentUser == null) throw Exception("User not logged in.");
 
+      // 1. Get Sender's ID
+      final senderId = _currentUser!.uid;
+
+      // 2. Fetch Sender's User Record from Firestore
+      final senderDoc = await _db
+          .collection(CKeys.userCollection)
+          .doc(senderId)
+          .get();
+      if (!senderDoc.exists) throw Exception("Sender user record not found.");
+
+      // 3. Get Sender's Name from UserModel
+      final senderUserModel = UserModel.fromSnapshot(senderDoc);
+      final senderName = senderUserModel.fullName; // Use the fullName getter
+
+      // 4. Fetch Recipient
       final userQuery = await _db
           .collection(CKeys.userCollection)
           .where('email', isEqualTo: email.toLowerCase().trim())
@@ -35,10 +51,11 @@ class InvitationRepository extends GetxController {
           '${recipientData['firstName'] ?? ''} ${recipientData['lastName'] ?? ''}'
               .trim();
 
+      // 5. Create the Invite using the CORRECT senderName
       final invite = Invitation(
         id: '',
-        senderId: _currentUser!.uid,
-        senderName: _currentUser!.displayName ?? 'Unknown User',
+        senderId: senderId,
+        senderName: senderName.isEmpty ? 'Unknown User' : senderName,
         recipientEmail: email.toLowerCase().trim(),
         recipientName: recipientName.isEmpty ? 'Unknown' : recipientName,
         status: InvitationStatus.pending,

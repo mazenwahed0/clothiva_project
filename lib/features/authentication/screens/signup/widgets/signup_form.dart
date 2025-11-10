@@ -3,6 +3,7 @@ import 'package:clothiva_project/utils/validators/validation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/constants/sizes.dart';
 import '../../../../../utils/constants/text_strings.dart';
 import '../../../controllers/signup/signup_controller.dart';
@@ -13,6 +14,7 @@ class SignUpForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = SignupController.instance;
+    bool dark = context.isDarkMode;
     return Form(
       key: controller.signupFormKey,
       child: Column(
@@ -90,33 +92,58 @@ class SignUpForm extends StatelessWidget {
             ),
           ),
 
+          ///MARK: - Gender
           Obx(
-            () => DropdownMenuFormField<String>(
-              initialSelection: controller.selectedGender.value,
-              label: Text("Gender"),
-              hintText: "Gender",
-              leadingIcon: Icon(Iconsax.user_tag),
-              width: double.infinity,
-              dropdownMenuEntries: controller.genders
+            () => DropdownButtonFormField<String>(
+              value: controller.selectedGender.value,
+              items: controller.genders
                   .map(
-                    (gender) => DropdownMenuEntry(
-                      value: gender,
-                      label: gender,
-                      style: ButtonStyle(
-                        textStyle: WidgetStateProperty.all(
-                          TextStyle(color: Colors.white, fontSize: 18),
-                        ),
-                      ),
-                    ),
+                    (gender) =>
+                        DropdownMenuItem(value: gender, child: Text(gender)),
                   )
                   .toList(),
-              onSelected: (value) {
+              onChanged: (value) {
                 controller.selectedGender.value = value;
               },
               validator: (value) =>
                   value == null ? "Please select a gender" : null,
+              decoration: const InputDecoration(
+                prefixIcon: Icon(Iconsax.user_tag),
+                labelText: "Gender",
+              ),
+              dropdownColor: dark ? CColors.darkerGrey : CColors.grey,
+              isExpanded: true,
             ),
           ),
+
+          /// Old Gender (DropdownMenuFormField)
+          // Obx(
+          //   () => DropdownMenuFormField<String>(
+          //     initialSelection: controller.selectedGender.value,
+          //     label: Text("Gender"),
+          //     hintText: "Gender",
+          //     leadingIcon: Icon(Iconsax.user_tag),
+          //     width: double.infinity,
+          //     dropdownMenuEntries: controller.genders
+          //         .map(
+          //           (gender) => DropdownMenuEntry(
+          //             value: gender,
+          //             label: gender,
+          //             style: ButtonStyle(
+          //               textStyle: WidgetStateProperty.all(
+          //                 TextStyle(color: Colors.white, fontSize: 18),
+          //               ),
+          //             ),
+          //           ),
+          //         )
+          //         .toList(),
+          //     onSelected: (value) {
+          //       controller.selectedGender.value = value;
+          //     },
+          //     validator: (value) =>
+          //         value == null ? "Please select a gender" : null,
+          //   ),
+          // ),
 
           ///MARK: - Password
           //Obx is the observer widget like BLoCBuilder to redraw UI for stateless widget

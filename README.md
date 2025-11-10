@@ -126,10 +126,27 @@ lib/
 | 2025-11-07 | Mazen Wahed    | Pushed V2.3 (Refactor, bug fixes, & profile enhancements)  |
 | 2025-11-08 | Mazen Wahed    | Pushed V2.4 (Theme Feature, Realtime Wishlist & bug fixes) |
 | 2025-11-09 | Mazen Wahed    | Pushed V2.5 (Search Feature, AutoPlay PromoSlider)         |
+| 2025-11-10 | Mazen Wahed    | Pushed V2.6 (Unit Testing & Bug fixes)                     |
 
 ---
 
 ### 3. Version History (Changelog)
+
+#### V2.6 (Latest)
+
+- **New Feature: Unit Testing:** Added unit tests for core business logic files: `formatters`, `pricing_calculator`, `product_controller`, and `validator`.
+- **Invitation Bug Fix:** Fixed a critical bug where inviting a user who registered with email/password (not Google) would display their name as `Unknown User`. The system now correctly fetches their name from the Firestore 'Users' collection.
+- **Invitation Bug Fix:** Fixed a UI bug where the "Remove Collaborator" dialog would persist after confirmation. It now closes as expected.
+- **Shared Wishlist Snackbar Bug Fix:** Fixed an infinite loop of "Shared Wishlist is ON" snackbars. This was caused by a dependency conflict between the InvitationController's stream listener and the FavouritesController's ever listener, which was resolved by removing both the redundant refreshMode() call and the initial "Shared Wishlist is ON" snackbar from the `_handleCollaborationUpdate` function.
+- **Cart Bug Fix:** The cart now correctly decreases item quantity by one and properly prompts the user with a dialog when removing the last item.
+- **Cart Bug Fix:** Set permanent: false for the CartController in GeneralBindings to fix a bug where the cart icon counter would persist even after the cart was emptied.
+- **Auth UI Fix:** Corrected a UI issue where the "Get back" arrow on the Forget Password screen was not visible in dark mode.
+- **Auth UI Fix:** Removed the "Clear" button from the Reset Password screen; the "Done" button now correctly navigates to the Login screen.
+- **Refactor:** Removed the completely unused `HomeController` to clean up the project structure.
+- **Refactor:** Removed an unused `cartController` getter from the `VariationController` to reduce code clutter.
+- **Refactor (Auth):** Replaced the `DropdownMenuFormField` with `DropdownButtonFormField` on the Sign-Up screen for better theme consistency.
+- **Refactor (Products):** Updated `DropdownButtonFormField` in `sortable_products.dart` to use `value` instead of the `initialValue` property.
+- **Core:** Reduced the default `Loaders.customToast` & `Loaders.successSnackBar` duration to 1.2 seconds to prevent conflicts with other snackbars or dialogs.
 
 #### V2.5 (Latest)
 

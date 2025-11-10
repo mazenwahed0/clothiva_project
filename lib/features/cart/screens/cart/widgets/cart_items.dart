@@ -50,7 +50,7 @@ class CCartItems extends StatelessWidget {
                         CProductQuantityWithAddRemoveButton(
                           quantity: item.quantity,
                           add: () => cartController.addOneToCart(item),
-                          remove: () => cartController.removeItemFromCart(item),
+                          remove: () => cartController.removeOneFromCart(item),
                         ),
                       ],
                     ),

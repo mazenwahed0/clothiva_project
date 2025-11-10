@@ -47,7 +47,7 @@ class GeneralBindings extends Bindings {
     Get.put(ThemeController());
     Get.put(FavouritesController(), permanent: true);
     Get.put(VariationController());
-    Get.put(CartController(), permanent: true);
+    Get.put(CartController());
     Get.lazyPut(() => ProductController(), fenix: true);
     Get.lazyPut(() => AddressController(), fenix: true);
     Get.lazyPut(() => OrderController(), fenix: true);

@@ -10,8 +10,8 @@ class Loaders {
   static customToast({required message}) {
     final dark = Get.isDarkMode;
     Get.snackbar(
-      '', // No title
-      '', // No message
+      '',
+      '',
       titleText: const SizedBox.shrink(), // Hides the title
       messageText: Center(
         child: Text(
@@ -29,14 +29,14 @@ class Loaders {
       borderRadius: 30,
       margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
       padding: const EdgeInsets.all(12),
-      duration: const Duration(seconds: 1, milliseconds: 500),
+      duration: const Duration(seconds: 1, milliseconds: 200),
       isDismissible: true,
       barBlur: 0,
       overlayBlur: 0,
     );
   }
 
-  static successSnackBar({required title, message = '', duration = 3}) {
+  static successSnackBar({required title, message = '', duration = 2}) {
     Get.snackbar(
       title,
       message,
@@ -75,7 +75,7 @@ class Loaders {
       colorText: CColors.white,
       backgroundColor: Colors.red.shade600,
       snackPosition: SnackPosition.BOTTOM,
-      duration: const Duration(seconds: 3),
+      duration: const Duration(seconds: 2),
       margin: const EdgeInsets.all(20),
       icon: const Icon(Iconsax.warning_2, color: CColors.white),
     );

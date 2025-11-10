@@ -6,9 +6,6 @@ import '../../models/product_variation_model.dart';
 import '../../../cart/controllers/cart_controller.dart';
 
 class VariationController extends GetxController {
-  // final cartController = CartController.instance;
-  // CartController get cartController => Get.find<CartController>();
-  CartController get cartController => CartController.instance; ////////////
   static VariationController get instance => Get.find();
 
   //Variables
