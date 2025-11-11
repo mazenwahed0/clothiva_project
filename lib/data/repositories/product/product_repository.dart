@@ -343,7 +343,7 @@ class ProductRepository extends GetxController {
     }
   }
 
-  /// Fetch all products that are on sale
+  /// [FetchOnSale] -Fetch all products that are on sale
   Future<List<ProductModel>> fetchAllSaleProducts() async {
     try {
       final snapshot = await _db

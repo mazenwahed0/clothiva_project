@@ -128,12 +128,19 @@ lib/
 | 2025-11-09 | Mazen Wahed    | Pushed V2.5 (Search Feature, AutoPlay PromoSlider)         |
 | 2025-11-10 | Mazen Wahed    | Pushed V2.6 (Unit Testing & Bug fixes)                     |
 | 2025-11-11 | Mazen Wahed    | Pushed V2.6b (Order Details Screen & Date Sorting)         |
+| 2025-11-11 | Mazen Wahed    | Pushed V2.7 (Sorting Fixes & Enhancements)                 |
 
 ---
 
 ### 3. Version History (Changelog)
 
-#### V2.6b (Latest)
+#### V2.7 (Latest)
+
+- **Product Sorting Fix (Newest/Oldest):** Fixed a critical bug where `Newest` and `Oldest` sorting failed. This was because products in `dummy_data.dart` were missing the date field, causing them all to be null in Firebase. Dates have been added to all dummy products, and the sorting logic in `all_products_controller.dart` is now functional.
+- **Product Sorting Enhancement (Sale):** The `Sale` sort option now correctly sorts products by the highest discount percentage first, rather than just the sale price. This required updating the logic in `all_products_controller.dart` to use the `CalculateSalePercentage` method.
+- **Refactor (Sorting):** Made the date sorting logic in `all_products_controller.dart` more robust by safely handling potential `null` date values to prevent app crashes.
+
+#### V2.6b
 
 - **New Feature: Order Details Screen:** Added a new screen `Order Details` that users can navigate to from the `order history list`. It displays all information for a specific order, including order status, shipping address, payment method, and a list of all items in that order.
 - **Order History Fix:** Orders in the `My Orders` list are now correctly sorted by date, with the newest orders appearing first.
