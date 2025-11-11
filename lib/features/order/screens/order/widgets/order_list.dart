@@ -11,6 +11,7 @@ import '../../../../../utils/constants/image_strings.dart';
 import '../../../../../utils/constants/sizes.dart';
 import '../../../../../utils/helpers/cloud_helper_functions.dart';
 import '../../../controllers/order_controller.dart';
+import '../../order_details/order_details.dart';
 
 class COrderList extends StatelessWidget {
   const COrderList({super.key});
@@ -82,7 +83,8 @@ class COrderList extends StatelessWidget {
 
                       /// 3 - Icon
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () =>
+                            Get.to(() => OrderDetailsScreen(order: order)),
                         icon: Icon(Iconsax.arrow_right_34, size: CSizes.iconSm),
                       ),
                     ],

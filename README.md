@@ -127,12 +127,18 @@ lib/
 | 2025-11-08 | Mazen Wahed    | Pushed V2.4 (Theme Feature, Realtime Wishlist & bug fixes) |
 | 2025-11-09 | Mazen Wahed    | Pushed V2.5 (Search Feature, AutoPlay PromoSlider)         |
 | 2025-11-10 | Mazen Wahed    | Pushed V2.6 (Unit Testing & Bug fixes)                     |
+| 2025-11-11 | Mazen Wahed    | Pushed V2.6b (Order Details Screen & Date Sorting)         |
 
 ---
 
 ### 3. Version History (Changelog)
 
-#### V2.6 (Latest)
+#### V2.6b (Latest)
+
+- **New Feature: Order Details Screen:** Added a new screen `Order Details` that users can navigate to from the `order history list`. It displays all information for a specific order, including order status, shipping address, payment method, and a list of all items in that order.
+- **Order History Fix:** Orders in the `My Orders` list are now correctly sorted by date, with the newest orders appearing first.
+
+#### V2.6
 
 - **New Feature: Unit Testing:** Added unit tests for core business logic files: `formatters`, `pricing_calculator`, `product_controller`, and `validator`.
 - **Invitation Bug Fix:** Fixed a critical bug where inviting a user who registered with email/password (not Google) would display their name as `Unknown User`. The system now correctly fetches their name from the Firestore 'Users' collection.

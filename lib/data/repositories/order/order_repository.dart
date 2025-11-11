@@ -35,6 +35,7 @@ class OrderRepository extends GetxController {
           .collection(CKeys.userCollection)
           .doc(userId)
           .collection(CKeys.ordersCollection)
+          .orderBy('orderDate', descending: true)
           .get();
       if (query.docs.isNotEmpty) {
         List<OrderModel> orders = query.docs
