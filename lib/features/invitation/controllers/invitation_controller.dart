@@ -1,5 +1,7 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../../../data/repositories/authentication/authentication_repository.dart';
 import '../../../data/repositories/invitation/invitation_repository.dart';
 import '../../../data/repositories/user/user_repository.dart';
@@ -25,6 +27,11 @@ class InvitationController extends GetxController {
   final RxList<Invitation> collaborators = <Invitation>[].obs;
   final RxList<Invitation> sentInvitations = <Invitation>[].obs;
 
+  // Subscriptions to manage memory
+  late StreamSubscription<List<Invitation>> _pendingSub;
+  late StreamSubscription<List<Invitation>> _sentSub;
+  late StreamSubscription<List<Invitation>> _collabSub;
+
   /// Local-only toggle for recipient view mode.
   final RxBool isViewingShared = false.obs;
 
@@ -39,12 +46,14 @@ class InvitationController extends GetxController {
   void onInit() {
     super.onInit();
 
-    // These streams are simple and fine
-    invRepo.fetchPendingInvitations().listen(pendingInvitations.assignAll);
-    invRepo.fetchSentInvitations().listen(sentInvitations.assignAll);
+    // Assign subscriptions
+    _pendingSub = invRepo.fetchPendingInvitations().listen(
+      pendingInvitations.assignAll,
+    );
+    _sentSub = invRepo.fetchSentInvitations().listen(sentInvitations.assignAll);
 
     // This single listener now handles updating the list AND setting the switch state.
-    invRepo.fetchCollaborators().listen((collabs) {
+    _collabSub = invRepo.fetchCollaborators().listen((collabs) {
       // Check if this is the very first time loading the list
       final isInitialLoad = collaborators.isEmpty && collabs.isNotEmpty;
 
@@ -54,6 +63,15 @@ class InvitationController extends GetxController {
       // 2. Handle switch/sharing logic
       _handleCollaborationUpdate(collabs, isInitialLoad: isInitialLoad);
     });
+  }
+
+  // Cancel subscriptions in onClose
+  @override
+  void onClose() {
+    _pendingSub.cancel();
+    _sentSub.cancel();
+    _collabSub.cancel();
+    super.onClose();
   }
 
   /// Handles logic for sharing status and recipient switch
@@ -75,6 +93,13 @@ class InvitationController extends GetxController {
       // 1. On FIRST LOAD, set state from the database
       isViewingShared.value = myInvite.shareEnabled;
       favCtrl.isSharedMode.value = myInvite.shareEnabled;
+
+      if (isRecipient && myInvite.shareEnabled) {
+        Loaders.successSnackBar(
+          title: 'Shared Wishlist is ON',
+          message: 'You are viewing the shared list by default.',
+        );
+      }
     } else if (isRecipient && myInvite != null) {
       // 2. On SUBSEQUENT loads, check if the owner forced sharing off
       if (!myInvite.shareEnabled && isViewingShared.value) {
@@ -162,7 +187,7 @@ class InvitationController extends GetxController {
         return;
       }
 
-      // --- Prevent duplicate invites ---
+      // Prevent duplicate invites
       final alreadySent = sentInvitations.any(
         (invite) =>
             invite.recipientEmail.toLowerCase() == email.toLowerCase() &&
@@ -185,6 +210,8 @@ class InvitationController extends GetxController {
         title: "Success",
         message: "Invitation sent successfully.",
       );
+
+      emailController.clear();
     } catch (e) {
       Loaders.errorSnackBar(title: "Error", message: e.toString());
     }

@@ -26,6 +26,7 @@ class CAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.showBackArrow = false,
     required this.showActions,
     required this.showSkipButton,
+    this.backIcon = Iconsax.arrow_left_24,
     this.actionIcon,
     this.actionOnPressed,
     this.centerTitle = false,
@@ -37,6 +38,7 @@ class CAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool showSkipButton;
   final bool showActionWithBadge;
   final bool centerTitle;
+  final IconData? backIcon;
   final IconData? leadingIcon;
   final IconData? actionIcon;
   final List<Widget>? actions;
@@ -58,7 +60,7 @@ class CAppBar extends StatelessWidget implements PreferredSizeWidget {
             ? IconButton(
                 onPressed: () => Get.back(result: true),
                 icon: Icon(
-                  Iconsax.arrow_left_24,
+                  backIcon,
                   color: dark ? CColors.white : CColors.dark,
                 ),
               )

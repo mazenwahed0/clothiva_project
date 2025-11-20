@@ -11,6 +11,7 @@ import '../../../../common/widgets/products/product_cards/product_card_vertical.
 import '../../../../common/widgets/shimmers/vertical_product_shimmer.dart';
 import '../../../../navigation_menu.dart';
 import '../../../../utils/constants/image_strings.dart';
+import '../../../invitation/controllers/invitation_controller.dart';
 import '../../../invitation/screens/invitation_screen.dart';
 import '../../controllers/products/favourites_controller.dart';
 
@@ -20,6 +21,7 @@ class WishlistScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final favController = FavouritesController.instance;
+    final inviteController = Get.find<InvitationController>();
 
     return Scaffold(
       appBar: CAppBar(

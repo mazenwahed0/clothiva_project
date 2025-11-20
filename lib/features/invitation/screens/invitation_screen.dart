@@ -158,7 +158,7 @@ class InvitationScreen extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.all(CSizes.defaultSpace),
           child: ElevatedButton(
-            // --- FIX: Removed isLoading check ---
+            // Removed isLoading check
             onPressed: () => _showInviteBottomSheet(context, controller, dark),
             child: const Text('Invite User'),
           ),
@@ -243,7 +243,7 @@ class InvitationScreen extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 14),
                     ),
-                    // --- FIX: Removed spinner ---
+                    // Removed spinner
                     child: const Text('Send Invite'),
                   ),
                 ),

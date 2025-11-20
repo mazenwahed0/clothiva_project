@@ -129,12 +129,29 @@ lib/
 | 2025-11-10 | Mazen Wahed    | Pushed V2.6 (Unit Testing & Bug fixes)                     |
 | 2025-11-11 | Mazen Wahed    | Pushed V2.6b (Order Details Screen & Date Sorting)         |
 | 2025-11-11 | Mazen Wahed    | Pushed V2.7 (Sorting Fixes & Enhancements)                 |
+| 2025-11-20 | Mazen Wahed    | Pushed V2.8 (Bug Fixes)                                    |
 
 ---
 
 ### 3. Version History (Changelog)
 
-#### V2.7 (Latest)
+#### V2.8 (Latest)
+
+- **Shared Wishlist (Real-time Sync):** Fixed a logic gap where collaborators wouldn't see status changes (like the owner turning off sharing) unless they visited the Invitation screen. Added `Get.find<InvitationController>()` to the **Wishlist Screen** to "wake up" the controller and listen for changes immediately upon viewing the wishlist.
+
+- **Invitation Feature:**
+
+  - **Memory Management:** Implemented robust `StreamSubscription` management in `InvitationController` to properly cancel listeners on close, resolving memory leaks and infinite snackbar loops.
+  - **UI/UX:** The email text field now automatically clears after an invitation is successfully sent.
+
+- **UI/UX (Appbar):**
+
+  - **Customization:** The `CAppBar` widget now accepts a custom `backIcon`, allowing for greater flexibility in navigation icons.
+  - **Dark Mode Fix:** Resolved an issue where Appbar icons were not adapting correctly to Dark Mode colors in specific scenarios.
+
+- **Core:** Optimized dependency injection in `GeneralBindings` to ensure controllers are initialized and disposed of efficiently.
+
+#### V2.7
 
 - **Product Sorting Fix (Newest/Oldest):** Fixed a critical bug where `Newest` and `Oldest` sorting failed. This was because products in `dummy_data.dart` were missing the date field, causing them all to be null in Firebase. Dates have been added to all dummy products, and the sorting logic in `all_products_controller.dart` is now functional.
 - **Product Sorting Enhancement (Sale):** The `Sale` sort option now correctly sorts products by the highest discount percentage first, rather than just the sale price. This required updating the logic in `all_products_controller.dart` to use the `CalculateSalePercentage` method.
