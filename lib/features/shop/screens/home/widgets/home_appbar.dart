@@ -25,7 +25,8 @@ class HomeAppBar extends StatelessWidget {
             ).textTheme.labelMedium!.apply(color: CColors.grey),
           ),
           Obx(() {
-            if (controller.profileLoading.value) {
+            if (controller.profileLoading.value ||
+                controller.user.value.fullName.isEmpty) {
               // Display a shimmer loader while user profile is being loaded
               return CShimmerEffect(width: 80, height: 15);
             } else {

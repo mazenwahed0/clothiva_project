@@ -130,12 +130,21 @@ lib/
 | 2025-11-11 | Mazen Wahed    | Pushed V2.6b (Order Details Screen & Date Sorting)         |
 | 2025-11-11 | Mazen Wahed    | Pushed V2.7 (Sorting Fixes & Enhancements)                 |
 | 2025-11-20 | Mazen Wahed    | Pushed V2.8 (Bug Fixes)                                    |
+| 2025-11-21 | Mazen Wahed    | Pushed V2.8a (Hotfix)                                      |
 
 ---
 
 ### 3. Version History (Changelog)
 
-#### V2.8 (Latest)
+#### V2.8a (Latest)
+
+- **Shared Wishlist (State Fix):** Fixed a persistence bug where "Shared Mode" would incorrectly remain active after logout/login. Changed FavouritesController to use lazyPut with fenix: true, ensuring the controller resets to a fresh state on every new session.
+- **Home UI (Flickering):** Resolved the issue where the greeting would display "Good Night ," with no name for a split second. The Appbar now waits until the user name is fully loaded before rendering the text.
+- **Authentication (Navigation):** Fixed a potential crash on the Sign-Up screen by correcting the Get.off syntax to use a closure.
+- **Core (Dependency Injection):** Optimized HomeAppBar to correctly use UserController.instance instead of creating a new instance, preserving the correct lifecycle and memory usage.
+- **UX:** Removed the redundant "Shared Wishlist is ON" snackbar on app launch to reduce visual noise and confusion.
+
+#### V2.8
 
 - **Shared Wishlist (Real-time Sync):** Fixed a logic gap where collaborators wouldn't see status changes (like the owner turning off sharing) unless they visited the Invitation screen. Added `Get.find<InvitationController>()` to the **Wishlist Screen** to "wake up" the controller and listen for changes immediately upon viewing the wishlist.
 

@@ -94,12 +94,12 @@ class InvitationController extends GetxController {
       isViewingShared.value = myInvite.shareEnabled;
       favCtrl.isSharedMode.value = myInvite.shareEnabled;
 
-      if (isRecipient && myInvite.shareEnabled) {
-        Loaders.successSnackBar(
-          title: 'Shared Wishlist is ON',
-          message: 'You are viewing the shared list by default.',
-        );
-      }
+      // if (isRecipient && myInvite.shareEnabled) {
+      //   Loaders.successSnackBar(
+      //     title: 'Shared Wishlist is ON',
+      //     message: 'You are viewing the shared list by default.',
+      //   );
+      // }
     } else if (isRecipient && myInvite != null) {
       // 2. On SUBSEQUENT loads, check if the owner forced sharing off
       if (!myInvite.shareEnabled && isViewingShared.value) {

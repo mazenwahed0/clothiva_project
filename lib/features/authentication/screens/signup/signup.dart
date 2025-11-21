@@ -25,7 +25,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         //Note: Use Get.off() instead of Get.to() when navigating
         //This replaces the current screen instead of stacking both
         leading: IconButton(
-          onPressed: () => Get.off(LoginScreen()),
+          onPressed: () => Get.off(() => LoginScreen()),
           icon: Icon(
             Icons.arrow_back,
             color: dark ? CColors.white : CColors.black,

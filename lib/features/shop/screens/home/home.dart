@@ -1,6 +1,7 @@
 import 'package:clothiva_project/common/widgets/custom_shapes/containers/primary_header_container.dart';
 import 'package:clothiva_project/common/widgets/layouts/grid_layout.dart';
 import 'package:clothiva_project/common/widgets/products/product_cards/product_card_vertical.dart';
+import 'package:clothiva_project/features/personalization/controllers/user_controller.dart';
 
 import 'package:clothiva_project/utils/constants/colors.dart';
 import 'package:clothiva_project/utils/constants/sizes.dart';
@@ -13,6 +14,7 @@ import '../../../../common/widgets/custom_shapes/containers/search_container.dar
 import '../../../../common/widgets/shimmers/vertical_product_shimmer.dart';
 import '../../../../common/widgets/texts/section_heading.dart';
 import '../../../../data/repositories/authentication/authentication_repository.dart';
+import '../../../invitation/controllers/invitation_controller.dart';
 import '../../controllers/products/product_controller.dart';
 import '../all_products/all_products.dart';
 import 'widgets/home_appbar.dart';
@@ -28,6 +30,9 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = ProductController.instance;
+    final inviteController = Get.find<InvitationController>();
+    final userController = Get.find<UserController>();
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       body: SingleChildScrollView(
