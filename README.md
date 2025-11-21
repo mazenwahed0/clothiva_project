@@ -131,12 +131,19 @@ lib/
 | 2025-11-11 | Mazen Wahed    | Pushed V2.7 (Sorting Fixes & Enhancements)                 |
 | 2025-11-20 | Mazen Wahed    | Pushed V2.8 (Bug Fixes)                                    |
 | 2025-11-21 | Mazen Wahed    | Pushed V2.8a (Hotfix)                                      |
+| 2025-11-21 | Mazen Wahed    | Pushed V2.8b (Hotfix)                                      |
 
 ---
 
 ### 3. Version History (Changelog)
 
-#### V2.8a (Latest)
+#### V2.8b (Latest)
+
+- **Shared Wishlist (Critical Logic Fix):** Resolved a "Shadowing" bug where users who were both owners of a personal list and collaborators on a shared list would incorrectly see their own items when switching views. The issue was caused by an ambiguous Firestore query returning the first matching document.
+  - **Fix:** Updated WishlistRepository to accept a specific targetOwnerId.
+  - **Fix:** Updated FavouritesController and InvitationController to explicitly track and request the specific owner's ID when in "Shared Mode," ensuring the correct wishlist is always retrieved.
+
+#### V2.8a
 
 - **Shared Wishlist (State Fix):** Fixed a persistence bug where "Shared Mode" would incorrectly remain active after logout/login. Changed FavouritesController to use lazyPut with fenix: true, ensuring the controller resets to a fresh state on every new session.
 - **Home UI (Flickering):** Resolved the issue where the greeting would display "Good Night ," with no name for a split second. The Appbar now waits until the user name is fully loaded before rendering the text.

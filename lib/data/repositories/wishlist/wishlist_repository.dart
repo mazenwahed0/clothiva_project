@@ -17,25 +17,31 @@ class WishlistRepository extends GetxController {
   User? get currentUser => _auth.currentUser;
 
   /// Returns a stream of the user's wishlist (owned or shared).
-  Stream<WishlistModel?> getWishlistStream() {
+  /// [targetOwnerId] : If provided, fetches the wishlist owned by this specific user.
+  Stream<WishlistModel?> getWishlistStream({String? targetOwnerId}) {
     try {
       if (currentUser == null) return Stream.value(null);
       final uid = currentUser!.uid;
 
-      return _db
-          .collection(CKeys.wishlistCollection)
-          .where(
-            Filter.or(
-              Filter('ownerId', isEqualTo: uid),
-              Filter('sharedWith', arrayContains: uid),
-            ),
-          )
-          .limit(1)
-          .snapshots() // <-- Use .snapshots() to listen for real-time updates
-          .map((snapshot) {
-            if (snapshot.docs.isEmpty) return null;
-            return WishlistModel.fromDoc(snapshot.docs.first);
-          });
+      Query query = _db.collection(CKeys.wishlistCollection);
+
+      if (targetOwnerId != null && targetOwnerId.isNotEmpty) {
+        // Explicitly fetch the wishlist owned by the specific friend/owner
+        query = query.where('ownerId', isEqualTo: targetOwnerId);
+      } else {
+        // (Local mode): Fetch any wishlist where user is owner OR collaborator
+        query = query.where(
+          Filter.or(
+            Filter('ownerId', isEqualTo: uid),
+            Filter('sharedWith', arrayContains: uid),
+          ),
+        );
+      }
+
+      return query.limit(1).snapshots().map((snapshot) {
+        if (snapshot.docs.isEmpty) return null;
+        return WishlistModel.fromDoc(snapshot.docs.first);
+      });
     } catch (e) {
       return Stream.error('Failed to listen to wishlist.');
     }

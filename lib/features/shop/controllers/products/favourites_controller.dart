@@ -18,6 +18,7 @@ class FavouritesController extends GetxController {
   final _productsRepo = ProductRepository.instance;
 
   final RxBool isSharedMode = false.obs;
+  final RxString sharedOwnerId = ''.obs;
 
   /// Stream subscription to manage the Firestore listener
   StreamSubscription<WishlistModel?>? _wishlistSubscription;
@@ -128,17 +129,21 @@ class FavouritesController extends GetxController {
     try {
       if (isSharedMode.value) {
         // SHARED MODE
-        // Start listening to the Firestore stream
-        _wishlistSubscription = _wishlistRepo.getWishlistStream().listen((
-          wishlist,
-        ) {
-          final productIds = wishlist?.productIds ?? [];
-          final newFavs = <String, bool>{};
-          for (final id in productIds) {
-            newFavs[id] = true;
-          }
-          favourites.assignAll(newFavs);
-        });
+        // Pass the specific owner ID to the repository
+        String? targetId = sharedOwnerId.value.isNotEmpty
+            ? sharedOwnerId.value
+            : null;
+
+        _wishlistSubscription = _wishlistRepo
+            .getWishlistStream(targetOwnerId: targetId)
+            .listen((wishlist) {
+              final productIds = wishlist?.productIds ?? [];
+              final newFavs = <String, bool>{};
+              for (final id in productIds) {
+                newFavs[id] = true;
+              }
+              favourites.assignAll(newFavs);
+            });
       } else {
         // LOCAL MODE
         _loadLocalWishlist();

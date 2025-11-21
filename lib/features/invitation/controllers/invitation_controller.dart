@@ -92,6 +92,7 @@ class InvitationController extends GetxController {
     if (isInitialLoad && myInvite != null) {
       // 1. On FIRST LOAD, set state from the database
       isViewingShared.value = myInvite.shareEnabled;
+      favCtrl.sharedOwnerId.value = myInvite.senderId;
       favCtrl.isSharedMode.value = myInvite.shareEnabled;
 
       // if (isRecipient && myInvite.shareEnabled) {
@@ -106,6 +107,7 @@ class InvitationController extends GetxController {
         // Owner disabled sharing, so force the switch off
         isViewingShared.value = false;
         favCtrl.isSharedMode.value = false;
+        favCtrl.sharedOwnerId.value = '';
         Loaders.warningSnackBar(
           title: "Sharing Disabled",
           message: "The owner has disabled shared access.",
@@ -114,11 +116,13 @@ class InvitationController extends GetxController {
     } else if (isOwner && myInvite != null) {
       // 3. Owner's view is always tied to the database state
       isViewingShared.value = myInvite.shareEnabled;
+      favCtrl.sharedOwnerId.value = myInvite.senderId;
       favCtrl.isSharedMode.value = myInvite.shareEnabled;
     } else if (collabs.isEmpty) {
       // 4. No collaborations, reset to local
       isViewingShared.value = false;
       favCtrl.isSharedMode.value = false;
+      favCtrl.sharedOwnerId.value = '';
     }
 
     // favCtrl.refreshMode();
@@ -135,8 +139,11 @@ class InvitationController extends GetxController {
         );
         isViewingShared.value = false;
         favCtrl.isSharedMode.value = false;
+        favCtrl.sharedOwnerId.value = '';
       } else {
         isViewingShared.value = true;
+
+        favCtrl.sharedOwnerId.value = invite.senderId;
         favCtrl.isSharedMode.value = true;
 
         Loaders.successSnackBar(
@@ -148,6 +155,7 @@ class InvitationController extends GetxController {
       // User wants to turn OFF
       isViewingShared.value = false;
       favCtrl.isSharedMode.value = false;
+      favCtrl.sharedOwnerId.value = '';
 
       Loaders.successSnackBar(
         title: 'Local Wishlist is ON',
